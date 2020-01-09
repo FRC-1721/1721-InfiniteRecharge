@@ -10,6 +10,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.ArcadeDrive;
+import frc.robot.subsystems.Drivetrain;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -18,6 +20,11 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * project.
  */
 public class Robot extends TimedRobot {
+  // Subsystems
+  private final Drivetrain drivetrain = new Drivetrain();
+  
+  // Commands
+  private final ArcadeDrive arcadeDrive = new ArcadeDrive(drivetrain);
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
@@ -89,6 +96,8 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+
+    arcadeDrive.schedule();
   }
 
   /**

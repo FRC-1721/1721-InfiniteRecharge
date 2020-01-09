@@ -16,4 +16,29 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+
+    /**
+     * Use only for can IDs
+     */
+    public static final class CANIds{
+        public static final int TalonSRX_Port_ID = 0; // Configured never
+        public static final int TalonSRX_Starboard_ID = 0; // Configured never
+    }
+
+    /**
+     * Change button and joystick mappings in here for Driver Stick
+     */
+    public static final class DriverInputSettings{
+        public static final int Driver_Stick_Port = 0; // The USB order of the stick
+        public static final int Drivebase_Thro_Axis = 0; // Configured never
+        public static final int Drivebase_Yaw_Axis = 0; // Configured never
+    }
+
+    /**
+     * Change button and stick mappings for Operator Controller
+     */
+    public static final class OperatorInputSettings{
+        public static final int Operator_Controller_Port = 0; // The USB order of the controller
+        public static final int SomeNumber = 0; // Configured never
+    }
 }
