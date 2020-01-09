@@ -36,15 +36,15 @@ public class RobotContainer {
   Command handling_mode_selector; // Autonomous object, will be populated later by the contents of the sendable chooser
   SendableChooser<HandlingMode> handlingChooser = new SendableChooser<>(); // Create a new chooser for holding what autonomous we want to use
 
-  // Commands
-  drivetrain.setDefaultCommand(new DriveCommand(() -> DriverStick.getRawAxis(0), () -> DriverStick.getRawAxis(0), () -> handlingChooser.getSelected(), drivetrain)); // Set the default command of drivetrain to driveCommand
-
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+
+    // Commands
+    drivetrain.setDefaultCommand(new DriveCommand(() -> DriverStick.getRawAxis(0), () -> DriverStick.getRawAxis(0), () -> handlingChooser.getSelected(), drivetrain)); // Set the default command of drivetrain to driveCommand
 
     // Define SmartDashboard modes
     handlingChooser.addOption("Standard", HandlingMode.kStandard);
