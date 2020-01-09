@@ -27,9 +27,9 @@ public class Drivetrain extends SubsystemBase {
    * @param DriverJoystick
    * @author Joe Sedutto
    */
-  public void FlyByWireA(){
-    double steerage = DriverStick.getRawAxis(0); // Set the variable steerage to the value of the 0 axis on the driverstick
-    double thro = DriverStick.getRawAxis(1); // Set the variable thro to the value of the 1 axis on the driverstick
+  public void FlyByWireA(double steerage, double thro){
+    //double steerage = DriverStick.getRawAxis(0); // Set the variable steerage to the value of the 0 axis on the driverstick
+    //double thro = DriverStick.getRawAxis(1); // Set the variable thro to the value of the 1 axis on the driverstick
 
     starboardmotor.set(ControlMode.PercentOutput, (thro - steerage) / 2); // Set the starboard motor to the sum of thro - steerage
     portmotor.set(ControlMode.PercentOutput, (thro + steerage) / 2); // Set the port motor to the sum of thro + steerage
