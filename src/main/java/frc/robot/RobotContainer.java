@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -22,11 +23,14 @@ import frc.robot.subsystems.Drivetrain;
  * (including subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+  // Joysticks and Operator Input
+  public static final Joystick DriverStick = new Joystick(Constants.DriverInputSettings.Driver_Stick_Port);
+
   // Subsystems
   private final Drivetrain drivetrain = new Drivetrain();
   
   // Commands
-  private final DriveCommand driveCommand = new DriveCommand(drivetrain);
+  DriveCommand driveCommand = new DriveCommand(() -> DriverStick.getRawAxis(0), () -> DriverStick.getRawAxis(0), drivetrain);
 
   // Selectors
   Command robot_autonomous; // Autonomous object, will be populated later by the contents of the sendable chooser

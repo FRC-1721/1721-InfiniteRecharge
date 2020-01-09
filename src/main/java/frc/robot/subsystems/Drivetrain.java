@@ -11,9 +11,8 @@ import frc.robot.Constants;
    * Contains methods to drive the robot
    */
 public class Drivetrain extends SubsystemBase {
-  public static final Joystick DriverStick = new Joystick(Constants.DriverInputSettings.Driver_Stick_Port);
-  private static final TalonSRX portmotor = new TalonSRX(Constants.CANIds.TalonSRX_Port_ID); // Init the port motor at 1
-  private static final TalonSRX starboardmotor = new TalonSRX(Constants.CANIds.TalonSRX_Starboard_ID); // Init the starboard at 2
+  private final TalonSRX portmotor = new TalonSRX(Constants.CANIds.TalonSRX_Port_ID); // Init the port motor at 1
+  private final TalonSRX starboardmotor = new TalonSRX(Constants.CANIds.TalonSRX_Starboard_ID); // Init the starboard at 2
   
   /**
    * The drivetrain subsystem controls the movement of the robot.
@@ -28,7 +27,7 @@ public class Drivetrain extends SubsystemBase {
    * @param DriverJoystick
    * @author Joe Sedutto
    */
-  public static void FlyByWireA(){
+  public void FlyByWireA(){
     double steerage = DriverStick.getRawAxis(0); // Set the variable steerage to the value of the 0 axis on the driverstick
     double thro = DriverStick.getRawAxis(1); // Set the variable thro to the value of the 1 axis on the driverstick
 

@@ -12,9 +12,9 @@ public class DriveCommand extends CommandBase {
   private final DoubleSupplier rightStick;
   private final Supplier<HandlingMode> driveMode;
 
-  public DriveCommand(DoubleSupplier _leftStick, DoubleSupplier _rightStick, Supplier<HandlingMode> _drivingMode, Drivetrain _subsystem) {
-      addRequirements(_subsystem);
-      subsystem = _subsystem;
+  public DriveCommand(DoubleSupplier _leftStick, DoubleSupplier _rightStick, Supplier<HandlingMode> _drivingMode, Drivetrain drivetrain) {
+      addRequirements(drivetrain);
+      subsystem = drivetrain;
       leftStick = _leftStick;
       rightStick = _rightStick;
       HandlingMode = _drivingMode;
