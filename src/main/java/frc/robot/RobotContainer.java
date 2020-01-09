@@ -28,13 +28,16 @@ public class RobotContainer {
 
   // Subsystems
   private final Drivetrain drivetrain = new Drivetrain();
-  
-  // Commands
-  DriveCommand driveCommand = new DriveCommand(() -> DriverStick.getRawAxis(0), () -> DriverStick.getRawAxis(0), drivetrain);
 
   // Selectors
   Command robot_autonomous; // Autonomous object, will be populated later by the contents of the sendable chooser
   SendableChooser<Command> autoChooser = new SendableChooser<>(); // Create a new chooser for holding what autonomous we want to use
+
+  Command handling_mode_selector; // Autonomous object, will be populated later by the contents of the sendable chooser
+  SendableChooser<HandlingMode> handlingChooser = new SendableChooser<>(); // Create a new chooser for holding what autonomous we want to use
+
+  // Commands
+  DriveCommand driveCommand = new DriveCommand(() -> DriverStick.getRawAxis(0), () -> DriverStick.getRawAxis(0), () -> handlingChooser.getSelected(), drivetrain);
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
