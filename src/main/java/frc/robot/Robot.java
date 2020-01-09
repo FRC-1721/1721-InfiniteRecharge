@@ -10,8 +10,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.ArcadeDrive;
-import frc.robot.subsystems.Drivetrain;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -20,11 +18,6 @@ import frc.robot.subsystems.Drivetrain;
  * project.
  */
 public class Robot extends TimedRobot {
-  // Subsystems
-  private final Drivetrain drivetrain = new Drivetrain();
-  
-  // Commands
-  private final ArcadeDrive arcadeDrive = new ArcadeDrive(drivetrain);
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
@@ -57,7 +50,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
-    arcadeDrive.cancel(); // Stop the arcade drive command.
   }
 
   /** This function is called all the time during Disabled mode */
@@ -89,8 +81,6 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) { // If the command that was run at autonomous init was not null
       m_autonomousCommand.cancel(); // Cancel the autonomous command
     }
-
-    arcadeDrive.schedule(); // Run the arcade drive command
   }
 
   /**
