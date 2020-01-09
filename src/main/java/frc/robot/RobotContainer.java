@@ -37,7 +37,7 @@ public class RobotContainer {
   SendableChooser<HandlingMode> handlingChooser = new SendableChooser<>(); // Create a new chooser for holding what autonomous we want to use
 
   // Commands
-  DriveCommand driveCommand = new DriveCommand(() -> DriverStick.getRawAxis(0), () -> DriverStick.getRawAxis(0), () -> handlingChooser.getSelected(), drivetrain);
+  drivetrain.setDefaultCommand(new DriveCommand(() -> DriverStick.getRawAxis(0), () -> DriverStick.getRawAxis(0), () -> handlingChooser.getSelected(), drivetrain)); // Set the default command of drivetrain to driveCommand
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -47,6 +47,11 @@ public class RobotContainer {
     configureButtonBindings();
 
     // Define SmartDashboard modes
+    handlingChooser.addOption("Standard", HandlingMode.kStandard);
+    handlingChooser.addOption("Standard", HandlingMode.kFlyByWire);
+    handlingChooser.addOption("Standard", HandlingMode.kLaneAssist);
+    handlingChooser.addOption("Standard", HandlingMode.kDiffLock);
+
     //autoChooser.setDefaultOption("ROS Full Auto", new ROS_FullAuto());
     autoChooser.addOption("Do nothing", null); // Send null
     SmartDashboard.putData("Auto mode", autoChooser);
