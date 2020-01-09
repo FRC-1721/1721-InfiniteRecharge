@@ -12,17 +12,17 @@ public class DriveCommand extends CommandBase {
   private final DoubleSupplier rightStick;
   private final Supplier<HandlingMode> driveMode;
 
-  public DriveCommand(DoubleSupplier _leftStick, DoubleSupplier _rightStick, Supplier<DrivingMode> _drivingMode, DriveSubsystem _subsystem) {
+  public DriveCommand(DoubleSupplier _leftStick, DoubleSupplier _rightStick, Supplier<HandlingMode> _drivingMode, Drivetrain _subsystem) {
       addRequirements(_subsystem);
       subsystem = _subsystem;
       leftStick = _leftStick;
       rightStick = _rightStick;
-      drivingMode = _drivingMode;
+      HandlingMode = _drivingMode;
   }
 
   @Override
   public void execute() {
-      switch (drivingMode) {
+      switch (HandlingMode) {
           case kStandard:
             // do the thing for standard here
             break;
