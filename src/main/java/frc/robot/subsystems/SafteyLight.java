@@ -13,7 +13,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class SafteyLight extends SubsystemBase {
-  private final TalonSRX safetylight = new TalonSRX(0); // Init the saftey light at address 0
+  private static final TalonSRX safetylight = new TalonSRX(0); // Init the saftey light at address 0
   
   /**
    * Creates a new SafteyLight.
@@ -26,16 +26,15 @@ public class SafteyLight extends SubsystemBase {
    * @param state
    * @author Zak
    */
-  public void spin(boolean state){
+  public static void spin(boolean state){
     if (state == true) { // If the thro variable is under 0
-      safetylight.set(ControlMode.PercentOutput, 0); // Spin the light!
+      safetylight.set(ControlMode.PercentOutput, 1); // Spin the light!
     } else { // If the thro varaiable is over 0
-      safetylight.set(ControlMode.PercentOutput, 1); // Stop that stuff!
+      safetylight.set(ControlMode.PercentOutput, 0); // Stop that stuff!
     }
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
   }
 }

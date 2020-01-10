@@ -21,8 +21,8 @@ public final class Constants {
      * Use only for can IDs
      */
     public static final class CANIds{
-        public static final int TalonSRX_Port_ID = 0; // Configured never
-        public static final int TalonSRX_Starboard_ID = 0; // Configured never
+        public static final int TalonSRX_Port_ID = 1; // Configured never
+        public static final int TalonSRX_Starboard_ID = 2; // Configured never
     }
 
     /**

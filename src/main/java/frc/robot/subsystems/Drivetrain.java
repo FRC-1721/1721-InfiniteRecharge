@@ -17,7 +17,7 @@ public class Drivetrain extends SubsystemBase {
    * The drivetrain subsystem controls the movement of the robot.
    */
   public Drivetrain() {
-    starboardmotor.setInverted(true); // Sets the output of the starboard motor backwards
+    portmotor.setInverted(true); // Sets the output of the starboard motor backwards
   }
 
   /**
@@ -27,11 +27,8 @@ public class Drivetrain extends SubsystemBase {
    * @author Joe Sedutto
    */
   public void FlyByWireA(double steerage, double thro){
-    //double steerage = DriverStick.getRawAxis(0); // Set the variable steerage to the value of the 0 axis on the driverstick
-    //double thro = DriverStick.getRawAxis(1); // Set the variable thro to the value of the 1 axis on the driverstick
-
-    starboardmotor.set(ControlMode.PercentOutput, (thro - steerage) / 2); // Set the starboard motor to the sum of thro - steerage
-    portmotor.set(ControlMode.PercentOutput, (thro + steerage) / 2); // Set the port motor to the sum of thro + steerage
+    starboardmotor.set(ControlMode.PercentOutput, (thro - (steerage / 1.2)) / -2); // Set the starboard motor to the sum of thro - steerage
+    portmotor.set(ControlMode.PercentOutput, (thro + (steerage / 1.2)) / -2); // Set the port motor to the sum of thro + steerage
   }
 
   @Override

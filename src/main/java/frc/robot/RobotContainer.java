@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.DriveCommand;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.SafteyLight;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -28,6 +29,7 @@ public class RobotContainer {
 
   // Subsystems
   private final Drivetrain drivetrain = new Drivetrain();
+  private final SafteyLight safteyLight = new SafteyLight();
 
   // Selectors
   Command robot_autonomous; // Autonomous object, will be populated later by the contents of the sendable chooser
@@ -44,13 +46,14 @@ public class RobotContainer {
     configureButtonBindings();
 
     // Commands
-    drivetrain.setDefaultCommand(new DriveCommand(() -> DriverStick.getRawAxis(0), () -> DriverStick.getRawAxis(0), () -> handlingChooser.getSelected(), drivetrain)); // Set the default command of drivetrain to driveCommand
+    drivetrain.setDefaultCommand(new DriveCommand(() -> DriverStick.getRawAxis(0), () -> DriverStick.getRawAxis(1), () -> handlingChooser.getSelected(), drivetrain, safteyLight)); // Set the default command of drivetrain to driveCommand
 
     // Define SmartDashboard modes
     handlingChooser.addOption("Standard", HandlingMode.kStandard);
     handlingChooser.addOption("Standard", HandlingMode.kFlyByWire);
     handlingChooser.addOption("Standard", HandlingMode.kLaneAssist);
     handlingChooser.addOption("Standard", HandlingMode.kDiffLock);
+    SmartDashboard.putData("Handling Mode", handlingChooser);
 
     //autoChooser.setDefaultOption("ROS Full Auto", new ROS_FullAuto());
     autoChooser.addOption("Do nothing", null); // Send null
