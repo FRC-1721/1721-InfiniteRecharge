@@ -1,7 +1,7 @@
 package frc.robot;
 
 /**
- * Handling mode enum
+ * All handling modes
  */
 public enum HandlingMode {
     kStandard,

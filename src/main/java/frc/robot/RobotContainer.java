@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.commands.DriveCommand;
+import frc.robot.commands.HumanControl;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.SafteyLight;
 
@@ -46,18 +46,18 @@ public class RobotContainer {
     configureButtonBindings();
 
     // Commands
-    drivetrain.setDefaultCommand(new DriveCommand(() -> DriverStick.getRawAxis(0), () -> DriverStick.getRawAxis(1), () -> handlingChooser.getSelected(), drivetrain, safteyLight)); // Set the default command of drivetrain to driveCommand
+    drivetrain.setDefaultCommand(new HumanControl(() -> DriverStick.getRawAxis(0), () -> DriverStick.getRawAxis(1), () -> handlingChooser.getSelected(), drivetrain)); // Set the default command of drivetrain to HumanControl
 
     // Define SmartDashboard modes
     handlingChooser.addOption("Standard", HandlingMode.kStandard);
-    handlingChooser.addOption("Standard", HandlingMode.kFlyByWire);
-    handlingChooser.addOption("Standard", HandlingMode.kLaneAssist);
-    handlingChooser.addOption("Standard", HandlingMode.kDiffLock);
+    handlingChooser.addOption("Fly By Wire", HandlingMode.kFlyByWire);
+    handlingChooser.addOption("Lane Assist", HandlingMode.kLaneAssist);
+    handlingChooser.addOption("Diff-Lock", HandlingMode.kDiffLock);
     SmartDashboard.putData("Handling Mode", handlingChooser);
 
     //autoChooser.setDefaultOption("ROS Full Auto", new ROS_FullAuto());
-    autoChooser.addOption("Do nothing", null); // Send null
-    SmartDashboard.putData("Auto mode", autoChooser);
+    autoChooser.addOption("Do Nothing", null); // Send null
+    SmartDashboard.putData("Auto Mode", autoChooser);
   }
 
   /**
