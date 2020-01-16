@@ -8,10 +8,14 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.HumanControl;
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.SafteyLight;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -20,12 +24,19 @@ import edu.wpi.first.wpilibj2.command.Command;
  * (including subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  // Joysticks and Operator Input
+  public static final Joystick DriverStick = new Joystick(Constants.DriverInputSettings.Driver_Stick_Port);
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  // Subsystems
+  private final Drivetrain drivetrain = new Drivetrain();
+  private final SafteyLight safteyLight = new SafteyLight();
 
+  // Selectors
+  Command robot_autonomous; // Autonomous object, will be populated later by the contents of the sendable chooser
+  SendableChooser<Command> autoChooser = new SendableChooser<>(); // Create a new chooser for holding what autonomous we want to use
 
+  Command handling_mode_selector; // Autonomous object, will be populated later by the contents of the sendable chooser
+  SendableChooser<HandlingMode> handlingChooser = new SendableChooser<>(); // Create a new chooser for holding what autonomous we want to use
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -33,6 +44,20 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+
+    // Commands
+    drivetrain.setDefaultCommand(new HumanControl(() -> DriverStick.getRawAxis(0), () -> DriverStick.getRawAxis(1), () -> handlingChooser.getSelected(), drivetrain)); // Set the default command of drivetrain to HumanControl
+
+    // Define SmartDashboard modes
+    handlingChooser.addOption("Standard", HandlingMode.kStandard);
+    handlingChooser.addOption("Fly By Wire", HandlingMode.kFlyByWire);
+    handlingChooser.addOption("Lane Assist", HandlingMode.kLaneAssist);
+    handlingChooser.addOption("Diff-Lock", HandlingMode.kDiffLock);
+    SmartDashboard.putData("Handling Mode", handlingChooser);
+
+    //autoChooser.setDefaultOption("ROS Full Auto", new ROS_FullAuto());
+    autoChooser.addOption("Do Nothing", null); // Send null
+    SmartDashboard.putData("Auto Mode", autoChooser);
   }
 
   /**
@@ -52,6 +77,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return autoChooser.getSelected();
   }
 }
