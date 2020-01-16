@@ -31,7 +31,8 @@ public final class Constants {
     public static final class DriverInputSettings{
         public static final int Driver_Stick_Port = 0; // The USB order of the stick
         public static final int Drivebase_Thro_Axis = 0; // Configured never
-        public static final int Drivebase_Yaw_Axis = 0; // Configured never
+        public static final int Drivebase_Yaw_Axis = 1; // Configured never
+        public static final double Overide_Threshold = 0.2; // The value the driver must overcome to manually disable the auto
     }
 
     /**

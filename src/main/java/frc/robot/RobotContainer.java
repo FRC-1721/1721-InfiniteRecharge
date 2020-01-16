@@ -69,6 +69,20 @@ public class RobotContainer {
   private void configureButtonBindings() {
   }
 
+  /**
+   * Checks if the operator is trying to manually drive the robot but not pressing the button
+   * (provides another form of saftey)
+   * 
+   * @author Joe
+   * @return true when the driver is trying to drive the robot
+   */
+  public boolean isAutonomousOverride() {
+    if (DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Thro_Axis) > Constants.DriverInputSettings.Overide_Threshold || DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Yaw_Axis) > Constants.DriverInputSettings.Overide_Threshold){
+      return true;
+    }else{
+      return false;
+    }
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -76,7 +90,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return autoChooser.getSelected();
+    return autoChooser.getSelected(); // Returns the currently Selected autonomous
   }
 }
