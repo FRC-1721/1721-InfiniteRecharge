@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.HumanControl;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.SafteyLight;
@@ -42,12 +43,6 @@ public class RobotContainer {
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    // Configure the button bindings
-    configureButtonBindings();
-
-    // Commands
-    drivetrain.setDefaultCommand(new HumanControl(() -> DriverStick.getRawAxis(0), () -> DriverStick.getRawAxis(1), () -> handlingChooser.getSelected(), drivetrain)); // Set the default command of drivetrain to HumanControl
-
     // Define SmartDashboard modes
     handlingChooser.addOption("Standard", HandlingMode.kStandard);
     handlingChooser.addOption("Fly By Wire", HandlingMode.kFlyByWire);
@@ -58,6 +53,12 @@ public class RobotContainer {
     //autoChooser.setDefaultOption("ROS Full Auto", new ROS_FullAuto());
     autoChooser.addOption("Do Nothing", null); // Send null
     SmartDashboard.putData("Auto Mode", autoChooser);
+    
+    // Configure the button bindings
+    configureButtonBindings();
+
+    // Commands
+    drivetrain.setDefaultCommand(new HumanControl(() -> DriverStick.getRawAxis(0), () -> DriverStick.getRawAxis(1), () -> handlingChooser.getSelected(), drivetrain)); // Set the default command of drivetrain to HumanControl
   }
 
   /**
@@ -67,6 +68,7 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    new JoystickButton(DriverStick, Constants.DriverInputSettings.Autonomous_Restart_Button).whenPressed(null); // When you press the Autonomous Restart Button
   }
 
   /**
