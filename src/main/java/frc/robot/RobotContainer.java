@@ -15,8 +15,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.HumanControl;
+import frc.robot.commands.ROSControl;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.SafteyLight;
+import frc.robot.subsystems.ROS;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -30,7 +31,7 @@ public class RobotContainer {
 
   // Subsystems
   private final Drivetrain drivetrain = new Drivetrain();
-  private final SafteyLight safteyLight = new SafteyLight();
+  private final ROS ros = new ROS();
 
   // Selectors
   Command robot_autonomous; // Autonomous object, will be populated later by the contents of the sendable chooser
@@ -44,21 +45,23 @@ public class RobotContainer {
    */
   public RobotContainer() {
     // Define SmartDashboard modes
-    handlingChooser.addOption("Standard", HandlingMode.kStandard);
+    // Handling Mode
+    handlingChooser.setDefaultOption("Standard", HandlingMode.kStandard);
     handlingChooser.addOption("Fly By Wire", HandlingMode.kFlyByWire);
     handlingChooser.addOption("Lane Assist", HandlingMode.kLaneAssist);
     handlingChooser.addOption("Diff-Lock", HandlingMode.kDiffLock);
     SmartDashboard.putData("Handling Mode", handlingChooser);
 
-    //autoChooser.setDefaultOption("ROS Full Auto", new ROS_FullAuto());
+    // Autonomous Modes (May become depreciated!)
+    autoChooser.setDefaultOption("ROS Full Auto", new ROSControl(drivetrain, ros));
     autoChooser.addOption("Do Nothing", null); // Send null
     SmartDashboard.putData("Auto Mode", autoChooser);
-    
+
     // Configure the button bindings
     configureButtonBindings();
 
     // Commands
-    drivetrain.setDefaultCommand(new HumanControl(() -> DriverStick.getRawAxis(0), () -> DriverStick.getRawAxis(1), () -> handlingChooser.getSelected(), drivetrain)); // Set the default command of drivetrain to HumanControl
+    drivetrain.setDefaultCommand(new HumanControl(() -> DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Thro_Axis), () -> DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Yaw_Axis), () -> handlingChooser.getSelected(), drivetrain)); // Set the default command of drivetrain to HumanControl
   }
 
   /**
@@ -68,7 +71,7 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(DriverStick, Constants.DriverInputSettings.Autonomous_Restart_Button).whenPressed(null); // When you press the Autonomous Restart Button
+    new JoystickButton(DriverStick, Constants.DriverInputSettings.Autonomous_Restart_Button).whenPressed(new ROSControl(drivetrain, ros)); // When you press the Autonomous Restart Button
   }
 
   /**

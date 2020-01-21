@@ -7,8 +7,6 @@
 
 package frc.robot;
 
-import edu.wpi.cscore.MjpegServer;
-import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -23,9 +21,6 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
-  // Junk
-  public final UsbCamera usbCamera = new UsbCamera("Lil Cam", 0); // Create a new camera object
-  MjpegServer mjpegServer1 = new MjpegServer("Serve USB Camera",  1181); // Create a new MjpegServer at port 1181
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -34,7 +29,6 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_robotContainer = new RobotContainer(); // Define our Robot Container
-    mjpegServer1.setSource(usbCamera); // Stream usbCamera
   }
 
   /**
