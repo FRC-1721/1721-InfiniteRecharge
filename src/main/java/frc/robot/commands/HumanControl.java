@@ -14,6 +14,15 @@ public class HumanControl extends CommandBase {
   private final DoubleSupplier steerage;
   private final Supplier<HandlingMode> handlingMode;
 
+  /**
+   * HumanControl takes these params to drive the robot in telop mode.
+   * 
+   * @author Joe
+   * @param _thro
+   * @param _steerage
+   * @param _drivingMode
+   * @param _drivetrain
+   */
   public HumanControl(DoubleSupplier _thro, DoubleSupplier _steerage, Supplier<HandlingMode> _drivingMode, Drivetrain _drivetrain) {
     addRequirements(_drivetrain);
     drivetrain = _drivetrain;
@@ -26,7 +35,7 @@ public class HumanControl extends CommandBase {
   public void execute() {
     switch(handlingMode.get()){
       case kStandard:
-        drivetrain.FlyByWireA(thro.getAsDouble(), steerage.getAsDouble());
+        drivetrain.FlyByWireA(steerage.getAsDouble(), thro.getAsDouble());
       case kDiffLock:
       case kLaneAssist:
       case kFlyByWire:

@@ -7,12 +7,9 @@
 
 package frc.robot;
 
-import edu.wpi.cscore.MjpegServer;
-import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.HumanControl;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -24,19 +21,14 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
-  // Junk
-  public final UsbCamera usbCamera = new UsbCamera("Lil Cam", 0); // Create a new camera object
-  MjpegServer mjpegServer1 = new MjpegServer("Serve USB Camera",  1181); // Create a new MjpegServer at port 1181
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
   @Override
   public void robotInit() {
-    // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
-    // autonomous chooser on the dashboard.
-    m_robotContainer = new RobotContainer();
-    mjpegServer1.setSource(usbCamera); // Stream usbCamera
+    m_robotContainer = new RobotContainer(); // Define our Robot Container
   }
 
   /**
@@ -84,9 +76,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    if (m_autonomousCommand != null) { // If the command that was run at autonomous init was not null
-      m_autonomousCommand.cancel(); // Cancel the autonomous command
-    }
   }
 
   /**
@@ -94,6 +83,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    if (m_autonomousCommand != null && m_robotContainer.isAutonomousOverride()) { // If the command that was run at autonomous init was not null and isAutonomousOverride is true
+      m_autonomousCommand.cancel(); // Cancel the autonomous command
+    }
   }
 
   @Override

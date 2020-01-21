@@ -10,8 +10,8 @@ import frc.robot.Constants;
    * Contains methods to drive the robot
    */
 public class Drivetrain extends SubsystemBase {
-  private final TalonSRX portmotor = new TalonSRX(Constants.CANIds.TalonSRX_Port_ID); // Init the port motor at 1
-  private final TalonSRX starboardmotor = new TalonSRX(Constants.CANIds.TalonSRX_Starboard_ID); // Init the starboard at 2
+  private static final TalonSRX portmotor = new TalonSRX(Constants.CANIds.TalonSRX_Port_ID); // Init the port motor at 1
+  private static final TalonSRX starboardmotor = new TalonSRX(Constants.CANIds.TalonSRX_Starboard_ID); // Init the starboard at 2
   
   /**
    * The drivetrain subsystem controls the movement of the robot.
@@ -23,13 +23,22 @@ public class Drivetrain extends SubsystemBase {
   /**
    * Using a joystick as input this method drives
    * the robot base.
-   * @param DriverJoystick
    * @author Joe Sedutto
    */
   public void FlyByWireA(double steerage, double thro){
-    starboardmotor.set(ControlMode.PercentOutput, (thro - (steerage / 1.2)) / -2); // Set the starboard motor to the sum of thro - steerage
-    portmotor.set(ControlMode.PercentOutput, (thro + (steerage / 1.2)) / -2); // Set the port motor to the sum of thro + steerage
+    starboardmotor.set(ControlMode.PercentOutput, -thro + (steerage)); // Set the starboard motor to the sum of thro - steerage
+    portmotor.set(ControlMode.PercentOutput, -thro - (steerage)); // Set the port motor to the sum of thro + steerage
   }
+
+  public void FlyWithWiresA(double starboard, double port){
+    starboardmotor.set(ControlMode.PercentOutput, starboard);
+    portmotor.set(ControlMode.PercentOutput, port);
+  }
+
+  public static double getDriveEncoderPort(){return portmotor.getSelectedSensorPosition();} // Returns the encoder value of the port motor
+  public static double getDriveEncoderStarboard(){return starboardmotor.getSelectedSensorPosition();} // Returns the encoder value of the starboard motor
+  public static double getOverallSpeed(){return (((starboardmotor.getSelectedSensorVelocity() + portmotor.getSelectedSensorVelocity()) / 2) * 10) / Constants.RobotOperatingSystem.ticksPerMeter;} // Returns the average speed of the robot in knots
+
 
   @Override
   public void periodic() {
