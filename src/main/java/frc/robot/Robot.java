@@ -83,7 +83,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    if (m_autonomousCommand != null && m_robotContainer.isAutonomousOverride()) { // If the command that was run at autonomous init was not null
+    if (m_autonomousCommand != null && m_robotContainer.isAutonomousOverride()) { // If the command that was run at autonomous init was not null and isAutonomousOverride is true
       m_autonomousCommand.cancel(); // Cancel the autonomous command
     }
   }

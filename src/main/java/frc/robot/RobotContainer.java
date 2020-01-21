@@ -52,7 +52,7 @@ public class RobotContainer {
     handlingChooser.addOption("Diff-Lock", HandlingMode.kDiffLock);
     SmartDashboard.putData("Handling Mode", handlingChooser);
 
-    // Autonomous Modes (May become depreciated!)
+    // Autonomous Mode
     autoChooser.setDefaultOption("ROS Full Auto", new ROSControl(drivetrain, ros));
     autoChooser.addOption("Do Nothing", null); // Send null
     SmartDashboard.putData("Auto Mode", autoChooser);
