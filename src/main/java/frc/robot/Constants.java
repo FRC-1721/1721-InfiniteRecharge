@@ -21,13 +21,13 @@ public final class Constants {
      * Use only for can IDs
      */
     public static final class CANIds{
-        public static final int TalonSRX_Port_ID = 1;               // Configured never
-        public static final int TalonSRX_Starboard_ID = 2;          // Configured never
+        public static final int TalonSRX_Port_ID = 0;               // Configured 1/25/2020
+        public static final int TalonSRX_Starboard_ID = 1;          // Configured 1/25/2020
 
-        public static final int VictorSPX_Port_Slave_Id0 = 0;       // Configured never
-        public static final int VictorSPX_Port_Slave_Id1 = 0;       // Configured never
-        public static final int VictorSPX_Starboard_Slave_Id0 = 0;  // Configured never
-        public static final int VictorSPX_Starboard_Slave_Id1 = 0;  // Configured never
+        public static final int VictorSPX_Port_Slave_Id0 = 0;       // Configured 1/25/2020
+        public static final int VictorSPX_Port_Slave_Id1 = 1;       // Configured 1/25/2020
+        public static final int VictorSPX_Starboard_Slave_Id0 = 2;  // Configured 1/25/2020
+        public static final int VictorSPX_Starboard_Slave_Id1 = 3;  // Configured 1/25/2020
     }
 
     /**
