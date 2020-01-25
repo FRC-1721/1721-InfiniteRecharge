@@ -17,9 +17,9 @@ public class Drivetrain extends SubsystemBase {
 
   // VictorSPX objects
   private static final VictorSPX portMotorSlave0 = new VictorSPX(Constants.CANIds.VictorSPX_Port_Slave_Id0);
-  private static final VictorSPX portMotorSlave1 = new VictorSPX(Constants.CANIds.VictorSPX_Port_Slave_Id0);
-  private static final VictorSPX starboardMotorSlave0 = new VictorSPX(Constants.CANIds.VictorSPX_Port_Slave_Id0);
-  private static final VictorSPX starboardMotorSlave1 = new VictorSPX(Constants.CANIds.VictorSPX_Port_Slave_Id0);
+  private static final VictorSPX portMotorSlave1 = new VictorSPX(Constants.CANIds.VictorSPX_Port_Slave_Id1);
+  private static final VictorSPX starboardMotorSlave0 = new VictorSPX(Constants.CANIds.VictorSPX_Starboard_Slave_Id0);
+  private static final VictorSPX starboardMotorSlave1 = new VictorSPX(Constants.CANIds.VictorSPX_Starboard_Slave_Id1);
   
   /**
    * The drivetrain subsystem controls the movement of the robot.
