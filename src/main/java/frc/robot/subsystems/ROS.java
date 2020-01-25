@@ -7,12 +7,9 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -30,7 +27,7 @@ public class ROS extends SubsystemBase {
   private static NetworkTableEntry rosIndex;
   private static NetworkTableEntry coprocessorPort; // For tank drive
   private static NetworkTableEntry coprocessorStarboard;
-  private static NetworkTableEntry rosTime; // Is ros time (slow estimate)
+  //private static NetworkTableEntry rosTime; // Is ros time (slow estimate)
 
   // Initialize noifiers
   private static Notifier ros_notifier;
