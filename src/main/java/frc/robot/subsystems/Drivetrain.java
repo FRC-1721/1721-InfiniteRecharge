@@ -98,12 +98,21 @@ public class Drivetrain extends SubsystemBase {
    * Using a joystick as input this method drives
    * the robot base.
    * @author Joe Sedutto
+   * @param steerage
+   * @param thro
    */
   public void FlyByWireA(double steerage, double thro){
     starboardMotor.set(ControlMode.PercentOutput, (thro + (steerage)) * -1); // Set the starboard motor to the sum of thro - steerage
     portMotor.set(ControlMode.PercentOutput, (thro - (steerage)) * -1); // Set the port motor to the sum of thro + steerage
   }
 
+  /**
+   * Drives the robot using two values for each wheel
+   * in percentage output
+   * @author Joe Sedutto
+   * @param starboard
+   * @param port
+   */
   public void FlyWithWiresA(double starboard, double port){
     starboardMotor.set(ControlMode.PercentOutput, starboard);
     portMotor.set(ControlMode.PercentOutput, port);

@@ -38,16 +38,20 @@ public class ROS extends SubsystemBase {
   public ROS() {
     // Network tables
     networkTableInstance = NetworkTableInstance.create(); // Get the default instance of network tables on the rio
-    networkTableInstance.startServer("ros.ini", "10.17.21.2", 5800);
-    networkTableInstance.setUpdateRate(Constants.RobotOperatingSystem.rosUpdateFrequency); // Crank that solja boy
-    rosTable = networkTableInstance.getTable(Constants.RobotOperatingSystem.rosTablename); // Get the table ros
-    starboardEncoderEntry = rosTable.getEntry(Constants.RobotOperatingSystem.starboardEncoderName); // Get the writable entries
+    networkTableInstance.startServer("ros.ini", "10.17.21.2", 5800); // Start a new server on a different port
+    networkTableInstance.setUpdateRate(Constants.RobotOperatingSystem.rosUpdateFrequency); // Set the update rate for the new networktable instance
+    rosTable = networkTableInstance.getTable(Constants.RobotOperatingSystem.rosTablename); // Get the table ros out of that instance
+
+    // Get the writable entries
+    starboardEncoderEntry = rosTable.getEntry(Constants.RobotOperatingSystem.starboardEncoderName);
     portEncoderEntry = rosTable.getEntry(Constants.RobotOperatingSystem.portEncoderName);
     rosIndex = rosTable.getEntry(Constants.RobotOperatingSystem.rosIndexName);
+
+    // Get the return entries
     coprocessorPort = rosTable.getEntry("coprocessorPort"); // Coprossesor speed values
     coprocessorStarboard = rosTable.getEntry("coprocessorStarboard");
 
-    // Notifier
+    // Notifier (auto runs a method similar to a command but with NO PROTECTION )
     ros_notifier = new Notifier(ROS::updateTables); // Set the ros_notifer to update the command update, in the package ros
     ros_notifier.startPeriodic(Constants.RobotOperatingSystem.rosUpdateFrequency); // Start the ros notifer
   }
