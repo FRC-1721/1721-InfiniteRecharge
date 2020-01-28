@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
@@ -25,10 +26,66 @@ public class Drivetrain extends SubsystemBase {
    * The drivetrain subsystem controls the movement of the robot.
    */
   public Drivetrain() {
+    // Configure PID
+    // Set motors to default to prevent weirdness
+    portMotor.configFactoryDefault();
+    starboardMotor.configFactoryDefault();
+
+    portMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 
+                                           Constants.DrivetrainPID.kPIDLoopIdx,
+                                           Constants.DrivetrainPID.kTimeoutMs);
+    starboardMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 
+                                                Constants.DrivetrainPID.kPIDLoopIdx,
+                                                Constants.DrivetrainPID.kTimeoutMs);
+    portMotor.setSensorPhase(Constants.DrivetrainPID.portSensorPhase);
+    starboardMotor.setSensorPhase(Constants.DrivetrainPID.starboardSensorPhase);
+
+    // Configure nominal outputs
+    portMotor.configNominalOutputForward(0, Constants.DrivetrainPID.kTimeoutMs);
+		portMotor.configNominalOutputReverse(0, Constants.DrivetrainPID.kTimeoutMs);
+		portMotor.configPeakOutputForward(1, Constants.DrivetrainPID.kTimeoutMs);
+    portMotor.configPeakOutputReverse(-1, Constants.DrivetrainPID.kTimeoutMs);
+    starboardMotor.configNominalOutputForward(0, Constants.DrivetrainPID.kTimeoutMs);
+		starboardMotor.configNominalOutputReverse(0, Constants.DrivetrainPID.kTimeoutMs);
+		starboardMotor.configPeakOutputForward(1, Constants.DrivetrainPID.kTimeoutMs);
+    starboardMotor.configPeakOutputReverse(-1, Constants.DrivetrainPID.kTimeoutMs);
+    
+    // Configure allowable closed loop error (dead zone)
+    portMotor.configAllowableClosedloopError(0, Constants.DrivetrainPID.kPIDLoopIdx, Constants.DrivetrainPID.kTimeoutMs);
+    starboardMotor.configAllowableClosedloopError(0, Constants.DrivetrainPID.kPIDLoopIdx, Constants.DrivetrainPID.kTimeoutMs);
+
+    // Config slot0 gains
+    portMotor.config_kF(Constants.DrivetrainPID.kPIDLoopIdx, Constants.DrivetrainPID.kGains.kF, Constants.DrivetrainPID.kTimeoutMs);
+		portMotor.config_kP(Constants.DrivetrainPID.kPIDLoopIdx, Constants.DrivetrainPID.kGains.kP, Constants.DrivetrainPID.kTimeoutMs);
+		portMotor.config_kI(Constants.DrivetrainPID.kPIDLoopIdx, Constants.DrivetrainPID.kGains.kI, Constants.DrivetrainPID.kTimeoutMs);
+    portMotor.config_kD(Constants.DrivetrainPID.kPIDLoopIdx, Constants.DrivetrainPID.kGains.kD, Constants.DrivetrainPID.kTimeoutMs);
+    
+    // Get the current abs position, and set the rel sensor to match
+    int absolutePortPosition = portMotor.getSensorCollection().getPulseWidthPosition();
+    int absoluteStarboardPosition = starboardMotor.getSensorCollection().getPulseWidthPosition();
+
+		/* Mask out overflows, keep bottom 12 bits */ // From CTRE Examples
+		absolutePortPosition &= 0xFFF;
+		if (Constants.DrivetrainPID.portSensorPhase) { absolutePortPosition *= -1; } // Invert Once
+    if (Constants.DrivetrainPID.portMotorInvert) { absolutePortPosition *= -1; } // Invert Twice
+    
+    absoluteStarboardPosition &= 0xFFF;
+		if (Constants.DrivetrainPID.portSensorPhase) { absoluteStarboardPosition *= -1; } // Invert Once
+		if (Constants.DrivetrainPID.starboardMotorInvert) { absolutePortPosition *= -1; } // Invert Twice
+		
+    /* Set the quadrature (relative) sensor to match absolute */ // From CTRE Examples
+    portMotor.setSelectedSensorPosition(absolutePortPosition, Constants.DrivetrainPID.kPIDLoopIdx, Constants.DrivetrainPID.kTimeoutMs);
+    starboardMotor.setSelectedSensorPosition(absoluteStarboardPosition, Constants.DrivetrainPID.kPIDLoopIdx, Constants.DrivetrainPID.kTimeoutMs);
+    
+
     // Set Inverted
-    portMotor.setInverted(true); // Sets the output of the motor backwards
-    portMotorSlave0.setInverted(true);
-    portMotorSlave1.setInverted(true);
+    portMotor.setInverted(Constants.DrivetrainPID.portMotorInvert); // Sets the output of the motor backwards
+    portMotorSlave0.setInverted(Constants.DrivetrainPID.portMotorInvert);
+    portMotorSlave1.setInverted(Constants.DrivetrainPID.portMotorInvert);
+
+    starboardMotor.setInverted(Constants.DrivetrainPID.starboardMotorInvert);
+    starboardMotorSlave0.setInverted(Constants.DrivetrainPID.starboardMotorInvert);
+    starboardMotorSlave1.setInverted(Constants.DrivetrainPID.starboardMotorInvert);
 
     // Set followers
     portMotorSlave0.follow(portMotor); // Set to follow the master controller
