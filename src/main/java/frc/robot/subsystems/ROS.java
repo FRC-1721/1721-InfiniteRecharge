@@ -64,15 +64,15 @@ public class ROS extends SubsystemBase {
     portEncoderEntry.setDouble(Drivetrain.getDriveEncoderPort());
     rosIndex.setNumber(rosIntex);
 
-    // Increase the Index value
+    // Increase the Index value (Used for Syncing)
     rosIntex = rosIntex + 1;
     if (rosIntex > 255) {
       rosIntex = 1;
     }
   }
 
-  public double getStarboardSpeed(){return coprocessorStarboard.getDouble(0);}
-  public double getPortSpeed(){return coprocessorPort.getDouble(0);}
+  public double getStarboardSpeed(){return coprocessorStarboard.getDouble(0);} // A number in m/s
+  public double getPortSpeed(){return coprocessorPort.getDouble(0);} // A number in m/s
 
   @Override
   public void periodic() {

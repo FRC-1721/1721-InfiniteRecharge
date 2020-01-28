@@ -120,8 +120,9 @@ public class Drivetrain extends SubsystemBase {
 
   public static double getDriveEncoderPort(){return portMotor.getSelectedSensorPosition();} // Returns the encoder value of the port motor
   public static double getDriveEncoderStarboard(){return starboardMotor.getSelectedSensorPosition();} // Returns the encoder value of the starboard motor
-  public static double getOverallSpeed(){return (((starboardMotor.getSelectedSensorVelocity() + portMotor.getSelectedSensorVelocity()) / 2) * 10) / Constants.RobotOperatingSystem.ticksPerMeter;} // Returns the average speed of the robot in knots
+  public static double getOverallSpeed(){return (((starboardMotor.getSelectedSensorVelocity() + portMotor.getSelectedSensorVelocity()) / 2) * 10) / Constants.DrivetrainPID.ticksPerMeter;} // Returns the average speed of the robot in knots
 
+  public static void resetEncoders(int position){portMotor.setSelectedSensorPosition(position, Constants.DrivetrainPID.kPIDLoopIdx, Constants.DrivetrainPID.kTimeoutMs); starboardMotor.setSelectedSensorPosition(position, Constants.DrivetrainPID.kPIDLoopIdx, Constants.DrivetrainPID.kTimeoutMs);} // Sets the encoder values to the number you pass
 
   @Override
   public void periodic() {

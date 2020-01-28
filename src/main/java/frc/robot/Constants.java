@@ -55,7 +55,6 @@ public final class Constants {
         public static String starboardEncoderName = "Starboard";
         public static String portEncoderName = "Port";
         public static String rosIndexName = "rosIndex";
-        public static int ticksPerMeter = 10000;                // Calibrated 12/16/2019
     }
 
     public static final class DrivetrainPID{
@@ -66,6 +65,13 @@ public final class Constants {
         public static boolean portMotorInvert = true;
         public static boolean starboardSensorPhase = true;
         public static boolean starboardMotorInvert = false;
-        public static final Gains kGains = new Gains(0.15, 0.0, 1.0, 0.0, 0, 1.0);
+        public static final Gains kGains = new Gains(0.15, // kP
+                                                     0.0, // kI
+                                                     1.0, // kD
+                                                     0.0, // kF
+                                                     0, // kIzone
+                                                     1.0); // kPeakoutput
+        // Measurements and other
+        public static int ticksPerMeter = 10000;        // Calibrated 12/16/2019
     }
 }
