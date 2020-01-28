@@ -8,12 +8,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 /**
-   * Contains methods to drive the robot
-   */
+ * Contains methods to drive the robot base.
+ */
 public class Drivetrain extends SubsystemBase {
   // TalonSRX objects
-  private static final TalonSRX portMotor = new TalonSRX(Constants.CANIds.TalonSRX_Port_ID); // Init the port motor at 1
-  private static final TalonSRX starboardMotor = new TalonSRX(Constants.CANIds.TalonSRX_Starboard_ID); // Init the starboard at 2
+  private static final TalonSRX portMotor = new TalonSRX(Constants.CANIds.TalonSRX_Port_ID); // Create a new TalonSRX Object
+  private static final TalonSRX starboardMotor = new TalonSRX(Constants.CANIds.TalonSRX_Starboard_ID); // Create a new TalonSRX Object
 
   // VictorSPX objects
   private static final VictorSPX portMotorSlave0 = new VictorSPX(Constants.CANIds.VictorSPX_Port_Slave_Id0);
@@ -43,8 +43,8 @@ public class Drivetrain extends SubsystemBase {
    * @author Joe Sedutto
    */
   public void FlyByWireA(double steerage, double thro){
-    starboardMotor.set(ControlMode.PercentOutput, -thro + (steerage)); // Set the starboard motor to the sum of thro - steerage
-    portMotor.set(ControlMode.PercentOutput, -thro - (steerage)); // Set the port motor to the sum of thro + steerage
+    starboardMotor.set(ControlMode.PercentOutput, (thro + (steerage)) * -1); // Set the starboard motor to the sum of thro - steerage
+    portMotor.set(ControlMode.PercentOutput, (thro - (steerage)) * -1); // Set the port motor to the sum of thro + steerage
   }
 
   public void FlyWithWiresA(double starboard, double port){
