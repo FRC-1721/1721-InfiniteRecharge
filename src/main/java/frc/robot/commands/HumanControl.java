@@ -35,10 +35,11 @@ public class HumanControl extends CommandBase {
   public void execute() {
     switch(handlingMode.get()){
       case kStandard:
-        drivetrain.FlyByWireA(steerage.getAsDouble(), thro.getAsDouble());
+        drivetrain.FlyByWireA(Math.pow(steerage.getAsDouble(), 2), thro.getAsDouble());
       case kDiffLock:
       case kLaneAssist:
       case kFlyByWire:
+        drivetrain.FlyByWireA(steerage.getAsDouble(), thro.getAsDouble());
     }
   }
 }

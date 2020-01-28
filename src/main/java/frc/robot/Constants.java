@@ -21,27 +21,32 @@ public final class Constants {
      * Use only for can IDs
      */
     public static final class CANIds{
-        public static final int TalonSRX_Port_ID = 1; // Configured never
-        public static final int TalonSRX_Starboard_ID = 2; // Configured never
+        public static final int TalonSRX_Port_ID = 0;               // Configured 1/25/2020
+        public static final int TalonSRX_Starboard_ID = 1;          // Configured 1/25/2020
+
+        public static final int VictorSPX_Port_Slave_Id0 = 0;       // Configured 1/25/2020
+        public static final int VictorSPX_Port_Slave_Id1 = 1;       // Configured 1/25/2020
+        public static final int VictorSPX_Starboard_Slave_Id0 = 2;  // Configured 1/25/2020
+        public static final int VictorSPX_Starboard_Slave_Id1 = 3;  // Configured 1/25/2020
     }
 
     /**
      * Change button and joystick mappings in here for Driver Stick
      */
     public static final class DriverInputSettings{
-        public static final int Driver_Stick_Port = 0; // The USB order of the stick
-        public static final int Drivebase_Thro_Axis = 1; // Configured never
-        public static final int Drivebase_Yaw_Axis = 2; // Configured never
-        public static final int Autonomous_Restart_Button = 1; // Configured never
-        public static final double Overide_Threshold = 0.2; // The value the driver must overcome to manually disable the auto
+        public static final int Driver_Stick_Port = 0;          // The USB order of the stick
+        public static final int Drivebase_Thro_Axis = 1;        // Configured never
+        public static final int Drivebase_Yaw_Axis = 2;         // Configured never
+        public static final int Autonomous_Restart_Button = 1;  // Configured never
+        public static final double Overide_Threshold = 0.2;     // The value the driver must overcome to manually disable the auto
     }
 
     /**
      * Change button and stick mappings for Operator Controller
      */
     public static final class OperatorInputSettings{
-        public static final int Operator_Controller_Port = 0; // The USB order of the controller
-        public static final int SomeNumber = 0; // Configured never
+        public static final int Operator_Controller_Port = 0;   // The USB order of the controller
+        public static final int SomeNumber = 0;                 // Configured never
     }
 
     public static final class RobotOperatingSystem{
@@ -50,6 +55,6 @@ public final class Constants {
         public static String starboardEncoderName = "Starboard";
         public static String portEncoderName = "Port";
         public static String rosIndexName = "rosIndex";
-		public static int ticksPerMeter = 10000; // Calibrated 12/16/2019
+		public static int ticksPerMeter = 10000;                // Calibrated 12/16/2019
     }
 }
