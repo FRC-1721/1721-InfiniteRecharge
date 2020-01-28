@@ -92,4 +92,20 @@ public final class Constants {
         // Measurements and other
         public static int ticksPerRadian = 10000;        // Calibrated Never
     }
+
+    public static final class ClimberPID{
+
+        public static int kPIDLoopIdx = 0; // The loop Index
+        public static int kTimeoutMs = 30; // The timeout to wait when writing variables to the motors
+        public static boolean rollerSensorPhase = false; // The phase of the sensor
+        public static boolean rollerMotorInvert = false; // The inversion of the motor
+        public static boolean climbMotorInvert = false;
+        public static final Gains kGains = new Gains(0.15,  // kP
+                                                     0.0,   // kI
+                                                     1.0,   // kD
+                                                     0.0,   // kF
+                                                     0,     // kIzone
+                                                     1.0);  // kPeakoutput
+        public static int arbAnalogPerRadian = 10;
+    }
 }
