@@ -74,4 +74,22 @@ public final class Constants {
         // Measurements and other
         public static int ticksPerMeter = 10000;        // Calibrated 12/16/2019
     }
+
+    public static final class ShooterPID{
+
+        public static int kPIDLoopIdx = 0;
+        public static int kTimeoutMs = 30;
+        public static boolean shooterSensorPhase = true;
+        public static boolean shooterMotorInvert = true;
+        public static boolean spinnerSensorPhase = true;
+        public static boolean spinnerMotorInvert = false;
+        public static final Gains kGains = new Gains(0.15, // kP
+                                                     0.0, // kI
+                                                     1.0, // kD
+                                                     0.0, // kF
+                                                     0, // kIzone
+                                                     1.0); // kPeakoutput
+        // Measurements and other
+        public static int ticksPerRadian = 10000;        // Calibrated Never
+    }
 }
