@@ -59,36 +59,36 @@ public final class Constants {
 
     public static final class DrivetrainPID{
 
-        public static int kPIDLoopIdx = 0;
-        public static int kTimeoutMs = 30;
-        public static boolean portSensorPhase = true;
-        public static boolean portMotorInvert = true;
-        public static boolean starboardSensorPhase = true;
+        public static int kPIDLoopIdx = 0; // The loop Index
+        public static int kTimeoutMs = 30; // The timeout to wait when writing variables to the motors
+        public static boolean portSensorPhase = true; // The phase of the sensor
+        public static boolean portMotorInvert = true; // The inversion of the motor
+        public static boolean starboardSensorPhase = false;
         public static boolean starboardMotorInvert = false;
-        public static final Gains kGains = new Gains(0.15, // kP
-                                                     0.0, // kI
-                                                     1.0, // kD
-                                                     0.0, // kF
-                                                     0, // kIzone
-                                                     1.0); // kPeakoutput
+        public static final Gains kGains = new Gains(0.15,  // kP
+                                                     0.0,   // kI
+                                                     1.0,   // kD
+                                                     0.0,   // kF
+                                                     0,     // kIzone
+                                                     1.0);  // kPeakoutput
         // Measurements and other
         public static int ticksPerMeter = 10000;        // Calibrated 12/16/2019
     }
 
     public static final class ShooterPID{
 
-        public static int kPIDLoopIdx = 0;
-        public static int kTimeoutMs = 30;
-        public static boolean shooterSensorPhase = true;
-        public static boolean shooterMotorInvert = true;
-        public static boolean spinnerSensorPhase = true;
+        public static int kPIDLoopIdx = 0; // The loop Index
+        public static int kTimeoutMs = 30; // The timeout to wait when writing variables to the motors
+        public static boolean shooterSensorPhase = false; // The phase of the sensor
+        public static boolean shooterMotorInvert = false; // The inversion of the motor
+        public static boolean spinnerSensorPhase = false;
         public static boolean spinnerMotorInvert = false;
-        public static final Gains kGains = new Gains(0.15, // kP
-                                                     0.0, // kI
-                                                     1.0, // kD
-                                                     0.0, // kF
-                                                     0, // kIzone
-                                                     1.0); // kPeakoutput
+        public static final Gains kGains = new Gains(0.15,  // kP
+                                                     0.0,   // kI
+                                                     1.0,   // kD
+                                                     0.0,   // kF
+                                                     0,     // kIzone
+                                                     1.0);  // kPeakoutput
         // Measurements and other
         public static int ticksPerRadian = 10000;        // Calibrated Never
     }
