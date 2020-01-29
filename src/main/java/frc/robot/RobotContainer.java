@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.HumanControl;
 import frc.robot.commands.ROSControl;
+import frc.robot.commands.ResetEncoders;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ROS;
 
@@ -32,6 +33,9 @@ public class RobotContainer {
   // Subsystems
   private final Drivetrain drivetrain = new Drivetrain();
   private final ROS ros = new ROS();
+
+  // Commands
+
 
   // Selectors
   Command robot_autonomous; // Autonomous object, will be populated later by the contents of the sendable chooser
@@ -57,10 +61,13 @@ public class RobotContainer {
     autoChooser.addOption("Do Nothing", null); // Send null
     SmartDashboard.putData("Auto Mode", autoChooser);
 
+    // Smartdashboard functions
+    SmartDashboard.putData("Reset Encoders", new ResetEncoders(drivetrain));
+
     // Configure the button bindings
     configureButtonBindings();
 
-    // Commands
+    // Default commands
     drivetrain.setDefaultCommand(new HumanControl(() -> DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Thro_Axis), () -> DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Yaw_Axis), () -> handlingChooser.getSelected(), drivetrain)); // Set the default command of drivetrain to HumanControl
   }
 
