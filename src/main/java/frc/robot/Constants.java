@@ -28,6 +28,7 @@ public final class Constants {
         public static final int VictorSPX_Port_Slave_Id1 = 1;       // Configured 1/25/2020
         public static final int VictorSPX_Starboard_Slave_Id0 = 2;  // Configured 1/25/2020
         public static final int VictorSPX_Starboard_Slave_Id1 = 3;  // Configured 1/25/2020
+        public static final int Gantry_Motor_ID = 0;
     }
 
     /**
