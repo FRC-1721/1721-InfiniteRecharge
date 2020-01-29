@@ -25,6 +25,11 @@ public class Climber extends SubsystemBase {
     gantryMotor.restoreFactoryDefaults();
   }
 
+  /**
+   * sets the speed and does nothing else
+   * @author Joe Sedutto
+   * @param speed
+   */
   public void GantryManualControl(double speed){
     gantryMotor.set(speed);
   }
