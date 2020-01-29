@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.commands.AutoClimb;
+import com.revrobotics.CANSparkMax;
 
 /**
  * Climber as a subsystem will be calling the
@@ -18,14 +19,10 @@ import frc.robot.commands.AutoClimb;
  *  @author Travis Bettens
  */
 public class Climber extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+  private static final CANSparkMax LiftMotor = new CANSparkMax(Constants.CANIds.Lift_Motor_ID); // Init the port motor at 1
 
   @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
-    
-    setDefaultCommand(new AutoClimb());
+    setDefaultCommand(new AutoClimb()); // Use to set the defaut command of a subsystem
   }
 }
