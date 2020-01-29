@@ -38,8 +38,7 @@ public class ROS extends SubsystemBase {
   public ROS() {
     // Network tables
     networkTableInstance = NetworkTableInstance.create(); // Get the default instance of network tables on the rio
-    networkTableInstance.startServer("ros.ini", "10.17.21.2", 5800); // Start a new server on a different port
-    networkTableInstance.setUpdateRate(Constants.RobotOperatingSystem.rosUpdateFrequency); // Set the update rate for the new networktable instance
+    networkTableInstance.startServer("ros.ini", "10.17.21.2", 5800); // Start a new server on a different port\
     rosTable = networkTableInstance.getTable(Constants.RobotOperatingSystem.rosTablename); // Get the table ros out of that instance
 
     // Get the writable entries
@@ -63,6 +62,8 @@ public class ROS extends SubsystemBase {
     starboardEncoderEntry.setDouble(Drivetrain.getDriveEncoderStarboard());
     portEncoderEntry.setDouble(Drivetrain.getDriveEncoderPort());
     rosIndex.setNumber(rosIntex);
+
+    networkTableInstance.flush(); // Force an update and flush all values out.
 
     // Increase the Index value (Used for Syncing)
     rosIntex = rosIntex + 1;
