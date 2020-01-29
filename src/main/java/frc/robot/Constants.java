@@ -65,7 +65,7 @@ public final class Constants {
         public static boolean portMotorInvert = true; // The inversion of the motor
         public static boolean starboardSensorPhase = false;
         public static boolean starboardMotorInvert = false;
-        public static final Gains kGains = new Gains(0.15,  // kP
+        public static final Gains kGains = new Gains(0.15,  // kP TODO
                                                      0.0,   // kI
                                                      1.0,   // kD
                                                      0.0,   // kF
@@ -83,7 +83,7 @@ public final class Constants {
         public static boolean shooterMotorInvert = false; // The inversion of the motor
         public static boolean spinnerSensorPhase = false;
         public static boolean spinnerMotorInvert = false;
-        public static final Gains kGains = new Gains(0.15,  // kP
+        public static final Gains kGains = new Gains(0.15,  // kP TODO
                                                      0.0,   // kI
                                                      1.0,   // kD
                                                      0.0,   // kF
@@ -100,7 +100,7 @@ public final class Constants {
         public static boolean rollerSensorPhase = false; // The phase of the sensor
         public static boolean rollerMotorInvert = false; // The inversion of the motor
         public static boolean climbMotorInvert = false;
-        public static final Gains kGains = new Gains(0.15,  // kP
+        public static final Gains kGains = new Gains(0.15,  // kP TODO
                                                      0.0,   // kI
                                                      1.0,   // kD
                                                      0.0,   // kF
