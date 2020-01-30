@@ -49,7 +49,7 @@ public class HumanControl extends CommandBase {
         drivetrain.FlyByWireA(steerage.getAsDouble(), thro.getAsDouble());
         break;
       default:
-      System.out.println("RUNNING IN DEFAULT! NO DRIVING MODE SELECTED!");
+        System.out.println("RUNNING IN DEFAULT! NO DRIVING MODE SELECTED!");
     }
   }
 }
