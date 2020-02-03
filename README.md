@@ -19,7 +19,7 @@
 | Camera/Web interface | Secure web interface connection | HTTP 443 | Available |
 | h.264 Streaming | Real time streaming | UDP/TCP 554 | Available |
 | Team Use | Team Use | UDP/TCP 5800 | ROS Network Table |
-| Team Use | Team Use | UDP/TCP 5801 | Available |
+| Team Use | Team Use | UDP/TCP 5801 | Limelight Camera Data |
 | Team Use | Team Use | UDP/TCP 5802 | Available |
 | Team Use | Team Use | UDP/TCP 5803 | Available |
 | Team Use | Team Use | UDP/TCP 5804 | Available |

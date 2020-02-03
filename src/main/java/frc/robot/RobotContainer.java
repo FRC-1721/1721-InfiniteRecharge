@@ -61,7 +61,7 @@ public class RobotContainer {
     autoChooser.addOption("Do Nothing", null); // Send null
     SmartDashboard.putData("Auto Mode", autoChooser);
 
-    // Smartdashboard functions
+    // NT functions
     SmartDashboard.putData("Reset Encoders", new ResetEncoders(drivetrain));
 
     // Configure the button bindings

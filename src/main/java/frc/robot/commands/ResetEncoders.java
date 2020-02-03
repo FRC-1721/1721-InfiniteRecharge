@@ -24,6 +24,7 @@ public class ResetEncoders extends CommandBase {
   @Override
   public void initialize() {
     Drivetrain.resetEncoders(0); // Reset the encoders to 0
+    System.out.println("I ran!");
   }
 
   // Called once the command ends or is interrupted.
