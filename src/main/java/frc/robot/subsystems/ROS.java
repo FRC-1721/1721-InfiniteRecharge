@@ -72,7 +72,7 @@ public class ROS extends SubsystemBase {
     }
   }
 
-  public double getStarboardSpeed(){return coprocessorStarboard.getDouble(0);} // A number in m/s
+  public double getStarboardSpeed(){return coprocessorStarboard.getDouble(0);} // A number in m/s (translate to ticks/100ms in Drivetrain)
   public double getPortSpeed(){return coprocessorPort.getDouble(0);} // A number in m/s
 
   @Override
