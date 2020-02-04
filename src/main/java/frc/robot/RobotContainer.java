@@ -17,6 +17,8 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.HumanControl;
 import frc.robot.commands.ROSControl;
 import frc.robot.commands.ResetEncoders;
+import frc.robot.commands.ShiftDown;
+import frc.robot.commands.ShiftUp;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ROS;
 
@@ -63,6 +65,8 @@ public class RobotContainer {
 
     // NT functions
     SmartDashboard.putData("Reset Encoders", new ResetEncoders(drivetrain));
+    SmartDashboard.putData("Shift Up", new ShiftUp(drivetrain)); // For testing only!
+    SmartDashboard.putData("Shift Down", new ShiftDown(drivetrain)); // For testing only!
 
     // Configure the button bindings
     configureButtonBindings();
