@@ -29,6 +29,8 @@ public final class Constants {
         public static final int VictorSPX_Starboard_Slave_Id0 = 2;  // Configured 1/25/2020
         public static final int VictorSPX_Starboard_Slave_Id1 = 3;  // Configured 1/25/2020
         public static final int Gantry_Motor_ID = 0;                // Configured never
+		public static final int Starboard_Solenoid_ID = 0;          // Configured never
+		public static final int Port_Solenoid_ID = 1;               // Configured never
     }
 
     /**
@@ -108,5 +110,11 @@ public final class Constants {
                                                      0,     // kIzone
                                                      1.0);  // kPeakoutput
         public static int arbAnalogPerRadian = 10;
+    }
+
+    public static final class Misc{
+
+        public static final double Downshift_Max_Speed = 0; // The maximum speed that you can downshift at.
+		public static final double Upshift_Min_Speed = 0;
     }
 }
