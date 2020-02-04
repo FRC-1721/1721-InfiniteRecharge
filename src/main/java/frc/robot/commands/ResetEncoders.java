@@ -24,22 +24,27 @@ public class ResetEncoders extends CommandBase {
   @Override
   public void initialize() {
     Drivetrain.resetEncoders(0); // Reset the encoders to 0
-    System.out.println("I ran!");
+    System.out.println("Reset Encoders");
+    //end(isFinished());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     if(interrupted){
-      System.out.println("Reset encoders was inturrupted!");
+      System.out.println("The command to reset the encoders was intturupted!");
     }else{
-      System.out.println("Reset encoders normally.");
+      System.out.println("Encoders were reset normally.");
     }
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    if(Drivetrain.getDriveEncoderPort() == 0 && Drivetrain.getDriveEncoderStarboard() == 0){
+      return true;
+    }else{
     return false;
+    }
   }
 }
