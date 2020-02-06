@@ -59,6 +59,10 @@ public class Drivetrain extends SubsystemBase {
 		portMotor.config_kP(Constants.DrivetrainPID.kPIDLoopIdx, Constants.DrivetrainPID.kGains.kP, Constants.DrivetrainPID.kTimeoutMs);
 		portMotor.config_kI(Constants.DrivetrainPID.kPIDLoopIdx, Constants.DrivetrainPID.kGains.kI, Constants.DrivetrainPID.kTimeoutMs);
     portMotor.config_kD(Constants.DrivetrainPID.kPIDLoopIdx, Constants.DrivetrainPID.kGains.kD, Constants.DrivetrainPID.kTimeoutMs);
+    starboardMotor.config_kF(Constants.DrivetrainPID.kPIDLoopIdx, Constants.DrivetrainPID.kGains.kF, Constants.DrivetrainPID.kTimeoutMs);
+		starboardMotor.config_kP(Constants.DrivetrainPID.kPIDLoopIdx, Constants.DrivetrainPID.kGains.kP, Constants.DrivetrainPID.kTimeoutMs);
+		starboardMotor.config_kI(Constants.DrivetrainPID.kPIDLoopIdx, Constants.DrivetrainPID.kGains.kI, Constants.DrivetrainPID.kTimeoutMs);
+    starboardMotor.config_kD(Constants.DrivetrainPID.kPIDLoopIdx, Constants.DrivetrainPID.kGains.kD, Constants.DrivetrainPID.kTimeoutMs);
     
     // Get the current abs position, and set the rel sensor to match
     int absolutePortPosition = portMotor.getSensorCollection().getPulseWidthPosition();
