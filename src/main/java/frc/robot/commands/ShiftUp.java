@@ -7,10 +7,10 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Drivetrain;
 
-public class ShiftUp extends CommandBase {
+public class ShiftUp extends InstantCommand {
   private final Drivetrain drivetrain;
 
   /**
@@ -25,5 +25,6 @@ public class ShiftUp extends CommandBase {
   @Override
   public void initialize() {
     drivetrain.ShiftGearboxesStandard(true);
+    end(false);
   }
 }

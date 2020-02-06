@@ -7,10 +7,10 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Drivetrain;
 
-public class ShiftDown extends CommandBase {
+public class ShiftDown extends InstantCommand {
   private final Drivetrain drivetrain;
 
   /**
