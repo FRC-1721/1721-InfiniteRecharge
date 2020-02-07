@@ -31,6 +31,6 @@ public class ROSControl extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.FlyWithWiresA(ros.getStarboardSpeed(), ros.getPortSpeed());
+    drivetrain.FlyWithWiresB(ros.getStarboardSpeed(), ros.getPortSpeed());
   }
 }
