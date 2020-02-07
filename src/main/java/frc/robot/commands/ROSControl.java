@@ -18,7 +18,6 @@ public class ROSControl extends CommandBase {
   
   /**
    * Creates a new ROSControl.
-   * 
    * @author Joe
    */
   public ROSControl(Drivetrain _drivetrain, ROS _ros) {
