@@ -13,14 +13,14 @@ import frc.robot.Constants;
  */
 public class Drivetrain extends SubsystemBase {
   // TalonSRX objects
-  private static final TalonSRX portMotor = new TalonSRX(Constants.CANIds.TalonSRX_Port_ID); // Create a new TalonSRX Object
-  private static final TalonSRX starboardMotor = new TalonSRX(Constants.CANIds.TalonSRX_Starboard_ID); // Create a new TalonSRX Object
+  private static final TalonSRX portMotor = new TalonSRX(Constants.CANIds.TalonSRX_Port_Address); // Create a new TalonSRX Object
+  private static final TalonSRX starboardMotor = new TalonSRX(Constants.CANIds.TalonSRX_Starboard_Address); // Create a new TalonSRX Object
 
   // VictorSPX objects
-  private static final VictorSPX portMotorSlave0 = new VictorSPX(Constants.CANIds.VictorSPX_Port_Slave_Id0);
-  private static final VictorSPX portMotorSlave1 = new VictorSPX(Constants.CANIds.VictorSPX_Port_Slave_Id1);
-  private static final VictorSPX starboardMotorSlave0 = new VictorSPX(Constants.CANIds.VictorSPX_Starboard_Slave_Id0);
-  private static final VictorSPX starboardMotorSlave1 = new VictorSPX(Constants.CANIds.VictorSPX_Starboard_Slave_Id1);
+  private static final VictorSPX portMotorSlave0 = new VictorSPX(Constants.CANIds.VictorSPX_Port_Slave_Address0);
+  private static final VictorSPX portMotorSlave1 = new VictorSPX(Constants.CANIds.VictorSPX_Port_Slave_Address1);
+  private static final VictorSPX starboardMotorSlave0 = new VictorSPX(Constants.CANIds.VictorSPX_Starboard_Slave_Address0);
+  private static final VictorSPX starboardMotorSlave1 = new VictorSPX(Constants.CANIds.VictorSPX_Starboard_Slave_Address1);
   
   /**
    * The drivetrain subsystem controls the movement of the robot.
