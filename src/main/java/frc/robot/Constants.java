@@ -53,8 +53,16 @@ public final class Constants {
      * Change button and stick mappings for Operator Controller
      */
     public static final class OperatorInputSettings{
-        public static final int Operator_Controller_Port = 0;   // The USB order of the controller
+        public static final int Operator_Controller_Port = 1;   // The USB order of the controller
         public static final int SomeNumber = 0;                 // Configured never
+        public static final int Intake_Button = 0;              // Configured never
+    }
+
+    /**
+     * Change button mappings for the DS Toggle Switchboard
+     */
+    public static final class DSTogglePanelSettings{
+        public static final int DS_Toggle_Panel_Port = 2;       // The USB order of the controller
     }
 
     public static final class RobotOperatingSystem{

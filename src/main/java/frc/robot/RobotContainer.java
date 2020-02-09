@@ -19,6 +19,7 @@ import frc.robot.commands.ROSControl;
 import frc.robot.commands.functions.ResetEncoders;
 import frc.robot.commands.functions.ShiftDown;
 import frc.robot.commands.functions.ShiftUp;
+import frc.robot.commands.functions.SpinIntake;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ROS;
 
@@ -31,6 +32,8 @@ import frc.robot.subsystems.ROS;
 public class RobotContainer {
   // Joysticks and Operator Input
   public static final Joystick DriverStick = new Joystick(Constants.DriverInputSettings.Driver_Stick_Port);
+  public static final Joystick OperatorStick = new Joystick(Constants.OperatorInputSettings.Operator_Controller_Port);
+  public static final Joystick DSTogglePanel = new Joystick(Constants.DSTogglePanelSettings.DS_Toggle_Panel_Port);
 
   // Subsystems
   private final Drivetrain drivetrain = new Drivetrain();
@@ -82,7 +85,11 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    // Driver buttons
     new JoystickButton(DriverStick, Constants.DriverInputSettings.Autonomous_Restart_Button).whenPressed(new ROSControl(drivetrain, ros)); // When you press the Autonomous Restart Button
+
+    // Operator buttons
+    new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Intake_Button).whenHeld(new SpinIntake());
   }
 
   /**
