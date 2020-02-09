@@ -116,4 +116,10 @@ public final class Constants {
                                                      1.0);  // kPeakoutput
         public static int arbAnalogPerRadian = 10;
     }
+
+    public static final class Misc{
+
+        public static final double Downshift_Max_Speed = 0; // The maximum speed that you can downshift at.
+		public static final double Upshift_Min_Speed = 0;
+    }
 }
