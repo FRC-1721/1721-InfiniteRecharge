@@ -54,8 +54,8 @@ public final class Constants {
      */
     public static final class OperatorInputSettings{
         public static final int Operator_Controller_Port = 1;   // The USB order of the controller
-        public static final int SomeNumber = 0;                 // Configured never
         public static final int Intake_Button = 0;              // Configured never
+        public static final int Purge_Button = 1;               // Configured never
     }
 
     /**

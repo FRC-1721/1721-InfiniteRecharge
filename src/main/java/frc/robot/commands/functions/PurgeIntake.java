@@ -10,13 +10,13 @@ package frc.robot.commands.functions;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Intake;
 
-public class SpinIntake extends CommandBase {
+public class PurgeIntake extends CommandBase {
   private final Intake intake;
   /**
    * Creates a new PurgeIntake.
    * @author Joe Sedutto
    */
-  public SpinIntake(Intake _intake) {
+  public PurgeIntake(Intake _intake) {
     addRequirements(_intake);
     intake = _intake;
   }
@@ -24,12 +24,12 @@ public class SpinIntake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.driveIntake(1); // Drive the intake at full speed
+    intake.purgeIntake(); // Drive the intake at full speed
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intake.driveIntake(0); // Stop when done
+    intake.purgeIntake(); // Stop when done
   }
 }
