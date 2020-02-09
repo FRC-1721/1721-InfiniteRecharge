@@ -16,9 +16,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.HumanControl;
 import frc.robot.commands.ROSControl;
-import frc.robot.commands.ResetEncoders;
-import frc.robot.commands.ShiftDown;
-import frc.robot.commands.ShiftUp;
+import frc.robot.commands.functions.ResetEncoders;
+import frc.robot.commands.functions.ShiftDown;
+import frc.robot.commands.functions.ShiftUp;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ROS;
 
