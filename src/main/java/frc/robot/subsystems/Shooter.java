@@ -10,7 +10,6 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
-import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.Solenoid;
@@ -32,21 +31,68 @@ public class Shooter extends SubsystemBase {
    */
   public Shooter() {
     // Shooter PID and init
-    shooterMotor.configFactoryDefault(); // Part of the OLD API
-    // New API
-    TalonFXConfiguration shooterConfig = new TalonFXConfiguration(); // Create a new config object
-    shooterConfig.primaryPID.selectedFeedbackSensor = FeedbackDevice.IntegratedSensor; // Add tags like this one to apply configs
+    // Set motors to default to prevent weirdness
+    shooterMotor.configFactoryDefault();
 
-    shooterMotor.configAllSettings(shooterConfig); // Write them all at once
+    // Set feedback sensors here
+    shooterMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 
+                                           Constants.ShooterPID.kPIDLoopIdx,
+                                           Constants.ShooterPID.kTimeoutMs);
+    
+    // Fix sensor phase here
+    shooterMotor.setSensorPhase(Constants.ShooterPID.shooterSensorPhase);
 
-    shooterMotor.setInverted(Constants.ShooterPID.shooterMotorInvert);
-    shooterMotor.setNeutralMode(Constants.ShooterPID.shooterBreakMode);
+    // Configure nominal outputs
+    shooterMotor.configNominalOutputForward(0, Constants.ShooterPID.kTimeoutMs);
+		shooterMotor.configNominalOutputReverse(0, Constants.ShooterPID.kTimeoutMs);
+		shooterMotor.configPeakOutputForward(1, Constants.ShooterPID.kTimeoutMs);
+    shooterMotor.configPeakOutputReverse(-1, Constants.ShooterPID.kTimeoutMs);
+    
+    // Configure allowable closed loop error (dead zone)
+    shooterMotor.configAllowableClosedloopError(0, Constants.ShooterPID.kPIDLoopIdx, Constants.ShooterPID.kTimeoutMs);
+
+    // Config slot0 gains
+    shooterMotor.config_kF(Constants.ShooterPID.kPIDLoopIdx, Constants.ShooterPID.kGains.kF, Constants.ShooterPID.kTimeoutMs);
+		shooterMotor.config_kP(Constants.ShooterPID.kPIDLoopIdx, Constants.ShooterPID.kGains.kP, Constants.ShooterPID.kTimeoutMs);
+		shooterMotor.config_kI(Constants.ShooterPID.kPIDLoopIdx, Constants.ShooterPID.kGains.kI, Constants.ShooterPID.kTimeoutMs);
+    shooterMotor.config_kD(Constants.ShooterPID.kPIDLoopIdx, Constants.ShooterPID.kGains.kD, Constants.ShooterPID.kTimeoutMs);    
+
+    // Set Inverted
+    shooterMotor.setInverted(Constants.ShooterPID.shooterMotorInvert); // Sets the output of the motor backwards
 
 
     // Turret PID and init
+    // Set motors to default to prevent weirdness
     turretMotor.configFactoryDefault();
 
+    // Set feedback sensors here
+    turretMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 
+                                           Constants.TurretPID.kPIDLoopIdx,
+                                           Constants.TurretPID.kTimeoutMs);
+    
+    // Fix sensor phase here
+    turretMotor.setSensorPhase(Constants.TurretPID.turretSensorPhase);
+
+    // Configure nominal outputs
+    turretMotor.configNominalOutputForward(0, Constants.TurretPID.kTimeoutMs);
+		turretMotor.configNominalOutputReverse(0, Constants.TurretPID.kTimeoutMs);
+		turretMotor.configPeakOutputForward(1, Constants.TurretPID.kTimeoutMs);
+    turretMotor.configPeakOutputReverse(-1, Constants.TurretPID.kTimeoutMs);
+    
+    // Configure allowable closed loop error (dead zone)
+    turretMotor.configAllowableClosedloopError(0, Constants.TurretPID.kPIDLoopIdx, Constants.TurretPID.kTimeoutMs);
+
+    // Config slot0 gains
+    turretMotor.config_kF(Constants.TurretPID.kPIDLoopIdx, Constants.TurretPID.kGains.kF, Constants.TurretPID.kTimeoutMs);
+		turretMotor.config_kP(Constants.TurretPID.kPIDLoopIdx, Constants.TurretPID.kGains.kP, Constants.TurretPID.kTimeoutMs);
+		turretMotor.config_kI(Constants.TurretPID.kPIDLoopIdx, Constants.TurretPID.kGains.kI, Constants.TurretPID.kTimeoutMs);
+    turretMotor.config_kD(Constants.TurretPID.kPIDLoopIdx, Constants.TurretPID.kGains.kD, Constants.TurretPID.kTimeoutMs);    
+
+    // Set Inverted
+    turretMotor.setInverted(Constants.TurretPID.turretMotorInvert); // Sets the output of the motor backwards
+
     // Other init
+    ballReleaseSolenoid.set(false);
   }
   
   /**

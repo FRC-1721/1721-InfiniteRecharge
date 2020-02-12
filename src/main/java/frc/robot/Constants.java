@@ -107,6 +107,22 @@ public final class Constants {
                                                      0,     // kIzone
                                                      1.0);  // kPeakoutput
         // Measurements and other
+    }
+
+    public static final class TurretPID{
+
+        public static int kPIDLoopIdx = 0; // The loop Index
+        public static int kTimeoutMs = 30; // The timeout to wait when writing variables to the motors
+        public static boolean turretSensorPhase = false; // The phase of the sensor
+        public static boolean turretMotorInvert = false; // The inversion of the motor
+        public static NeutralMode turretBreakMode = NeutralMode.Brake; // Brake mode
+        public static final Gains kGains = new Gains(0.15,  // kP TODO
+                                                     0.0,   // kI
+                                                     1.0,   // kD
+                                                     0.0,   // kF
+                                                     0,     // kIzone
+                                                     1.0);  // kPeakoutput
+        // Measurements and other
         public static int ticksPerRadian = 10000;        // Calibrated Never
     }
 
