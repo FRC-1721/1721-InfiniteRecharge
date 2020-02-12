@@ -37,5 +37,7 @@ public class ROSControl extends CommandBase {
   @Override
   public void execute() {
     drivetrain.FlyWithWiresA(ros.getStarboardSpeed(), ros.getPortSpeed());
+
+    shooter.targetHeading(shooter.getTurretHeading() + shooter.getLimelightHeading()); // TODO change this so it actually is 10/10 not 3/10
   }
 }
