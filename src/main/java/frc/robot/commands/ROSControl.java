@@ -10,22 +10,27 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ROS;
+import frc.robot.subsystems.Shooter;
 
 
 public class ROSControl extends CommandBase {
   private final Drivetrain drivetrain;
   private final ROS ros;
+  private final Shooter shooter;
   
   /**
    * Creates a new ROSControl.
    * 
    * @author Joe
    */
-  public ROSControl(Drivetrain _drivetrain, ROS _ros) {
+  public ROSControl(Drivetrain _drivetrain, ROS _ros, Shooter _shooter) {
     addRequirements(_drivetrain);
     addRequirements(_ros);
+    addRequirements(_shooter);
+
     drivetrain = _drivetrain;
     ros = _ros;
+    shooter = _shooter;
   }
 
   // Called every time the scheduler runs while the command is scheduled.

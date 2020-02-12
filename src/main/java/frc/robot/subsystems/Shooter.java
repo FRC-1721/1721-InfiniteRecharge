@@ -105,6 +105,25 @@ public class Shooter extends SubsystemBase {
     shooterMotor.set(ControlMode.PercentOutput, speed);
   }
 
+  /**
+   * Set the shooter solenoid to the state listed here
+   * @author Joe Sedutto
+   * @param state
+   */
+  public void releaseShooter(boolean state){
+    ballReleaseSolenoid.set(state);
+  }
+
+  /**
+   * Takes an angle in radians and converts
+   * it to ticks to send to the turret control
+   * @author Joe Sedutto
+   * @param heading
+   */
+  public void targetHeading(double heading){
+    turretMotor.set(ControlMode.Position, heading * Constants.TurretPID.ticksPerRadian);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

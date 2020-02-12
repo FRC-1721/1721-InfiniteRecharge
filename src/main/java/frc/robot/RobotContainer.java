@@ -63,7 +63,7 @@ public class RobotContainer {
     SmartDashboard.putData("Handling Mode", handlingChooser);
 
     // Autonomous Mode
-    autoChooser.setDefaultOption("ROS Full Auto", new ROSControl(drivetrain, ros));
+    autoChooser.setDefaultOption("ROS Full Auto", new ROSControl(drivetrain, ros, shooter));
     autoChooser.addOption("Do Nothing", null); // Send null
     SmartDashboard.putData("Auto Mode", autoChooser);
 
@@ -77,7 +77,7 @@ public class RobotContainer {
 
     // Default commands
     drivetrain.setDefaultCommand(new HumanControl(() -> DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Thro_Axis), () -> DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Yaw_Axis), () -> handlingChooser.getSelected(), drivetrain)); // Set the default command of drivetrain to HumanControl
-    shooter.setDefaultCommand(new TestShooter(shooter, () -> OperatorStick.getRawAxis(1)));
+    shooter.setDefaultCommand(new TestShooter(shooter, () -> OperatorStick.getRawAxis(3)));
   }
 
   /**
@@ -87,7 +87,7 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(DriverStick, Constants.DriverInputSettings.Autonomous_Restart_Button).whenPressed(new ROSControl(drivetrain, ros)); // When you press the Autonomous Restart Button
+    new JoystickButton(DriverStick, Constants.DriverInputSettings.Autonomous_Restart_Button).whenPressed(new ROSControl(drivetrain, ros, shooter)); // When you press the Autonomous Restart Button
   }
 
   /**
