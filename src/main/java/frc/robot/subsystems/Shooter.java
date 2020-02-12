@@ -12,6 +12,9 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -25,6 +28,12 @@ public class Shooter extends SubsystemBase {
 
   // Solenoids
   private static final Solenoid ballReleaseSolenoid = new Solenoid(Constants.CANIds.Ball_Release_Solenoid_Address);
+
+  // Dumb targeting
+  private static final NetworkTable limelight = NetworkTableInstance.getDefault().getTable("limelight");
+  NetworkTableEntry tx = limelight.getEntry("tx");
+  NetworkTableEntry ty = limelight.getEntry("ty");
+  NetworkTableEntry ta = limelight.getEntry("ta");
 
   /**
    * Creates a new Turret.
@@ -123,6 +132,13 @@ public class Shooter extends SubsystemBase {
   public void targetHeading(double heading){
     turretMotor.set(ControlMode.Position, heading * Constants.TurretPID.ticksPerRadian);
   }
+
+
+  public double getTurretHeading(){return (turretMotor.getSelectedSensorPosition() / Constants.TurretPID.ticksPerRadian);}
+
+  public double getLimelightHeading(){return Math.toRadians(tx.getDouble(0.0));}
+  public double getLimelightElevation(){return Math.toRadians(ty.getDouble(0.0));}
+  public double getLimelightDistance(){return ta.getDouble(0.0);}
 
   @Override
   public void periodic() {
