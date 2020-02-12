@@ -20,6 +20,7 @@ import frc.robot.commands.ResetEncoders;
 import frc.robot.commands.ShiftDown;
 import frc.robot.commands.ShiftUp;
 import frc.robot.commands.TestShooter;
+import frc.robot.commands.functions.ArmShooter;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ROS;
 import frc.robot.subsystems.Shooter;
@@ -71,6 +72,7 @@ public class RobotContainer {
     SmartDashboard.putData("Reset Encoders", new ResetEncoders(drivetrain));
     SmartDashboard.putData("Shift Up", new ShiftUp(drivetrain)); // For testing only!
     SmartDashboard.putData("Shift Down", new ShiftDown(drivetrain)); // For testing only!
+    SmartDashboard.putData("Arm Shooter", new ArmShooter(shooter)); // For testing only!
 
     // Configure the button bindings
     configureButtonBindings();

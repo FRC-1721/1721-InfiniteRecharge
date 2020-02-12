@@ -34,6 +34,8 @@ public class Shooter extends SubsystemBase {
   NetworkTableEntry tx = limelight.getEntry("tx");
   NetworkTableEntry ty = limelight.getEntry("ty");
   NetworkTableEntry ta = limelight.getEntry("ta");
+  NetworkTableEntry camMode_entry = limelight.getEntry("camMode");
+  NetworkTableEntry pipeline_entry = limelight.getEntry("pipeline");
 
   /**
    * Creates a new Turret.
@@ -131,6 +133,15 @@ public class Shooter extends SubsystemBase {
    */
   public void targetHeading(double heading){
     turretMotor.set(ControlMode.Position, heading * Constants.TurretPID.ticksPerRadian);
+  }
+
+  /**
+   * Takes a int and sets the pipeline accordingly
+   * @param pipeline
+   */
+  public void switchPipelines(int pipeline) {
+    pipeline_entry.setNumber(pipeline);
+    //camMode_entry.setNumber(pipeline);
   }
 
 
