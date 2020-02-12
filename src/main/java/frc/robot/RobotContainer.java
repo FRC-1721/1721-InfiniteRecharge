@@ -19,8 +19,10 @@ import frc.robot.commands.ROSControl;
 import frc.robot.commands.ResetEncoders;
 import frc.robot.commands.ShiftDown;
 import frc.robot.commands.ShiftUp;
+import frc.robot.commands.TestShooter;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ROS;
+import frc.robot.subsystems.Shooter;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -31,10 +33,12 @@ import frc.robot.subsystems.ROS;
 public class RobotContainer {
   // Joysticks and Operator Input
   public static final Joystick DriverStick = new Joystick(Constants.DriverInputSettings.Driver_Stick_Port);
+  public static final Joystick OperatorStick = new Joystick(Constants.OperatorInputSettings.Operator_Controller_Port);
 
   // Subsystems
   private final Drivetrain drivetrain = new Drivetrain();
   private final ROS ros = new ROS();
+  private final Shooter shooter = new Shooter();
 
   // Commands
 
@@ -73,6 +77,7 @@ public class RobotContainer {
 
     // Default commands
     drivetrain.setDefaultCommand(new HumanControl(() -> DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Thro_Axis), () -> DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Yaw_Axis), () -> handlingChooser.getSelected(), drivetrain)); // Set the default command of drivetrain to HumanControl
+    shooter.setDefaultCommand(new TestShooter(shooter, () -> OperatorStick.getRawAxis(1)));
   }
 
   /**
