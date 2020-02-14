@@ -25,14 +25,14 @@ public final class Constants {
         public static final int TalonSRX_Starboard_Address = 1;         // Configured 1/25/2020
         public static final int TalonSRX_Turret_Address = 2;            // Configured 2/8/2020
 
-        public static final int VictorSPX_IntakeMotor_Address = 4;      // Configured 2/8/2020
         public static final int VictorSPX_Port_Slave_Address0 = 0;      // Configured 1/25/2020
         public static final int VictorSPX_Port_Slave_Address1 = 1;      // Configured 1/25/2020
         public static final int VictorSPX_Starboard_Slave_Address0 = 2; // Configured 1/25/2020
         public static final int VictorSPX_Starboard_Slave_Address1 = 3; // Configured 1/25/2020
+        public static final int VictorSPX_IntakeMotor_Address = 4;      // Configured 2/8/2020
         
-        public static final int Lift_Motor_Address = 1;                 // Congigured 2/9/2020
         public static final int Gantry_Motor_Address = 0;               // Configured never
+        public static final int Lift_Motor_Address = 1;                 // Congigured 2/9/2020
 
         public static final int Starboard_Solenoid_Address = 0;         // Configured never
         public static final int Port_Solenoid_Address = 1;              // Configured never
