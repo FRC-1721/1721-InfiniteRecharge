@@ -134,9 +134,35 @@ public final class Constants {
         public static int ticksPerMeter = 10000;        // Calibrated 12/16/2019
     }
 
+    public static final class Colors{
+        public static final class Blue{
+            public static double red = 0.0;
+            public static double green = 0.0;
+            public static double blue = 0.0;
+        }
+
+        public static final class Yellow{
+            public static double red = 0.0;
+            public static double green = 0.0;
+            public static double blue = 0.0;
+        }
+
+        public static final class Red{
+            public static double red = 0.0;
+            public static double green = 0.0;
+            public static double blue = 0.0;
+        }
+
+        public static final class Green{
+            public static double red = 0.0;
+            public static double green = 0.0;
+            public static double blue = 0.0;
+        }
+    }
+
     public static final class Misc{
 
         public static final double Downshift_Max_Speed = 0; // The maximum speed that you can downshift at.
-		public static final double Upshift_Min_Speed = 0;
+        public static final double Upshift_Min_Speed = 0;
     }
 }
