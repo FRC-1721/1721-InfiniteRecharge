@@ -21,14 +21,21 @@ public final class Constants {
      * Use only for can IDs
      */
     public static final class CANIds{
-        public static final int TalonSRX_Port_ID = 0;               // Configured 1/25/2020
-        public static final int TalonSRX_Starboard_ID = 1;          // Configured 1/25/2020
+        public static final int TalonSRX_Port_Address = 0;              // Configured 1/25/2020
+        public static final int TalonSRX_Starboard_Address = 1;         // Configured 1/25/2020
+        public static final int TalonSRX_Turret_Address = 2;            // Configured 2/8/2020
 
-        public static final int VictorSPX_Port_Slave_Id0 = 0;       // Configured 1/25/2020
-        public static final int VictorSPX_Port_Slave_Id1 = 1;       // Configured 1/25/2020
-        public static final int VictorSPX_Starboard_Slave_Id0 = 2;  // Configured 1/25/2020
-        public static final int VictorSPX_Starboard_Slave_Id1 = 3;  // Configured 1/25/2020
-        public static final int Gantry_Motor_ID = 0;                // Configured never
+        public static final int VictorSPX_Port_Slave_Address0 = 0;      // Configured 1/25/2020
+        public static final int VictorSPX_Port_Slave_Address1 = 1;      // Configured 1/25/2020
+        public static final int VictorSPX_Starboard_Slave_Address0 = 2; // Configured 1/25/2020
+        public static final int VictorSPX_Starboard_Slave_Address1 = 3; // Configured 1/25/2020
+        public static final int VictorSPX_IntakeMotor_Address = 4;      // Configured 2/8/2020
+        
+        public static final int Gantry_Motor_Address = 0;               // Configured never
+        public static final int Lift_Motor_Address = 1;                 // Congigured 2/9/2020
+
+        public static final int Starboard_Solenoid_Address = 0;         // Configured never
+        public static final int Port_Solenoid_Address = 1;              // Configured never
     }
 
     /**
@@ -108,5 +115,11 @@ public final class Constants {
                                                      0,     // kIzone
                                                      1.0);  // kPeakoutput
         public static int arbAnalogPerRadian = 10;
+    }
+
+    public static final class Misc{
+
+        public static final double Downshift_Max_Speed = 0; // The maximum speed that you can downshift at.
+		public static final double Upshift_Min_Speed = 0;
     }
 }

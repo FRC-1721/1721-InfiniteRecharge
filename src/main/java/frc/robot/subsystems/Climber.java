@@ -21,7 +21,7 @@ public class Climber extends SubsystemBase {
    */
   public Climber() { 
     // For initalization code
-    gantryMotor = new CANSparkMax(Constants.CANIds.Gantry_Motor_ID, MotorType.kBrushless); // Creates a new motor
+    gantryMotor = new CANSparkMax(Constants.CANIds.Gantry_Motor_Address, MotorType.kBrushless); // Creates a new motor
     gantryMotor.restoreFactoryDefaults();
   }
 
