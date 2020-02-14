@@ -24,6 +24,7 @@ public final class Constants {
         public static final int TalonSRX_Port_Address = 0;              // Configured 1/25/2020
         public static final int TalonSRX_Starboard_Address = 1;         // Configured 1/25/2020
         public static final int TalonSRX_Turret_Address = 2;            // Configured 2/8/2020
+        public static final int TalonSRX_Solver_Address = 3;            // Configured never
 
         public static final int VictorSPX_Port_Slave_Address0 = 0;      // Configured 1/25/2020
         public static final int VictorSPX_Port_Slave_Address1 = 1;      // Configured 1/25/2020
@@ -115,6 +116,22 @@ public final class Constants {
                                                      0,     // kIzone
                                                      1.0);  // kPeakoutput
         public static int arbAnalogPerRadian = 10;
+    }
+
+    public static final class SolverPID{
+
+        public static int kPIDLoopIdx = 0; // The loop Index
+        public static int kTimeoutMs = 30; // The timeout to wait when writing variables to the motors
+        public static boolean sensorPhase = true; // The phase of the sensor
+        public static boolean motorInvert = false;
+        public static final Gains kGains = new Gains(0.15,  // kP TODO
+                                                     0.0,   // kI
+                                                     1.0,   // kD
+                                                     0.0,   // kF
+                                                     0,     // kIzone
+                                                     1.0);  // kPeakoutput
+        // Measurements and other
+        public static int ticksPerMeter = 10000;        // Calibrated 12/16/2019
     }
 
     public static final class Misc{
