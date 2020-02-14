@@ -15,11 +15,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.HumanControl;
+import frc.robot.commands.ManualShooter;
 import frc.robot.commands.ROSControl;
 import frc.robot.commands.ResetEncoders;
 import frc.robot.commands.ShiftDown;
 import frc.robot.commands.ShiftUp;
-import frc.robot.commands.TestShooter;
 import frc.robot.commands.functions.ArmShooter;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ROS;
@@ -79,7 +79,7 @@ public class RobotContainer {
 
     // Default commands
     drivetrain.setDefaultCommand(new HumanControl(() -> DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Thro_Axis), () -> DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Yaw_Axis), () -> handlingChooser.getSelected(), drivetrain)); // Set the default command of drivetrain to HumanControl
-    shooter.setDefaultCommand(new TestShooter(shooter, () -> OperatorStick.getRawAxis(3), () -> OperatorStick.getRawAxis(1)));
+    shooter.setDefaultCommand(new ManualShooter(shooter, () -> OperatorStick.getRawAxis(3), () -> OperatorStick.getRawAxis(1)));
   }
 
   /**

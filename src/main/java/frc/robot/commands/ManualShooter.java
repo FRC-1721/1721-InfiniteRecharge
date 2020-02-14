@@ -12,7 +12,7 @@ import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
 
-public class TestShooter extends CommandBase {
+public class ManualShooter extends CommandBase {
   private final Shooter shooter;
   private final DoubleSupplier test_speed;
   private final DoubleSupplier turret_speed;
@@ -20,7 +20,7 @@ public class TestShooter extends CommandBase {
   /**
    * Creates a new TestShooter.
    */
-  public TestShooter(Shooter _shooter, DoubleSupplier _test_speed, DoubleSupplier _turret_speed) {
+  public ManualShooter(Shooter _shooter, DoubleSupplier _test_speed, DoubleSupplier _turret_speed) {
     addRequirements(_shooter);
 
     shooter = _shooter;
