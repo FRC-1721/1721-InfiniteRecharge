@@ -62,8 +62,7 @@ public class Solver extends SubsystemBase {
   }
 
   /**
-   * Takes a number just for testing and 
-   * sets the solver motor to that speed
+   * Rotates the drum until that color
    * @author Joe Sedutto
    * @param speed
    */
