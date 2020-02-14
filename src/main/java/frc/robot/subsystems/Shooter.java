@@ -117,6 +117,15 @@ public class Shooter extends SubsystemBase {
   }
 
   /**
+   * For testing only
+   * @author Joe Sedutto
+   * @param asDouble
+   */
+  public void testTurret(double speed) {
+    turretMotor.set(ControlMode.PercentOutput, speed);
+  }
+
+  /**
    * Set the shooter solenoid to the state listed here
    * @author Joe Sedutto
    * @param state

@@ -79,7 +79,7 @@ public class RobotContainer {
 
     // Default commands
     drivetrain.setDefaultCommand(new HumanControl(() -> DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Thro_Axis), () -> DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Yaw_Axis), () -> handlingChooser.getSelected(), drivetrain)); // Set the default command of drivetrain to HumanControl
-    shooter.setDefaultCommand(new TestShooter(shooter, () -> OperatorStick.getRawAxis(3)));
+    shooter.setDefaultCommand(new TestShooter(shooter, () -> OperatorStick.getRawAxis(3), () -> OperatorStick.getRawAxis(1)));
   }
 
   /**

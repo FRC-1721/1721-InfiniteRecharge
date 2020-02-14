@@ -15,20 +15,23 @@ import frc.robot.subsystems.Shooter;
 public class TestShooter extends CommandBase {
   private final Shooter shooter;
   private final DoubleSupplier test_speed;
+  private final DoubleSupplier turret_speed;
 
   /**
    * Creates a new TestShooter.
    */
-  public TestShooter(Shooter _shooter, DoubleSupplier _test_speed) {
+  public TestShooter(Shooter _shooter, DoubleSupplier _test_speed, DoubleSupplier _turret_speed) {
     addRequirements(_shooter);
 
     shooter = _shooter;
     test_speed = _test_speed;
+    turret_speed = _turret_speed;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     shooter.testShooter(test_speed.getAsDouble());
+    shooter.testTurret(turret_speed.getAsDouble());
   }
 }
