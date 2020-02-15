@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants.  This class should not be used for any other purpose.  All constants should be
@@ -21,21 +23,27 @@ public final class Constants {
      * Use only for can IDs
      */
     public static final class CANIds{
+        // TalonSRX
         public static final int TalonSRX_Port_Address = 0;              // Configured 1/25/2020
         public static final int TalonSRX_Starboard_Address = 1;         // Configured 1/25/2020
         public static final int TalonSRX_Turret_Address = 2;            // Configured 2/8/2020
 
+        // VictorSPX
         public static final int VictorSPX_Port_Slave_Address0 = 0;      // Configured 1/25/2020
         public static final int VictorSPX_Port_Slave_Address1 = 1;      // Configured 1/25/2020
         public static final int VictorSPX_Starboard_Slave_Address0 = 2; // Configured 1/25/2020
         public static final int VictorSPX_Starboard_Slave_Address1 = 3; // Configured 1/25/2020
         public static final int VictorSPX_IntakeMotor_Address = 4;      // Configured 2/8/2020
         
-        public static final int Gantry_Motor_Address = 0;               // Configured never
+        // Three-phase/other
         public static final int Lift_Motor_Address = 1;                 // Congigured 2/9/2020
+        public static final int Gantry_Motor_Address = 0;               // Configured never
+        public static final int TalonFX_Shooter_Address = 0;            // Configured never
 
+        // Solenoids
         public static final int Starboard_Solenoid_Address = 0;         // Configured never
         public static final int Port_Solenoid_Address = 1;              // Configured never
+        public static final int Ball_Release_Solenoid_Address = 2;      // Configured never
     }
 
     /**
@@ -54,6 +62,10 @@ public final class Constants {
      */
     public static final class OperatorInputSettings{
         public static final int Operator_Controller_Port = 0;   // The USB order of the controller
+        public static final int Turret_Spin_cw_axis = 3;        // Configured never
+        public static final int Turret_Spin_ccw_axis = 2;       // Configured never
+        public static final int Arm_Shooter_Button = 3;         // Configured 2/14/2020
+        public static final int Disarm_Shooter_Button = 4;      // Configured 2/14/2020
         public static final int SomeNumber = 0;                 // Configured never
     }
 
@@ -91,6 +103,23 @@ public final class Constants {
         public static boolean shooterMotorInvert = false; // The inversion of the motor
         public static boolean spinnerSensorPhase = false;
         public static boolean spinnerMotorInvert = false;
+        public static NeutralMode shooterBreakMode = NeutralMode.Brake; // Brake mode
+        public static final Gains kGains = new Gains(0.15,  // kP TODO
+                                                     0.0,   // kI
+                                                     1.0,   // kD
+                                                     0.0,   // kF
+                                                     0,     // kIzone
+                                                     1.0);  // kPeakoutput
+        // Measurements and other
+    }
+
+    public static final class TurretPID{
+
+        public static int kPIDLoopIdx = 0; // The loop Index
+        public static int kTimeoutMs = 30; // The timeout to wait when writing variables to the motors
+        public static boolean turretSensorPhase = false; // The phase of the sensor
+        public static boolean turretMotorInvert = false; // The inversion of the motor
+        public static NeutralMode turretBreakMode = NeutralMode.Brake; // Brake mode
         public static final Gains kGains = new Gains(0.15,  // kP TODO
                                                      0.0,   // kI
                                                      1.0,   // kD
