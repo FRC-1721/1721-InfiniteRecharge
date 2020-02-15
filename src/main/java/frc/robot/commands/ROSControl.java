@@ -20,7 +20,6 @@ public class ROSControl extends CommandBase {
   
   /**
    * Creates a new ROSControl.
-   * 
    * @author Joe
    */
   public ROSControl(Drivetrain _drivetrain, ROS _ros, Shooter _shooter) {
@@ -36,7 +35,7 @@ public class ROSControl extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.FlyWithWiresA(ros.getStarboardSpeed(), ros.getPortSpeed());
+    drivetrain.FlyWithWiresB(ros.getStarboardSpeed(), ros.getPortSpeed());
 
     shooter.targetHeading(shooter.getTurretHeading() + shooter.getLimelightHeading()); // TODO change this so it actually is 10/10 not 3/10
   }
