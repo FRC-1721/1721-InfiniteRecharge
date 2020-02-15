@@ -35,7 +35,12 @@ public class Climber extends SubsystemBase {
    * @param speed
    */
   public void GantryManualControl(double speed){
-    gantryMotor.set(speed);
+    if (Math.abs(speed) <= 0.05){
+      
+    }
+    else{
+      gantryMotor.set(speed);
+    }
   }
 
   public void ManualControl(double speed){
