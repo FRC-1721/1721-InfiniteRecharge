@@ -11,6 +11,9 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Notifier;
+import edu.wpi.first.wpilibj.Sendable;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -70,6 +73,20 @@ public class ROS extends SubsystemBase {
     if (rosIntex > 255) {
       rosIntex = 1;
     }
+  }
+
+  /**
+   * Takes serveral commands to form them 
+   * into callable blocks from NT
+   * (While not static, do not re-run this after init)
+   * @author Joe Sedutto
+   * @author Mike Fergs
+   * @param resetEncoders
+   * @param ShiftUp
+   * @param ShiftDown
+   */
+  public void setupRobotCommands(Sendable resetEncoders, Sendable ShiftUp, Sendable ShiftDown){
+    rosTable.putData("ResetEncoders", resetEncoders);
   }
 
   public double getStarboardSpeed(){return coprocessorStarboard.getDouble(0);} // A number in m/s (translate to ticks/100ms in Drivetrain)

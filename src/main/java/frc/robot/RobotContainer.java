@@ -73,6 +73,9 @@ public class RobotContainer {
 
     // Default commands
     drivetrain.setDefaultCommand(new HumanControl(() -> DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Thro_Axis), () -> DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Yaw_Axis), () -> handlingChooser.getSelected(), drivetrain)); // Set the default command of drivetrain to HumanControl
+
+    // ROS Commands
+    ros.setupRobotCommands(new ResetEncoders(drivetrain), new ShiftUp(drivetrain), new ShiftDown(drivetrain));
   }
 
   /**
