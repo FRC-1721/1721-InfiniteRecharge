@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.HumanControl;
+import frc.robot.commands.ManualClimb;
 import frc.robot.commands.ManualShooter;
 import frc.robot.commands.ROSControl;
 import frc.robot.commands.functions.ArmShooter;
@@ -24,6 +25,7 @@ import frc.robot.commands.functions.ResetEncoders;
 import frc.robot.commands.functions.ShiftDown;
 import frc.robot.commands.functions.ShiftUp;
 import frc.robot.commands.functions.SpinIntake;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.ROS;
@@ -46,6 +48,7 @@ public class RobotContainer {
   private final Intake intake = new Intake();
   private final ROS ros = new ROS();
   private final Shooter shooter = new Shooter();
+  private final Climber climber = new Climber();
 
   // Commands
 
@@ -86,6 +89,7 @@ public class RobotContainer {
     // Default commands
     drivetrain.setDefaultCommand(new HumanControl(() -> DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Thro_Axis), () -> DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Yaw_Axis), () -> handlingChooser.getSelected(), drivetrain)); // Set the default command of drivetrain to HumanControl
     shooter.setDefaultCommand(new ManualShooter(shooter, OperatorStick, () -> OperatorStick.getRawAxis(3), () -> (OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_cw_axis) - OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_ccw_axis))));
+    climber.setDefaultCommand(new ManualClimb(climber, () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Climb_Axis)));
     
   }
 

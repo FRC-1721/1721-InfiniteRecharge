@@ -64,6 +64,7 @@ public final class Constants {
         public static final int Operator_Controller_Port = 0;   // The USB order of the controller
         public static final int Turret_Spin_cw_axis = 3;        // Configured never
         public static final int Turret_Spin_ccw_axis = 2;       // Configured never
+        public static final int Climb_Axis = 0;                 // Configured never
         public static final int Arm_Shooter_Button = 3;         // Configured 2/14/2020
         public static final int Disarm_Shooter_Button = 4;      // Configured 2/14/2020
         public static final int Intake_Button = 0;              // Configured never
