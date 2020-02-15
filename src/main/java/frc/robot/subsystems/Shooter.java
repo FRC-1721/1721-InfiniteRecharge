@@ -159,6 +159,9 @@ public class Shooter extends SubsystemBase {
   public double getLimelightHeading(){return Math.toRadians(tx.getDouble(0.0));}
   public double getLimelightElevation(){return Math.toRadians(ty.getDouble(0.0));}
   public double getLimelightDistance(){return ta.getDouble(0.0);}
+  public boolean isAtTopLimit(){if (turretMotor.isFwdLimitSwitchClosed() > 0){ return true; }else{ return false;}}
+  public boolean isAtBottomLimit(){if (turretMotor.isFwdLimitSwitchClosed() > 0){ return true; }else{ return false;}}
+  public boolean isAtLimit(){if (turretMotor.isFwdLimitSwitchClosed() + turretMotor.isFwdLimitSwitchClosed() > 0){ return true; }else{ return false;}}
 
   @Override
   public void periodic() {
