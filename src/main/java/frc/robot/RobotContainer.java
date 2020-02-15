@@ -21,6 +21,7 @@ import frc.robot.commands.ResetEncoders;
 import frc.robot.commands.ShiftDown;
 import frc.robot.commands.ShiftUp;
 import frc.robot.commands.functions.ArmShooter;
+import frc.robot.commands.functions.DisarmShooter;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ROS;
 import frc.robot.subsystems.Shooter;
@@ -79,7 +80,7 @@ public class RobotContainer {
 
     // Default commands
     drivetrain.setDefaultCommand(new HumanControl(() -> DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Thro_Axis), () -> DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Yaw_Axis), () -> handlingChooser.getSelected(), drivetrain)); // Set the default command of drivetrain to HumanControl
-    shooter.setDefaultCommand(new ManualShooter(shooter, OperatorStick, () -> OperatorStick.getRawAxis(3), () -> (OperatorStick.getRawAxis(Constants.OperatorInputSettings.turret_spin_cw_axis) - OperatorStick.getRawAxis(Constants.OperatorInputSettings.turret_spin_ccw_axis))));
+    shooter.setDefaultCommand(new ManualShooter(shooter, OperatorStick, () -> OperatorStick.getRawAxis(3), () -> (OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_cw_axis) - OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_ccw_axis))));
     
   }
 
@@ -91,6 +92,10 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     new JoystickButton(DriverStick, Constants.DriverInputSettings.Autonomous_Restart_Button).whenPressed(new ROSControl(drivetrain, ros, shooter)); // When you press the Autonomous Restart Button
+    
+    // Operator
+    new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Arm_Shooter_Button).whenPressed(new ArmShooter(shooter)); // Arms and disarms the shooter
+    new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Disarm_Shooter_Button).whenPressed(new DisarmShooter(shooter));
   }
 
   /**

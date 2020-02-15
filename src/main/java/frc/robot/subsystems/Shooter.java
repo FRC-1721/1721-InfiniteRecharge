@@ -16,8 +16,10 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.TurretPID;
 
 public class Shooter extends SubsystemBase {
   // TalonSRX objects
@@ -44,6 +46,9 @@ public class Shooter extends SubsystemBase {
     // Shooter PID and init
     // Set motors to default to prevent weirdness
     shooterMotor.configFactoryDefault();
+
+    // Set break mode
+    shooterMotor.setNeutralMode(Constants.ShooterPID.shooterBreakMode);
 
     // Set feedback sensors here
     shooterMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 
@@ -165,6 +170,6 @@ public class Shooter extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Turret Pulse", turretMotor.getSelectedSensorPosition());
   }
 }
