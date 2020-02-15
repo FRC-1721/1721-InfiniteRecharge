@@ -66,7 +66,15 @@ public final class Constants {
         public static final int Turret_Spin_ccw_axis = 2;       // Configured never
         public static final int Arm_Shooter_Button = 3;         // Configured 2/14/2020
         public static final int Disarm_Shooter_Button = 4;      // Configured 2/14/2020
-        public static final int SomeNumber = 0;                 // Configured never
+        public static final int Intake_Button = 0;              // Configured never
+        public static final int Purge_Button = 1;               // Configured never
+    }
+
+    /**
+     * Change button mappings for the DS Toggle Switchboard
+     */
+    public static final class DSTogglePanelSettings{
+        public static final int DS_Toggle_Panel_Port = 2;       // The USB order of the controller
     }
 
     public static final class RobotOperatingSystem{
