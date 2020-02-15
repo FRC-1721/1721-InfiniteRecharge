@@ -37,12 +37,12 @@ public final class Constants {
         
         // Three-phase/other
         public static final int Lift_Motor_Address = 1;                 // Congigured 2/9/2020
-        public static final int Gantry_Motor_Address = 0;               // Configured never
+        public static final int Gantry_Motor_Address = 2;               // Configured never
         public static final int TalonFX_Shooter_Address = 0;            // Configured never
 
         // Solenoids
-        public static final int Starboard_Solenoid_Address = 0;         // Configured never
-        public static final int Port_Solenoid_Address = 1;              // Configured never
+        public static final int Starboard_Solenoid_Address = 3;         // Configured never
+        public static final int Port_Solenoid_Address = 0;              // Configured never
         public static final int Ball_Release_Solenoid_Address = 2;      // Configured never
     }
 
@@ -61,14 +61,18 @@ public final class Constants {
      * Change button and stick mappings for Operator Controller
      */
     public static final class OperatorInputSettings{
-        public static final int Operator_Controller_Port = 0;   // The USB order of the controller
+        public static final int Operator_Controller_Port = 1;   // The USB order of the controller
+
         public static final int Turret_Spin_cw_axis = 3;        // Configured never
         public static final int Turret_Spin_ccw_axis = 2;       // Configured never
-        public static final int Climb_Axis = 0;                 // Configured never
         public static final int Arm_Shooter_Button = 3;         // Configured 2/14/2020
         public static final int Disarm_Shooter_Button = 4;      // Configured 2/14/2020
-        public static final int Intake_Button = 0;              // Configured never
-        public static final int Purge_Button = 1;               // Configured never
+
+        public static final int Climb_Axis = 1;                 // Configured 2/15/2020
+        public static final int Gantry_Axis = 0;                // Congigured 2/15/2020
+
+        public static final int Intake_Button = 1;              // Configured never
+        public static final int Purge_Button = 2;               // Configured never
     }
 
     /**

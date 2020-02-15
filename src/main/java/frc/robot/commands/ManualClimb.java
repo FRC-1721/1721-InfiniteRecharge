@@ -9,27 +9,33 @@ package frc.robot.commands;
 
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber;
 
 public class ManualClimb extends CommandBase {
   private final Climber climber;
-  private final DoubleSupplier test_speed;
+  private final DoubleSupplier gantry_speed;
+  private final DoubleSupplier lift_speed;
 
   /**
    * Creates a new TestShooter.
    */
-  public ManualClimb(Climber _climber, DoubleSupplier _test_speed) {
+  public ManualClimb(Climber _climber, DoubleSupplier _gantry_speed, DoubleSupplier _lift_speed) {
     addRequirements(_climber);
 
     climber = _climber;
-    test_speed = _test_speed;
+    gantry_speed = _gantry_speed;
+    lift_speed = _lift_speed;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climber.GantryManualControl(test_speed.getAsDouble());
+    climber.GantryManualControl(gantry_speed.getAsDouble());
+    climber.ManualControl(lift_speed.getAsDouble());
 
+    SmartDashboard.putNumber("Lift Manual Control", lift_speed.getAsDouble());
+    SmartDashboard.putNumber("Gantry Manual Control", gantry_speed.getAsDouble());
   }
 }
