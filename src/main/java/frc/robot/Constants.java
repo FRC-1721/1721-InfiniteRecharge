@@ -62,6 +62,8 @@ public final class Constants {
      */
     public static final class OperatorInputSettings{
         public static final int Operator_Controller_Port = 0;   // The USB order of the controller
+        public static final int turret_spin_cw_axis = 3;        // Configured never
+        public static final int turret_spin_ccw_axis = 2;       // Configured never
         public static final int SomeNumber = 0;                 // Configured never
     }
 
