@@ -16,27 +16,27 @@ import frc.robot.subsystems.Shooter;
 
 public class ManualShooter extends CommandBase {
   private final Shooter shooter;
-  private final DoubleSupplier test_speed;
-  private final DoubleSupplier turret_speed;
+  private final DoubleSupplier shooter_velocity;
+  private final DoubleSupplier turret_velocity;
   private final Joystick operatorJoystick;
 
   /**
    * Creates a new TestShooter.
    */
-  public ManualShooter(Shooter _shooter, Joystick _operatorJoystick, DoubleSupplier _test_speed, DoubleSupplier _turret_speed) {
+  public ManualShooter(Shooter _shooter, Joystick _operatorJoystick, DoubleSupplier _test_speed, DoubleSupplier _turret_velocity) {
     addRequirements(_shooter);
 
     shooter = _shooter;
-    test_speed = _test_speed;
-    turret_speed = _turret_speed;
+    shooter_velocity = _test_speed;
+    turret_velocity = _turret_velocity;
     operatorJoystick = _operatorJoystick;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.testShooter(test_speed.getAsDouble());
-    shooter.testTurret(turret_speed.getAsDouble());
+    shooter.testShooter(shooter_velocity.getAsDouble());
+    shooter.manualTurret(turret_velocity.getAsDouble() * 100); // 100 is just a multiplier to scale the drum speed
 
     if (shooter.isAtTopLimit()){ // If at the top limit
       operatorJoystick.setRumble(RumbleType.kLeftRumble, 1); // Rumble the left side
