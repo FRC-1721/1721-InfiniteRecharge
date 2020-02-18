@@ -132,7 +132,7 @@ public final class Constants {
 
         public static int kPIDLoopIdx = 0; // The loop Index
         public static int kTimeoutMs = 30; // The timeout to wait when writing variables to the motors
-        public static boolean turretSensorPhase = false; // The phase of the sensor
+        public static boolean turretSensorPhase = true; // The phase of the sensor
         public static boolean turretMotorInvert = false; // The inversion of the motor
         public static NeutralMode turretBreakMode = NeutralMode.Brake; // Brake mode
         public static final Gains kGains = new Gains(0.15,  // kP TODO

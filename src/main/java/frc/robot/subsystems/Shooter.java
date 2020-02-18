@@ -97,8 +97,8 @@ public class Shooter extends SubsystemBase {
     // Configure nominal outputs
     turretMotor.configNominalOutputForward(0, Constants.TurretPID.kTimeoutMs);
 		turretMotor.configNominalOutputReverse(0, Constants.TurretPID.kTimeoutMs);
-		turretMotor.configPeakOutputForward(1, Constants.TurretPID.kTimeoutMs);
-    turretMotor.configPeakOutputReverse(-1, Constants.TurretPID.kTimeoutMs);
+		turretMotor.configPeakOutputForward(0.4, Constants.TurretPID.kTimeoutMs);
+    turretMotor.configPeakOutputReverse(-0.4, Constants.TurretPID.kTimeoutMs);
     
     // Configure allowable closed loop error (dead zone)
     turretMotor.configAllowableClosedloopError(0, Constants.TurretPID.kPIDLoopIdx, Constants.TurretPID.kTimeoutMs);
@@ -192,13 +192,13 @@ public class Shooter extends SubsystemBase {
   public double getLimelightElevation(){return Math.toRadians(ty.getDouble(0.0));}
   public double getLimelightDistance(){return ta.getDouble(0.0);}
   public boolean isAtTopLimit(){if (turretMotor.isFwdLimitSwitchClosed() > 0){ return true; }else{ return false;}}
-  public boolean isAtBottomLimit(){if (turretMotor.isFwdLimitSwitchClosed() > 0){ return true; }else{ return false;}}
+  public boolean isAtBottomLimit(){if (turretMotor.isRevLimitSwitchClosed() > 0){ return true; }else{ return false;}}
   public boolean isAtLimit(){if (turretMotor.isFwdLimitSwitchClosed() + turretMotor.isFwdLimitSwitchClosed() > 0){ return true; }else{ return false;}}
 
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Turret Pulse", turretMotor.getSelectedSensorPosition());
-    SmartDashboard.putBoolean("Turret Forward Limit Switch", isAtLimit());
+    SmartDashboard.putBoolean("Turret Forward Limit Switch", isAtTopLimit());
     SmartDashboard.putBoolean("Turret Reverse Limit Switch", isAtBottomLimit());
   }
 }
