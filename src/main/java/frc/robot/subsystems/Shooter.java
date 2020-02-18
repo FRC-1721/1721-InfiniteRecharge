@@ -81,9 +81,9 @@ public class Shooter extends SubsystemBase {
     turretMotor.configFactoryDefault();
 
     // Set feedback sensors here
-    turretMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 
-                                           Constants.TurretPID.kPIDLoopIdx,
-                                           Constants.TurretPID.kTimeoutMs);
+    turretMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 
+                                             Constants.DrivetrainPID.kPIDLoopIdx,
+                                             Constants.DrivetrainPID.kTimeoutMs);
     
     // Fix sensor phase here
     turretMotor.setSensorPhase(Constants.TurretPID.turretSensorPhase);

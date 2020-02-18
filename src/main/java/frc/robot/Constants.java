@@ -38,7 +38,7 @@ public final class Constants {
         // Three-phase/other
         public static final int Lift_Motor_Address = 1;                 // Congigured 2/9/2020
         public static final int Gantry_Motor_Address = 2;               // Configured never
-        public static final int TalonFX_Shooter_Address = 0;            // Configured never
+        public static final int TalonFX_Shooter_Address = 3;            // Configured never
 
         // Solenoids
         public static final int Starboard_Solenoid_Address = 3;         // Configured never
