@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.commands.functions.ResetEncoders;
 
 public class ROS extends SubsystemBase {
 
@@ -85,8 +86,8 @@ public class ROS extends SubsystemBase {
    * @param ShiftUp
    * @param ShiftDown
    */
-  public void setupRobotCommands(Sendable resetEncoders, Sendable ShiftUp, Sendable ShiftDown){
-    rosTable.putData("ResetEncoders", resetEncoders);
+  public void setupRobotCommands(Drivetrain drivetrain, Sendable ShiftUp, Sendable ShiftDown){
+    rosTable.putData("ResetEncoders", new ResetEncoders(drivetrain));
   }
 
   public double getStarboardSpeed(){return coprocessorStarboard.getDouble(0);} // A number in m/s (translate to ticks/100ms in Drivetrain)
