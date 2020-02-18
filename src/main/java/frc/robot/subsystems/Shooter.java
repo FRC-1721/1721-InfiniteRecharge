@@ -117,19 +117,30 @@ public class Shooter extends SubsystemBase {
    * Sets the shooter motor to some speed
    * Does not use velocity control
    * @author Joe Sedutto
+   * @deprecated
    * @param speed
    */
-  public void testShooter(double speed){
-    shooterMotor.set(ControlMode.PercentOutput, speed);
+  public void testShooter(double power){
+    shooterMotor.set(ControlMode.PercentOutput, power);
   }
 
   /**
    * For testing only
    * @author Joe Sedutto
-   * @param asDouble
+   * @deprecated
+   * @param power
    */
-  public void testTurret(double speed) {
-    turretMotor.set(ControlMode.PercentOutput, speed);
+  public void testTurret(double power) {
+    turretMotor.set(ControlMode.PercentOutput, power);
+  }
+
+  /**
+   * Sets the shooter velocity.
+   * @author Joe Sedutto
+   * @param velocity (ticks/10ms)
+   */
+  public void setShooterVelocity(double velocity){
+    shooterMotor.set(ControlMode.Velocity, velocity);
   }
 
   /**
@@ -142,10 +153,20 @@ public class Shooter extends SubsystemBase {
   }
 
   /**
-   * Takes an angle in radians and converts
-   * it to ticks to send to the turret control
+   * Drives the turret at some velocity.
+   * Useful for manual control
    * @author Joe Sedutto
-   * @param heading
+   * @param velocity (ticks/10ms)
+   */
+  public void manualTurret(double velocity) {
+    turretMotor.set(ControlMode.Velocity, velocity); // Sets the motor to some velocity 
+  }
+
+  /**
+   * Drives the turret to some specificed location.
+   * Useful for automatic control
+   * @author Joe Sedutto
+   * @param heading (Radians)
    */
   public void targetHeading(double heading){
     turretMotor.set(ControlMode.Position, heading * Constants.TurretPID.ticksPerRadian);
