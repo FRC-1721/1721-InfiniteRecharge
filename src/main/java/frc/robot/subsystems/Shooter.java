@@ -85,6 +85,9 @@ public class Shooter extends SubsystemBase {
                                              Constants.DrivetrainPID.kPIDLoopIdx,
                                              Constants.DrivetrainPID.kTimeoutMs);
     
+    // Sets the position to clear when the F limit switch is pressed
+    turretMotor.configClearPositionOnLimitF(true, Constants.DrivetrainPID.kTimeoutMs);
+
     // Fix sensor phase here
     turretMotor.setSensorPhase(Constants.TurretPID.turretSensorPhase);
 
