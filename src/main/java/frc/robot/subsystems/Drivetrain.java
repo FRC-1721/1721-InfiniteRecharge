@@ -131,6 +131,22 @@ public class Drivetrain extends SubsystemBase {
   }
 
   /**
+   * Drives the robot using two values for each wheel
+   * in velocity output (m/s)
+   * @author Joe Sedutto
+   * @param starboard_meters (A Value in M/s)
+   * @param port_meters (A value in M/s)
+   */
+  public void FlyWithWiresB(double starboard_meters, double port_meters){
+    // Convert the M/s into M/10ms, then, convert M/10ms into Ticks/10ms
+    double starboard_miliseconds = ((starboard_meters / 100) * Constants.DrivetrainPID.ticksPerMeter);
+    double port_miliseconds = ((port_meters / 100) * Constants.DrivetrainPID.ticksPerMeter);
+
+    starboardMotor.set(ControlMode.Velocity, starboard_miliseconds);
+    portMotor.set(ControlMode.Velocity, port_miliseconds);
+  }
+
+  /**
    * A method to set the shifting gearboxes to a manual gear.
    * @param gear
    * @author Joe Sedutto

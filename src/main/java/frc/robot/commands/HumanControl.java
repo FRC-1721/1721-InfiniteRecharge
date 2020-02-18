@@ -3,6 +3,7 @@ package frc.robot.commands;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.HandlingMode;
 import frc.robot.subsystems.Drivetrain;
@@ -49,7 +50,8 @@ public class HumanControl extends CommandBase {
         drivetrain.FlyByWireA(steerage.getAsDouble(), thro.getAsDouble());
         break;
       default:
-        System.out.println("RUNNING IN DEFAULT! NO DRIVING MODE SELECTED!");
+        DriverStation.reportError("Running in default mode! No drive mode selected!", false);
+        drivetrain.FlyByWireA(steerage.getAsDouble(), thro.getAsDouble());
     }
   }
 }

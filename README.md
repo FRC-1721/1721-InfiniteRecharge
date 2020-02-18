@@ -14,7 +14,7 @@
 | Camera Data | For cameras and video | UDP/TCP 1188 | Available |
 | Camera Data | For cameras and video | UDP/TCP 1189 | Available |
 | Camera Data | For cameras and video | UDP/TCP 1190 | Available |
-| SmartDashboard | Unsure if this also includes other networktables tables | TCP 1735 | Can't use |
+| SmartDashboard | SmartDashboard and other .getDefaultInstance tables | TCP 1735 | Can't use |
 | DS-Robot Comms | Contains the data from the DS to the robot | UDP 1130 | Can't use |
 | Robot to DS | Unsure what this contans | UDP 1140 | Can't use |
 | Camera/Web interface | Unsecure web interface connection | HTTP 80 | Available |
