@@ -173,5 +173,7 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Turret Pulse", turretMotor.getSelectedSensorPosition());
+    SmartDashboard.putBoolean("Turret Forward Limit Switch", isAtLimit());
+    SmartDashboard.putBoolean("Turret Reverse Limit Switch", isAtBottomLimit());
   }
 }
