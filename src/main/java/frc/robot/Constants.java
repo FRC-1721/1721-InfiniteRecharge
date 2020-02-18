@@ -116,7 +116,8 @@ public final class Constants {
         public static boolean shooterMotorInvert = false; // The inversion of the motor
         public static boolean spinnerSensorPhase = false;
         public static boolean spinnerMotorInvert = false;
-        public static NeutralMode shooterBreakMode = NeutralMode.Brake; // Brake mode
+        public static NeutralMode shooterBrakeMode = NeutralMode.Brake; // Brake mode
+        public static NeutralMode turretBrakeMode = NeutralMode.Brake;
         public static final Gains kGains = new Gains(0.15,  // kP TODO
                                                      0.0,   // kI
                                                      1.0,   // kD

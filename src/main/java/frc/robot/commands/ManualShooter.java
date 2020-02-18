@@ -38,14 +38,14 @@ public class ManualShooter extends CommandBase {
     shooter.testShooter(test_speed.getAsDouble());
     shooter.testTurret(turret_speed.getAsDouble());
 
-    if (shooter.isAtTopLimit()){
-      operatorJoystick.setRumble(RumbleType.kLeftRumble, 1);
+    if (shooter.isAtTopLimit()){ // If at the top limit
+      operatorJoystick.setRumble(RumbleType.kLeftRumble, 1); // Rumble the left side
     }
-    else if(shooter.isAtBottomLimit()){
-      operatorJoystick.setRumble(RumbleType.kRightRumble, 1);
+    else if(shooter.isAtBottomLimit()){ // If at the bottom
+      operatorJoystick.setRumble(RumbleType.kRightRumble, 1); // Rumble the right side
     }
-    else{
-      operatorJoystick.setRumble(RumbleType.kLeftRumble, 0);
+    else{ // If neither
+      operatorJoystick.setRumble(RumbleType.kLeftRumble, 0); // Dont rumble
       operatorJoystick.setRumble(RumbleType.kRightRumble, 0);
     }
   }

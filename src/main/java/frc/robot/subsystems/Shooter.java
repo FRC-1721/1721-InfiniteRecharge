@@ -46,8 +46,8 @@ public class Shooter extends SubsystemBase {
     // Set motors to default to prevent weirdness
     shooterMotor.configFactoryDefault();
 
-    // Set break mode
-    shooterMotor.setNeutralMode(Constants.ShooterPID.shooterBreakMode);
+    // Set brake mode
+    shooterMotor.setNeutralMode(Constants.ShooterPID.shooterBrakeMode);
 
     // Set feedback sensors here
     shooterMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 
@@ -88,6 +88,9 @@ public class Shooter extends SubsystemBase {
     // Sets the position to clear when the F limit switch is pressed
     turretMotor.configClearPositionOnLimitF(true, Constants.DrivetrainPID.kTimeoutMs);
 
+    // Enable brake mode
+    turretMotor.setNeutralMode(Constants.ShooterPID.turretBrakeMode);
+
     // Fix sensor phase here
     turretMotor.setSensorPhase(Constants.TurretPID.turretSensorPhase);
 
@@ -108,6 +111,7 @@ public class Shooter extends SubsystemBase {
 
     // Set Inverted
     turretMotor.setInverted(Constants.TurretPID.turretMotorInvert); // Sets the output of the motor backwards
+
 
     // Other init
     ballReleaseSolenoid.set(false);
