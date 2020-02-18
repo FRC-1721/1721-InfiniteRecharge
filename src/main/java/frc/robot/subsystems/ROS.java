@@ -7,18 +7,22 @@
 
 package frc.robot.subsystems;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.Sendable;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SendableRegistry;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.commands.functions.ResetEncoders;
 
 public class ROS extends SubsystemBase {
+  //From SmartDashboard,class
+  @SuppressWarnings("PMD.UseConcurrentHashMap")
+  private static final Map<String, Sendable> tablesToData = new HashMap<>();
 
   // Initilize counters
   private static int rosIntex = 1;
@@ -77,17 +81,20 @@ public class ROS extends SubsystemBase {
   }
 
   /**
-   * Takes serveral commands to form them 
-   * into callable blocks from NT
-   * (While not static, do not re-run this after init)
-   * @author Joe Sedutto
-   * @author Mike Fergs
-   * @param resetEncoders
-   * @param ShiftUp
-   * @param ShiftDown
+   * This method coppied from SmartDashboard.class
+   *
+   * @param key  a string key
+   * @param data a command or datatype
    */
-  public void setupRobotCommands(Drivetrain drivetrain, Sendable ShiftUp, Sendable ShiftDown){
-    rosTable.putData("ResetEncoders", new ResetEncoders(drivetrain));
+  @SuppressWarnings("PMD.CompareObjectsWithEquals")
+  public void publishCommand(String key, Sendable data) {
+    Sendable sddata = tablesToData.get(key);
+    if (sddata == null || sddata != data) {
+      tablesToData.put(key, data);
+      NetworkTable dataTable = rosTable.getSubTable(key);
+      SendableRegistry.publish(data, dataTable);
+      dataTable.getEntry(".name").setString(key);
+    }
   }
 
   public double getStarboardSpeed(){return coprocessorStarboard.getDouble(0);} // A number in m/s (translate to ticks/100ms in Drivetrain)
