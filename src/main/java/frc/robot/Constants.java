@@ -135,7 +135,7 @@ public final class Constants {
         public static boolean turretSensorPhase = true; // The phase of the sensor
         public static boolean turretMotorInvert = false; // The inversion of the motor
         public static NeutralMode turretBreakMode = NeutralMode.Brake; // Brake mode
-        public static final Gains kGains = new Gains(0.15,  // kP TODO
+        public static final Gains kGains = new Gains(0.35,  // kP TODO
                                                      0.0,   // kI
                                                      1.0,   // kD
                                                      0.0,   // kF
