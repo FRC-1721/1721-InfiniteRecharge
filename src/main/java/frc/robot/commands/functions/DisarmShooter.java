@@ -5,38 +5,32 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.functions;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.ROS;
 import frc.robot.subsystems.Shooter;
 
-
-public class ROSControl extends CommandBase {
-  private final Drivetrain drivetrain;
-  private final ROS ros;
+public class DisarmShooter extends CommandBase {
   private final Shooter shooter;
   
   /**
-   * Creates a new ROSControl.
-   * @author Joe
+   * Creates a new DisarmShooter.
    */
-  public ROSControl(Drivetrain _drivetrain, ROS _ros, Shooter _shooter) {
-    addRequirements(_drivetrain);
-    addRequirements(_ros);
+  public DisarmShooter(Shooter _shooter) {
     addRequirements(_shooter);
 
-    drivetrain = _drivetrain;
-    ros = _ros;
     shooter = _shooter;
+  }
+
+  // Called when the command is initially scheduled.
+  @Override
+  public void initialize() {
+    shooter.switchPipelines(0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.FlyWithWiresB(ros.getStarboardSpeed(), ros.getPortSpeed());
-
-    shooter.targetHeading(shooter.getTurretHeading() + shooter.getLimelightHeading()); // TODO change this so it actually is 10/10 not 3/10
+    shooter.testShooter(0);
   }
 }

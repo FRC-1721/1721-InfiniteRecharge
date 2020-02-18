@@ -38,16 +38,19 @@ public class ROS extends SubsystemBase {
   public ROS() {
     // Network tables
     networkTableInstance = NetworkTableInstance.create(); // Get the default instance of network tables on the rio
-    networkTableInstance.startServer("ros.ini", "10.17.21.2", 5800);
-    networkTableInstance.setUpdateRate(Constants.RobotOperatingSystem.rosUpdateFrequency); // Crank that solja boy
-    rosTable = networkTableInstance.getTable(Constants.RobotOperatingSystem.rosTablename); // Get the table ros
-    starboardEncoderEntry = rosTable.getEntry(Constants.RobotOperatingSystem.starboardEncoderName); // Get the writable entries
+    networkTableInstance.startServer("ros.ini", "10.17.21.2", 5800); // Start a new server on a different port\
+    rosTable = networkTableInstance.getTable(Constants.RobotOperatingSystem.rosTablename); // Get the table ros out of that instance
+
+    // Get the writable entries
+    starboardEncoderEntry = rosTable.getEntry(Constants.RobotOperatingSystem.starboardEncoderName);
     portEncoderEntry = rosTable.getEntry(Constants.RobotOperatingSystem.portEncoderName);
     rosIndex = rosTable.getEntry(Constants.RobotOperatingSystem.rosIndexName);
+
+    // Get the return entries
     coprocessorPort = rosTable.getEntry("coprocessorPort"); // Coprossesor speed values
     coprocessorStarboard = rosTable.getEntry("coprocessorStarboard");
 
-    // Notifier
+    // Notifier (auto runs a method similar to a command but with NO PROTECTION )
     ros_notifier = new Notifier(ROS::updateTables); // Set the ros_notifer to update the command update, in the package ros
     ros_notifier.startPeriodic(Constants.RobotOperatingSystem.rosUpdateFrequency); // Start the ros notifer
   }
@@ -60,15 +63,17 @@ public class ROS extends SubsystemBase {
     portEncoderEntry.setDouble(Drivetrain.getDriveEncoderPort());
     rosIndex.setNumber(rosIntex);
 
-    // Increase the Index value
+    networkTableInstance.flush(); // Force an update and flush all values out. (Recomended by https://www.chiefdelphi.com/t/integrating-ros-node-into-roborio-for-slam/358386/40)
+
+    // Increase the Index value (Used for Syncing)
     rosIntex = rosIntex + 1;
     if (rosIntex > 255) {
       rosIntex = 1;
     }
   }
 
-  public double getStarboardSpeed(){return coprocessorStarboard.getDouble(0);}
-  public double getPortSpeed(){return coprocessorPort.getDouble(0);}
+  public double getStarboardSpeed(){return coprocessorStarboard.getDouble(0);} // A number in m/s (translate to ticks/100ms in Drivetrain)
+  public double getPortSpeed(){return coprocessorPort.getDouble(0);} // A number in m/s
 
   @Override
   public void periodic() {
