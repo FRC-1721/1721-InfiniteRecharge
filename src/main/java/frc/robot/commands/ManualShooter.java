@@ -10,6 +10,7 @@ package frc.robot.commands;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
@@ -36,8 +37,8 @@ public class ManualShooter extends CommandBase {
   @Override
   public void execute() {
     shooter.testShooter(shooter_velocity.getAsDouble());
-    shooter.manualTurret(turret_velocity.getAsDouble() * 100); // 100 is just a multiplier to scale the drum speed
-
+    shooter.testTurret(turret_velocity.getAsDouble() / 2); // 100 is just a multiplier to scale the drum speed
+    
     if (shooter.isAtTopLimit()){ // If at the top limit
       operatorJoystick.setRumble(RumbleType.kLeftRumble, 1); // Rumble the left side
     }

@@ -125,6 +125,7 @@ public final class Constants {
                                                      0,     // kIzone
                                                      1.0);  // kPeakoutput
         // Measurements and other
+        public static double radiansToForward = 0.785398; // Radians to reset to zero heading
     }
 
     public static final class TurretPID{
