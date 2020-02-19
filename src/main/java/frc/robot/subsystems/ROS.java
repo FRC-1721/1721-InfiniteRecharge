@@ -24,6 +24,7 @@ public class ROS extends SubsystemBase {
   private static NetworkTable rosTable; // The table in that instance of networktables
   private static NetworkTableEntry starboardEncoderEntry; // An entry objecy
   private static NetworkTableEntry portEncoderEntry;
+  private static NetworkTableEntry turretEncoderEntry;
   private static NetworkTableEntry rosIndex;
   private static NetworkTableEntry coprocessorPort; // For tank drive
   private static NetworkTableEntry coprocessorStarboard;
@@ -44,6 +45,7 @@ public class ROS extends SubsystemBase {
     // Get the writable entries
     starboardEncoderEntry = rosTable.getEntry(Constants.RobotOperatingSystem.starboardEncoderName);
     portEncoderEntry = rosTable.getEntry(Constants.RobotOperatingSystem.portEncoderName);
+    turretEncoderEntry = rosTable.getEntry(Constants.RobotOperatingSystem.turretEncoderName);
     rosIndex = rosTable.getEntry(Constants.RobotOperatingSystem.rosIndexName);
 
     // Get the return entries
@@ -61,6 +63,7 @@ public class ROS extends SubsystemBase {
   public static void updateTables() {
     starboardEncoderEntry.setDouble(Drivetrain.getDriveEncoderStarboard());
     portEncoderEntry.setDouble(Drivetrain.getDriveEncoderPort());
+    turretEncoderEntry.setDouble(Shooter.getTurretHeading());
     rosIndex.setNumber(rosIntex);
 
     networkTableInstance.flush(); // Force an update and flush all values out. (Recomended by https://www.chiefdelphi.com/t/integrating-ros-node-into-roborio-for-slam/358386/40)

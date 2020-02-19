@@ -88,6 +88,7 @@ public final class Constants {
         public static String starboardEncoderName = "Starboard";
         public static String portEncoderName = "Port";
         public static String rosIndexName = "rosIndex";
+		public static String turretEncoderName = "Turret";
     }
 
     public static final class DrivetrainPID{

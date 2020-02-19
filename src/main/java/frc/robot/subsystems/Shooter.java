@@ -186,7 +186,7 @@ public class Shooter extends SubsystemBase {
   }
 
 
-  public double getTurretHeading(){return (turretMotor.getSelectedSensorPosition() / Constants.TurretPID.ticksPerRadian);}
+  public static double getTurretHeading(){return turretMotor.getSelectedSensorPosition();}
 
   public double getLimelightHeading(){return Math.toRadians(tx.getDouble(0.0));}
   public double getLimelightElevation(){return Math.toRadians(ty.getDouble(0.0));}
