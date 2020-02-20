@@ -138,12 +138,12 @@ public final class Constants {
         public static NeutralMode turretBreakMode = NeutralMode.Brake; // Brake mode
         public static final Gains kGains = new Gains(0.35,  // kP Configured 2/18/2020 (No shooter or load)
                                                      0.0,   // kI
-                                                     10.0,  // kD
+                                                     30.0,  // kD
                                                      0.0,   // kF
                                                      0,     // kIzone
                                                      1.0);  // kPeakoutput
         // Measurements and other
-        public static int ticksPerRadian = 10000;        // Calibrated Never
+        public static int ticksPerRadian = 9550;        // Calibrated 2/19/2020 (test)
     }
 
     public static final class ClimberPID{

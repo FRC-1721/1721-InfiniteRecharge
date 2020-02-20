@@ -32,5 +32,6 @@ public class DisarmShooter extends CommandBase {
   @Override
   public void execute() {
     shooter.testShooter(0);
+    end(false);
   }
 }

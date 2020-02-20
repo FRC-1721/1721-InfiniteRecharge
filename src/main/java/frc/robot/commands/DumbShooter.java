@@ -5,33 +5,38 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.functions;
+package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
 
-public class ArmShooter extends CommandBase {
+public class DumbShooter extends CommandBase {
   private final Shooter shooter;
-  
+
   /**
-   * Creates a new ArmShooter.
+   * Creates a new TestShooter.
    */
-  public ArmShooter(Shooter _shooter) {
+  public DumbShooter(Shooter _shooter) {
     addRequirements(_shooter);
 
     shooter = _shooter;
   }
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-    shooter.switchPipelines(1);
-  }
-
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.testShooter(1);
-    end(false);
+    double limelight_heading = shooter.getLimelightHeading();
+    double turret_heading = shooter.getTurretHeading();
+
+    shooter.switchPipelines(1);
+    shooter.targetHeading(turret_heading - limelight_heading);
+
+    SmartDashboard.putNumber("Limelight Heading", limelight_heading);
+    SmartDashboard.putNumber("Turret Heading", turret_heading);
+  }
+
+  @Override
+  public void end(boolean interrupted) {
   }
 }

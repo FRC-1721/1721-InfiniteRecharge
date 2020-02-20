@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.DumbShooter;
 import frc.robot.commands.HumanControl;
 import frc.robot.commands.ManualClimb;
 import frc.robot.commands.ManualShooter;
@@ -106,6 +107,9 @@ public class RobotContainer {
     new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Disarm_Shooter_Button).whenPressed(new DisarmShooter(shooter));
     new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Intake_Button).whenHeld(new SpinIntake(intake));
     new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Purge_Button).whenHeld(new PurgeIntake(intake));
+
+    // Testing and misc
+    new JoystickButton(OperatorStick, 4).whenHeld(new DumbShooter(shooter));
   }
 
   /**

@@ -97,8 +97,8 @@ public class Shooter extends SubsystemBase {
     // Configure nominal outputs
     turretMotor.configNominalOutputForward(0, Constants.TurretPID.kTimeoutMs);
 		turretMotor.configNominalOutputReverse(0, Constants.TurretPID.kTimeoutMs);
-		turretMotor.configPeakOutputForward(0.4, Constants.TurretPID.kTimeoutMs);
-    turretMotor.configPeakOutputReverse(-0.4, Constants.TurretPID.kTimeoutMs);
+		turretMotor.configPeakOutputForward(0.2, Constants.TurretPID.kTimeoutMs);
+    turretMotor.configPeakOutputReverse(-0.2, Constants.TurretPID.kTimeoutMs);
     
     // Configure allowable closed loop error (dead zone)
     turretMotor.configAllowableClosedloopError(0, Constants.TurretPID.kPIDLoopIdx, Constants.TurretPID.kTimeoutMs);
@@ -186,7 +186,8 @@ public class Shooter extends SubsystemBase {
   }
 
 
-  public static double getTurretHeading(){return turretMotor.getSelectedSensorPosition();}
+  public static double getTurretHeadingRaw(){return turretMotor.getSelectedSensorPosition();}
+  public static double getTurretHeading(){return (turretMotor.getSelectedSensorPosition() / Constants.TurretPID.ticksPerRadian);}
 
   public double getLimelightHeading(){return Math.toRadians(tx.getDouble(0.0));}
   public double getLimelightElevation(){return Math.toRadians(ty.getDouble(0.0));}
@@ -198,6 +199,7 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Turret Pulse", turretMotor.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Turret Heading In Radians", getTurretHeading());
     SmartDashboard.putBoolean("Turret Forward Limit Switch", isAtTopLimit());
     SmartDashboard.putBoolean("Turret Reverse Limit Switch", isAtBottomLimit());
   }
