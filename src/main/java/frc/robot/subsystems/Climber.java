@@ -7,9 +7,11 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANDigitalInput.LimitSwitchPolarity;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -47,16 +49,18 @@ public class Climber extends SubsystemBase {
     speed = speed * -1;
 
     if (speed < 0){
-      liftMotor.set(speed /1.6); // Down
+      liftMotor.set(speed); // Down
     }
     else{
-      liftMotor.set(speed / 2); // Up
+      liftMotor.set(speed ); // Up
     }
     
   }
 
+  public boolean isAtLowerLimit(){return (liftMotor.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyOpen).get());} // Gets the value of that limit switch
+
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    SmartDashboard.putBoolean("Lift Lower Limit", isAtLowerLimit());
   }
 }
