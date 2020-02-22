@@ -145,7 +145,7 @@ public final class Constants {
         // Measurements and other
         public static double ticksPerRadian = 9550;        // Calibrated 2/19/2020 (test)
         public static double legalZeroOffset = 100;
-        public static double turretDefaultLocation = -15000;    // Calibrated never
+        public static double turretDefaultLocation = -6500;    // Calibrated never
     }
 
     public static final class ClimberPID{

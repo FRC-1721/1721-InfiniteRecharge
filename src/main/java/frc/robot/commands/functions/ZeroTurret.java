@@ -23,8 +23,9 @@ public class ZeroTurret extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    shooter.targetHeading(100); // Get close
     while(!shooter.isAtTopLimit()){
-      shooter.testTurret(0.4);
+      shooter.manualTurret(4000);
     }
     shooter.targetHeading(Constants.TurretPID.turretDefaultLocation);
   }

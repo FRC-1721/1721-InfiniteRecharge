@@ -97,8 +97,8 @@ public class Shooter extends SubsystemBase {
     // Configure nominal outputs
     turretMotor.configNominalOutputForward(0, Constants.TurretPID.kTimeoutMs);
 		turretMotor.configNominalOutputReverse(0, Constants.TurretPID.kTimeoutMs);
-		turretMotor.configPeakOutputForward(0.6, Constants.TurretPID.kTimeoutMs);
-    turretMotor.configPeakOutputReverse(-0.6, Constants.TurretPID.kTimeoutMs);
+		turretMotor.configPeakOutputForward(0.5, Constants.TurretPID.kTimeoutMs);
+    turretMotor.configPeakOutputReverse(-0.5, Constants.TurretPID.kTimeoutMs);
     
     // Configure allowable closed loop error (dead zone)
     turretMotor.configAllowableClosedloopError(0, Constants.TurretPID.kPIDLoopIdx, Constants.TurretPID.kTimeoutMs);
@@ -170,7 +170,7 @@ public class Shooter extends SubsystemBase {
    * Drives the turret to some specificed location.
    * Useful for automatic control
    * @author Joe Sedutto
-   * @param heading (Radians)
+   * @param heading (Radians) < 8, (Ticks) > 8
    */
   public void targetHeading(double heading){
     if (Math.abs(heading) < 8){

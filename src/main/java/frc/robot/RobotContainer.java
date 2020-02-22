@@ -99,6 +99,7 @@ public class RobotContainer {
     ros.publishCommand("resetEncoders", new ResetEncoders(drivetrain));
     ros.publishCommand("shiftUp", new ShiftUp(drivetrain));
     ros.publishCommand("shiftDown", new ShiftDown(drivetrain));
+    ros.publishCommand("Zero Turret", new ZeroTurret(shooter));
   }
 
   /**
