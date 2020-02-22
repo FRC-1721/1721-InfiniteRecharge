@@ -13,35 +13,33 @@ import frc.robot.subsystems.Shooter;
 
 public class ZeroTurret extends CommandBase {
   private final Shooter shooter; // Include shooter
-  private Boolean zeroed;
 
   public ZeroTurret(Shooter _shooter) {
     addRequirements(_shooter); // Requires shooter
 
     shooter = _shooter;
-    zeroed = false;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-  }
-
-  @Override
-  public void execute() {
-    while (!zeroed) {                    // If we're not zeroed yet..
-      shooter.testTurret(0.2);  // Drive the shooter backwards at -200
-      if (shooter.isAtTopLimit()){ // When we are zeroed
-        zeroed = true;                // Stop loop
-        break;
-      }
+    while(!shooter.isAtTopLimit()){
+      shooter.testTurret(0.4);
     }
-
     shooter.targetHeading(Constants.TurretPID.turretDefaultLocation);
   }
 
   @Override
+  public void execute() {
+  }
+
+  @Override
+  public void end(boolean interrupted) {
+  }
+
+  @Override
   public boolean isFinished() {
-    return zeroed;
+    //boolean idle = (shooter.getTurretHeadingRaw() > Constants.TurretPID.turretDefaultLocation - Constants.TurretPID.legalZeroOffset && shooter.getTurretHeadingRaw() < Constants.TurretPID.turretDefaultLocation + Constants.TurretPID.legalZeroOffset);
+    return (false);
   }
 }

@@ -28,6 +28,7 @@ public class ROS extends SubsystemBase {
   private static NetworkTableEntry rosIndex;
   private static NetworkTableEntry coprocessorPort; // For tank drive
   private static NetworkTableEntry coprocessorStarboard;
+  private static NetworkTableEntry coprocessorTurret;
   //private static NetworkTableEntry rosTime; // Is ros time (slow estimate)
 
   // Initialize noifiers
@@ -51,6 +52,7 @@ public class ROS extends SubsystemBase {
     // Get the return entries
     coprocessorPort = rosTable.getEntry("coprocessorPort"); // Coprossesor speed values
     coprocessorStarboard = rosTable.getEntry("coprocessorStarboard");
+    coprocessorTurret = rosTable.getEntry("coprocessorTurret");
 
     // Notifier (auto runs a method similar to a command but with NO PROTECTION )
     ros_notifier = new Notifier(ROS::updateTables); // Set the ros_notifer to update the command update, in the package ros
@@ -77,6 +79,7 @@ public class ROS extends SubsystemBase {
 
   public double getStarboardSpeed(){return coprocessorStarboard.getDouble(0);} // A number in m/s (translate to ticks/100ms in Drivetrain)
   public double getPortSpeed(){return coprocessorPort.getDouble(0);} // A number in m/s
+  public double getTurretHeading(){return coprocessorTurret.getDouble(0);} // A heading in radians
 
   @Override
   public void periodic() {

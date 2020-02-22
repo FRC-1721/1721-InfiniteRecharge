@@ -144,7 +144,8 @@ public final class Constants {
                                                      1.0);  // kPeakoutput
         // Measurements and other
         public static double ticksPerRadian = 9550;        // Calibrated 2/19/2020 (test)
-        public static int turretDefaultLocation = -15000;    // Calibrated never
+        public static double legalZeroOffset = 100;
+        public static double turretDefaultLocation = -15000;    // Calibrated never
     }
 
     public static final class ClimberPID{
