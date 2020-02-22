@@ -143,7 +143,8 @@ public final class Constants {
                                                      0,     // kIzone
                                                      1.0);  // kPeakoutput
         // Measurements and other
-        public static int ticksPerRadian = 9550;        // Calibrated 2/19/2020 (test)
+        public static double ticksPerRadian = 9550;        // Calibrated 2/19/2020 (test)
+        public static int turretDefaultLocation = -15000;    // Calibrated never
     }
 
     public static final class ClimberPID{

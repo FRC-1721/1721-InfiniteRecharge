@@ -15,9 +15,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DumbShooter;
+import frc.robot.commands.GoToRandom;
 import frc.robot.commands.HumanControl;
 import frc.robot.commands.ManualClimb;
-import frc.robot.commands.ManualShooter;
 import frc.robot.commands.ROSControl;
 import frc.robot.commands.functions.ArmShooter;
 import frc.robot.commands.functions.DisarmShooter;
@@ -26,6 +26,7 @@ import frc.robot.commands.functions.ResetEncoders;
 import frc.robot.commands.functions.ShiftDown;
 import frc.robot.commands.functions.ShiftUp;
 import frc.robot.commands.functions.SpinIntake;
+import frc.robot.commands.functions.ZeroTurret;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
@@ -83,13 +84,15 @@ public class RobotContainer {
     SmartDashboard.putData("Shift Up", new ShiftUp(drivetrain)); // For testing only!
     SmartDashboard.putData("Shift Down", new ShiftDown(drivetrain)); // For testing only!
     SmartDashboard.putData("Arm Shooter", new ArmShooter(shooter)); // For testing only!
+    SmartDashboard.putData("Zero Turret", new ZeroTurret(shooter));
+    SmartDashboard.putData("Move turret randomly", new GoToRandom(shooter));
 
     // Configure the button bindings
     configureButtonBindings();
 
     // Default commands
     drivetrain.setDefaultCommand(new HumanControl(() -> DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Thro_Axis), () -> DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Yaw_Axis), () -> handlingChooser.getSelected(), drivetrain)); // Set the default command of drivetrain to HumanControl
-    shooter.setDefaultCommand(new ManualShooter(shooter, OperatorStick, () -> OperatorStick.getRawAxis(3), () -> (OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_cw_axis) - OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_ccw_axis))));
+    shooter.setDefaultCommand(new ZeroTurret(shooter));
     climber.setDefaultCommand(new ManualClimb(climber, () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Gantry_Axis), () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Climb_Axis)));
   }
 
