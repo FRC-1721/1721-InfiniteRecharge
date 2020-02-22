@@ -7,14 +7,22 @@
 
 package frc.robot.subsystems;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Notifier;
+import edu.wpi.first.wpilibj.Sendable;
+import edu.wpi.first.wpilibj.smartdashboard.SendableRegistry;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ROS extends SubsystemBase {
+  //From SmartDashboard,class
+  @SuppressWarnings("PMD.UseConcurrentHashMap")
+  private static final Map<String, Sendable> tablesToData = new HashMap<>();
 
   // Initilize counters
   private static int rosIntex = 1;
@@ -74,6 +82,23 @@ public class ROS extends SubsystemBase {
     rosIntex = rosIntex + 1;
     if (rosIntex > 255) {
       rosIntex = 1;
+    }
+  }
+
+  /**
+   * This method coppied from SmartDashboard.class
+   *
+   * @param key  a string key
+   * @param data a command or datatype
+   */
+  @SuppressWarnings("PMD.CompareObjectsWithEquals")
+  public void publishCommand(String key, Sendable data) {
+    Sendable sddata = tablesToData.get(key);
+    if (sddata == null || sddata != data) {
+      tablesToData.put(key, data);
+      NetworkTable dataTable = rosTable.getSubTable(key);
+      SendableRegistry.publish(data, dataTable);
+      dataTable.getEntry(".name").setString(key);
     }
   }
 

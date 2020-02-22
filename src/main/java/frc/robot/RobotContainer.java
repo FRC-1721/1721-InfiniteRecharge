@@ -94,6 +94,11 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(new HumanControl(() -> DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Thro_Axis), () -> DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Yaw_Axis), () -> handlingChooser.getSelected(), drivetrain)); // Set the default command of drivetrain to HumanControl
     shooter.setDefaultCommand(new ZeroTurret(shooter));
     climber.setDefaultCommand(new ManualClimb(climber, () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Gantry_Axis), () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Climb_Axis)));
+
+    // ROS Commands
+    ros.publishCommand("resetEncoders", new ResetEncoders(drivetrain));
+    ros.publishCommand("shiftUp", new ShiftUp(drivetrain));
+    ros.publishCommand("shiftDown", new ShiftDown(drivetrain));
   }
 
   /**
