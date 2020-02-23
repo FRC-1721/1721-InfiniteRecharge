@@ -27,6 +27,7 @@ public final class Constants {
         public static final int TalonSRX_Port_Address = 0;              // Configured 1/25/2020
         public static final int TalonSRX_Starboard_Address = 1;         // Configured 1/25/2020
         public static final int TalonSRX_Turret_Address = 2;            // Configured 2/8/2020
+        public static final int TalonSRX_ControlPanel_Address = 3;      // Configured 2/23/2020
 
         // VictorSPX
         public static final int VictorSPX_Port_Slave_Address0 = 0;      // Configured 1/25/2020
