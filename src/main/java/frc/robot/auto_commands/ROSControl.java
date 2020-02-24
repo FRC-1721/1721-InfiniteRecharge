@@ -16,7 +16,6 @@ import frc.robot.subsystems.Shooter;
 public class ROSControl extends CommandBase {
   private final Drivetrain drivetrain;
   private final ROS ros;
-  private final Shooter shooter;
   
   /**
    * Creates a new ROSControl.
@@ -25,17 +24,14 @@ public class ROSControl extends CommandBase {
   public ROSControl(Drivetrain _drivetrain, ROS _ros, Shooter _shooter) {
     addRequirements(_drivetrain);
     addRequirements(_ros);
-    //addRequirements(_shooter);
 
     drivetrain = _drivetrain;
     ros = _ros;
-    shooter = _shooter;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     drivetrain.FlyWithWiresB(ros.getStarboardSpeed(), ros.getPortSpeed()); // Operate the drivetrain with commands from ROS
-    //shooter.targetHeading(ros.getTurretHeading(), false); // Operate the shooter with commands from ROS
   }
 }
