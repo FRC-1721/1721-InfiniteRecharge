@@ -25,7 +25,7 @@ public class ROSControl extends CommandBase {
   public ROSControl(Drivetrain _drivetrain, ROS _ros, Shooter _shooter) {
     addRequirements(_drivetrain);
     addRequirements(_ros);
-    addRequirements(_shooter);
+    //addRequirements(_shooter);
 
     drivetrain = _drivetrain;
     ros = _ros;
@@ -36,6 +36,6 @@ public class ROSControl extends CommandBase {
   @Override
   public void execute() {
     drivetrain.FlyWithWiresB(ros.getStarboardSpeed(), ros.getPortSpeed()); // Operate the drivetrain with commands from ROS
-    shooter.targetHeading(ros.getTurretHeading()); // Operate the shooter with commands from ROS
+    //shooter.targetHeading(ros.getTurretHeading(), false); // Operate the shooter with commands from ROS
   }
 }

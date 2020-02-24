@@ -41,7 +41,7 @@ public class ZeroTurret extends CommandBase {
       }
     }
     else if(!done){
-      shooter.targetHeading(Constants.TurretPID.turretDefaultLocation);
+      shooter.targetHeading(Constants.TurretPID.turretDefaultLocation, false);
     }
   }
 

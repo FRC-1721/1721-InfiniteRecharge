@@ -31,21 +31,21 @@ public class GoToRandom extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.targetHeading(-200);
+    shooter.targetHeading(-200, false);
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
 
-    shooter.targetHeading(-60000);
+    shooter.targetHeading(-60000, false);
     try {
       Thread.sleep(900);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
 
-    shooter.targetHeading(-30000);
+    shooter.targetHeading(-30000, false);
     try {
       Thread.sleep(1100);
     } catch (InterruptedException e) {

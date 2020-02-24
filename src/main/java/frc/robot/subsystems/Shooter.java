@@ -172,8 +172,8 @@ public class Shooter extends SubsystemBase {
    * @author Joe Sedutto
    * @param heading (Radians) < 8, (Ticks) > 8
    */
-  public void targetHeading(double heading){
-    if (Math.abs(heading) < 8){
+  public void targetHeading(double heading, boolean radians){
+    if (radians){ // If commanding using radians
       turretMotor.set(ControlMode.Position, heading * Constants.TurretPID.ticksPerRadian);
     }else
     {

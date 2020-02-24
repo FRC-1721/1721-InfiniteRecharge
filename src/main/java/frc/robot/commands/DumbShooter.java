@@ -30,7 +30,7 @@ public class DumbShooter extends CommandBase {
     double turret_heading = shooter.getTurretHeading();
 
     shooter.switchPipelines(1);
-    shooter.targetHeading(turret_heading - limelight_heading);
+    shooter.targetHeading(turret_heading - limelight_heading, false);
 
     SmartDashboard.putNumber("Limelight Heading", limelight_heading);
     SmartDashboard.putNumber("Turret Heading", turret_heading);
