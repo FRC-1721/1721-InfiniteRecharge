@@ -7,6 +7,7 @@
 
 package frc.robot.auto_commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ROS;
 import frc.robot.subsystems.Shooter;
@@ -31,5 +32,7 @@ public class ROSShooter extends CommandBase {
   public void execute() {
     double turret_heading = ros.getTurretHeading(); // Update the target turret heading
     shooter.targetHeading(turret_heading, false); // Command the turret to that angle
+    SmartDashboard.putNumber("target from ros", turret_heading);
   }
 }
+  

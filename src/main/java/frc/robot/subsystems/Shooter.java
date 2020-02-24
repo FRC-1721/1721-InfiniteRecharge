@@ -97,8 +97,8 @@ public class Shooter extends SubsystemBase {
     // Configure nominal outputs
     turretMotor.configNominalOutputForward(0, Constants.TurretPID.kTimeoutMs);
 		turretMotor.configNominalOutputReverse(0, Constants.TurretPID.kTimeoutMs);
-		turretMotor.configPeakOutputForward(0.5, Constants.TurretPID.kTimeoutMs);
-    turretMotor.configPeakOutputReverse(-0.5, Constants.TurretPID.kTimeoutMs);
+		turretMotor.configPeakOutputForward(Constants.TurretPID.optimalOutput, Constants.TurretPID.kTimeoutMs);
+    turretMotor.configPeakOutputReverse(-Constants.TurretPID.optimalOutput, Constants.TurretPID.kTimeoutMs);
     
     // Configure allowable closed loop error (dead zone)
     turretMotor.configAllowableClosedloopError(0, Constants.TurretPID.kPIDLoopIdx, Constants.TurretPID.kTimeoutMs);

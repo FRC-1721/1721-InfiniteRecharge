@@ -7,6 +7,7 @@
 
 package frc.robot.commands.functions;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Shooter;
@@ -15,6 +16,7 @@ public class ZeroTurret extends CommandBase {
   private final Shooter shooter; // Include shooter
   private boolean done;
   private boolean limit_hit;
+  private boolean idle;
 
   public ZeroTurret(Shooter _shooter) {
     addRequirements(_shooter); // Requires shooter
@@ -33,7 +35,7 @@ public class ZeroTurret extends CommandBase {
   public void execute() {
     if(!limit_hit){
       if(!shooter.isAtTopLimit()){
-        shooter.manualTurret(4000);
+        shooter.manualTurret(4750);
       }
       else{
         shooter.manualTurret(0);
@@ -43,10 +45,12 @@ public class ZeroTurret extends CommandBase {
     else if(!done){
       shooter.targetHeading(Constants.TurretPID.turretDefaultLocation, false);
     }
+    idle = (Constants.TurretPID.turretDefaultLocation < shooter.getTurretHeadingRaw() + Constants.TurretPID.legalZeroOffset && Constants.TurretPID.turretDefaultLocation > shooter.getTurretHeadingRaw() - Constants.TurretPID.legalZeroOffset );
+    SmartDashboard.putBoolean("idle", idle);
   }
 
   @Override
   public boolean isFinished() {
-    return (false);
+    return (idle);
   }
 }

@@ -144,8 +144,9 @@ public final class Constants {
                                                      1.0);  // kPeakoutput
         // Measurements and other
         public static double ticksPerRadian = 9550;        // Calibrated 2/19/2020 (test)
-        public static double legalZeroOffset = 100;
+        public static double legalZeroOffset = 400;
         public static double turretDefaultLocation = -6500;    // Calibrated never
+		public static double optimalOutput = 0.65;              // The max legal percentage output of the turret
     }
 
     public static final class ClimberPID{
