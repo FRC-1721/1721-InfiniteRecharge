@@ -33,7 +33,7 @@ public class ZeroTurret extends CommandBase {
 
   @Override
   public void execute() {
-    if(!limit_hit){
+    if(!limit_hit && !idle){
       if(!shooter.isAtTopLimit()){
         shooter.manualTurret(4750);
       }
