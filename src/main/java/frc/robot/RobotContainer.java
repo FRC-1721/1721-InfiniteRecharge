@@ -97,13 +97,13 @@ public class RobotContainer {
     climber.setDefaultCommand(new ManualClimb(climber, () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Gantry_Axis), () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Climb_Axis)));
 
     // ROS Functions
-    ros.publishCommand("resetEncoders", new ResetEncoders(drivetrain));
-    ros.publishCommand("shiftUp", new ShiftUp(drivetrain));
-    ros.publishCommand("shiftDown", new ShiftDown(drivetrain));
-    ros.publishCommand("zeroTurret", new ZeroTurret(shooter));
+    ros.publishCommand("reset_encoders", new ResetEncoders(drivetrain));
+    ros.publishCommand("shift_up", new ShiftUp(drivetrain));
+    ros.publishCommand("shift_down", new ShiftDown(drivetrain));
+    ros.publishCommand("zero_turret", new ZeroTurret(shooter));
 
     // Secial Commands
-    ros.publishCommand("enableShooter", new ROSShooter(shooter, ros)); // We may want these commands to be default commands, and be overriden by manual driver commands
+    ros.publishCommand("enable_shooter", new ROSShooter(shooter, ros)); // We may want these commands to be default commands, and be overriden by manual driver commands
   }
 
   /**
