@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.auto_commands.ROSControl;
+import frc.robot.auto_commands.ROSShooter;
 import frc.robot.commands.DumbShooter;
 import frc.robot.commands.GoToRandom;
 import frc.robot.commands.HumanControl;
@@ -100,6 +101,7 @@ public class RobotContainer {
     ros.publishCommand("shiftUp", new ShiftUp(drivetrain));
     ros.publishCommand("shiftDown", new ShiftDown(drivetrain));
     ros.publishCommand("zeroTurret", new ZeroTurret(shooter));
+    ros.publishCommand("enableShooter", new ROSShooter(shooter, ros));
   }
 
   /**
