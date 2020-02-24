@@ -65,6 +65,11 @@ public class ROS extends SubsystemBase {
     // Notifier (auto runs a method similar to a command but with NO PROTECTION )
     ros_notifier = new Notifier(ROS::updateTables); // Set the ros_notifer to update the command update, in the package ros
     ros_notifier.startPeriodic(Constants.RobotOperatingSystem.rosUpdateFrequency); // Start the ros notifer
+
+    // Initalize coprosessor values for verboseness
+    coprocessorPort.setDouble(0.0);
+    coprocessorStarboard.setDouble(0.0);
+    coprocessorTurret.setDouble(0.0);
   }
 
   /**
