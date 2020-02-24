@@ -26,10 +26,21 @@ public class ROSShooter extends CommandBase {
     ros = _ros; // Initalzie local ROS
   }
 
+  // Called once when the command is initally schedueled
+  @Override
+  public void initialize() {
+    shooter.switchPipelines(1); // Arms and readies the vision for tracking
+  }
+
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     double turret_heading = ros.getTurretHeading(); // Update the target turret heading
     shooter.targetHeading(turret_heading, false); // Command the turret to that angle
+  }
+
+  @Override
+  public void end(boolean interrupted){
+    shooter.switchPipelines(0); // Disable the vision tracking
   }
 }

@@ -33,21 +33,21 @@ public class GoToRandom extends CommandBase {
   public void execute() {
     shooter.targetHeading(-200, false);
     try {
-      Thread.sleep(1000);
+      Thread.sleep(4000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
 
     shooter.targetHeading(-60000, false);
     try {
-      Thread.sleep(900);
+      Thread.sleep(3400);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
 
     shooter.targetHeading(-30000, false);
     try {
-      Thread.sleep(1100);
+      Thread.sleep(2000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }

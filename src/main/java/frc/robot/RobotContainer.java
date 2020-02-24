@@ -20,6 +20,7 @@ import frc.robot.commands.DumbShooter;
 import frc.robot.commands.GoToRandom;
 import frc.robot.commands.HumanControl;
 import frc.robot.commands.ManualClimb;
+import frc.robot.commands.ManualShooter;
 import frc.robot.commands.functions.ArmShooter;
 import frc.robot.commands.functions.DisarmShooter;
 import frc.robot.commands.functions.PurgeIntake;
@@ -123,6 +124,7 @@ public class RobotContainer {
 
     // Testing and misc
     new JoystickButton(OperatorStick, 4).whenHeld(new DumbShooter(shooter));
+    new JoystickButton(OperatorStick, 5).whenHeld(new ManualShooter(shooter, OperatorStick, () -> OperatorStick.getRawAxis(1), () -> (OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_ccw_axis) - OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_cw_axis))));
   }
 
   /**

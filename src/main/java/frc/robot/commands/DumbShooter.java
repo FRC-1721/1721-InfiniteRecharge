@@ -7,7 +7,6 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
 
@@ -30,13 +29,11 @@ public class DumbShooter extends CommandBase {
     double turret_heading = shooter.getTurretHeading();
 
     shooter.switchPipelines(1);
-    shooter.targetHeading(turret_heading - limelight_heading, false);
-
-    SmartDashboard.putNumber("Limelight Heading", limelight_heading);
-    SmartDashboard.putNumber("Turret Heading", turret_heading);
+    shooter.targetHeading(turret_heading + limelight_heading, true);
   }
 
   @Override
   public void end(boolean interrupted) {
+    shooter.switchPipelines(0);
   }
 }
