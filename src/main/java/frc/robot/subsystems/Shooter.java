@@ -121,7 +121,7 @@ public class Shooter extends SubsystemBase {
    * Sets the shooter motor to some speed
    * Does not use velocity control
    * @author Joe Sedutto
-   * @deprecated
+   * @deprecated use setShooterVelocity instead
    * @param speed
    */
   public void testShooter(double power){
@@ -131,7 +131,7 @@ public class Shooter extends SubsystemBase {
   /**
    * For testing only
    * @author Joe Sedutto
-   * @deprecated
+   * @deprecated use targetHeading() instead
    * @param power
    */
   public void testTurret(double power) {
@@ -175,8 +175,8 @@ public class Shooter extends SubsystemBase {
   public void targetHeading(double heading, boolean radians){
     if (radians){ // If commanding using radians
       turretMotor.set(ControlMode.Position, heading * Constants.TurretPID.ticksPerRadian);
-    }else
-    {
+    }
+    else{
       turretMotor.set(ControlMode.Position, heading);
     }
   }
