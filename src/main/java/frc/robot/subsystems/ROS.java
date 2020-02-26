@@ -16,6 +16,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableRegistry;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -37,6 +38,7 @@ public class ROS extends SubsystemBase {
   private static NetworkTableEntry coprocessorPort; // For tank drive
   private static NetworkTableEntry coprocessorStarboard;
   private static NetworkTableEntry coprocessorTurret;
+  private static NetworkTableEntry rosStatus;
   private static NetworkTableEntry robotModeEntry;
   //private static NetworkTableEntry rosTime; // Is ros time (slow estimate)
 
@@ -63,6 +65,7 @@ public class ROS extends SubsystemBase {
     coprocessorPort = rosTable.getEntry("coprocessorPort"); // Coprossesor speed values
     coprocessorStarboard = rosTable.getEntry("coprocessorStarboard");
     coprocessorTurret = rosTable.getEntry("coprocessorTurret");
+    rosStatus = rosTable.getEntry("ROSStatus");
 
     // Notifier (auto runs a method similar to a command but with NO PROTECTION )
     ros_notifier = new Notifier(ROS::updateTables); // Set the ros_notifer to update the command update, in the package ros
@@ -116,6 +119,6 @@ public class ROS extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    SmartDashboard.putString("Alert", rosStatus.getString("Waiting for ROS to connect"));
   }
 }
