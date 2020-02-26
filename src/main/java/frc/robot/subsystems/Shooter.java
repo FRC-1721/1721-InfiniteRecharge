@@ -152,7 +152,7 @@ public class Shooter extends SubsystemBase {
    * @author Joe Sedutto
    * @param state
    */
-  public void releaseShooter(boolean state){
+  public void engageMagazine(boolean state){
     ballReleaseSolenoid.set(state);
   }
 
@@ -194,20 +194,20 @@ public class Shooter extends SubsystemBase {
   public static double getTurretHeadingRaw(){return turretMotor.getSelectedSensorPosition();}
   public static double getTurretHeading(){return (turretMotor.getSelectedSensorPosition() / Constants.TurretPID.ticksPerRadian);}
 
-  public double getLimelightHeading(){return Math.toRadians(tx.getDouble(0.0));}
+  public double getLimelightAzimuth(){return Math.toRadians(tx.getDouble(0.0));}
   public double getLimelightElevation(){return Math.toRadians(ty.getDouble(0.0));}
-  public double getLimelightDistance(){return ta.getDouble(0.0);}
+  public double getRoughLimelightDistance(){return ta.getDouble(0.0);}
   public boolean isAtTopLimit(){if (turretMotor.isFwdLimitSwitchClosed() > 0){ return true; }else{ return false;}}
   public boolean isAtBottomLimit(){if (turretMotor.isRevLimitSwitchClosed() > 0){ return true; }else{ return false;}}
   public boolean isAtLimit(){if (turretMotor.isFwdLimitSwitchClosed() + turretMotor.isFwdLimitSwitchClosed() > 0){ return true; }else{ return false;}}
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Turret Pulse", turretMotor.getSelectedSensorPosition());
+    //SmartDashboard.putNumber("Turret Pulse", turretMotor.getSelectedSensorPosition());
     SmartDashboard.putBoolean("Turret Forward Limit Switch", isAtTopLimit());
     SmartDashboard.putBoolean("Turret Reverse Limit Switch", isAtBottomLimit());
 
-    SmartDashboard.putNumber("Limelight Heading", getLimelightHeading());
-    SmartDashboard.putNumber("Turret Heading", getTurretHeading());
+    SmartDashboard.putNumber("Limelight Azimuth", getLimelightAzimuth());
+    SmartDashboard.putNumber("Turret Azimuth", getTurretHeading());
   }
 }

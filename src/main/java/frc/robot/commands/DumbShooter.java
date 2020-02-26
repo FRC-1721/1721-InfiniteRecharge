@@ -25,7 +25,7 @@ public class DumbShooter extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double limelight_heading = shooter.getLimelightHeading();
+    double limelight_heading = shooter.getLimelightAzimuth();
     double turret_heading = Shooter.getTurretHeading();
 
     shooter.switchPipelines(1);
