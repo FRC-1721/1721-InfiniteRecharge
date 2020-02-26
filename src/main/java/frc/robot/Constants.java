@@ -89,6 +89,15 @@ public final class Constants {
         public static String portEncoderName = "Port";
         public static String rosIndexName = "rosIndex";
 		public static String turretEncoderName = "Turret";
+        public static String robotModeEntryName = "RobotMode";
+        
+        public static final class Modes{
+            public static String NoMode = "NoMode";
+            public static String Teleop = "Teleop";
+            public static String Autonomous = "Autonomous";
+            public static String Disabled = "Disabled";
+            public static String Test = "Test";
+        }
     }
 
     public static final class DrivetrainPID{

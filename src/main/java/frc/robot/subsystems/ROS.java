@@ -37,6 +37,7 @@ public class ROS extends SubsystemBase {
   private static NetworkTableEntry coprocessorPort; // For tank drive
   private static NetworkTableEntry coprocessorStarboard;
   private static NetworkTableEntry coprocessorTurret;
+  private static NetworkTableEntry robotModeEntry;
   //private static NetworkTableEntry rosTime; // Is ros time (slow estimate)
 
   // Initialize noifiers
@@ -55,6 +56,7 @@ public class ROS extends SubsystemBase {
     starboardEncoderEntry = rosTable.getEntry(Constants.RobotOperatingSystem.starboardEncoderName);
     portEncoderEntry = rosTable.getEntry(Constants.RobotOperatingSystem.portEncoderName);
     turretEncoderEntry = rosTable.getEntry(Constants.RobotOperatingSystem.turretEncoderName);
+    robotModeEntry = rosTable.getEntry(Constants.RobotOperatingSystem.robotModeEntryName);
     rosIndex = rosTable.getEntry(Constants.RobotOperatingSystem.rosIndexName);
 
     // Get the return entries
@@ -107,6 +109,7 @@ public class ROS extends SubsystemBase {
     }
   }
 
+  public static void setMode(String mode){robotModeEntry.setString(mode);}
   public double getStarboardSpeed(){return coprocessorStarboard.getDouble(0);} // A number in m/s (translate to ticks/100ms in Drivetrain)
   public double getPortSpeed(){return coprocessorPort.getDouble(0);} // A number in m/s
   public double getTurretHeading(){return coprocessorTurret.getDouble(0);} // A heading in radians
