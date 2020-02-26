@@ -26,7 +26,7 @@ public class DumbShooter extends CommandBase {
   @Override
   public void execute() {
     double limelight_heading = shooter.getLimelightHeading();
-    double turret_heading = shooter.getTurretHeading();
+    double turret_heading = Shooter.getTurretHeading();
 
     shooter.switchPipelines(1);
     shooter.targetHeading(turret_heading + limelight_heading, true);

@@ -36,7 +36,7 @@ public class ManualShooter extends CommandBase {
   @Override
   public void execute() {
     shooter.testShooter(shooter_velocity.getAsDouble());
-    shooter.testTurret(turret_velocity.getAsDouble() / 2); // 100 is just a multiplier to scale the drum speed
+    shooter.manualTurret(turret_velocity.getAsDouble() * 4000); 
     
     if (shooter.isAtTopLimit()){ // If at the top limit
       operatorJoystick.setRumble(RumbleType.kLeftRumble, 1); // Rumble the left side
