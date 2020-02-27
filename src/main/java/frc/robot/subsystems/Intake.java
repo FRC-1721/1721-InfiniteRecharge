@@ -39,7 +39,7 @@ public class Intake extends SubsystemBase {
    * @author Joe Sedutto
    */
   public void purgeIntake(){
-    intakeMotor.set(ControlMode.PercentOutput, -1.0);
+    intakeMotor.set(ControlMode.PercentOutput, -0.3);
   }
 
   @Override

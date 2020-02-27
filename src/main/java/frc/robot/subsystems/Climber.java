@@ -11,6 +11,7 @@ import com.revrobotics.CANDigitalInput.LimitSwitchPolarity;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -18,6 +19,8 @@ import frc.robot.Constants;
 public class Climber extends SubsystemBase {
   private CANSparkMax gantryMotor;
   private CANSparkMax liftMotor;
+
+  private static final Solenoid liftLock = new Solenoid(Constants.CANIds.Lift_Release_Solenoid_Address);
 
   /**
    * Creates a new Climber.
@@ -28,6 +31,7 @@ public class Climber extends SubsystemBase {
     gantryMotor.restoreFactoryDefaults();
 
     liftMotor = new CANSparkMax(Constants.CANIds.Lift_Motor_Address, MotorType.kBrushless);
+    liftMotor.setInverted(true);
     liftMotor.restoreFactoryDefaults();
   }
 
@@ -46,13 +50,19 @@ public class Climber extends SubsystemBase {
   }
 
   public void ManualControl(double speed){
-    speed = speed * -1;
 
-    if (speed < 0){
-      liftMotor.set(speed); // Down
+    if (speed > 0){ // If the speed is less than 0 (up)
+      liftLock.set(true); // Engage the liftlock
+      if (liftLock.get()){ // Liftlock must be engaged to drive
+        liftMotor.set(speed / 1); // up
+      }
+      else{ // If user requests up but the lock did not report being engaged
+        SmartDashboard.putString("Alert", "Liftlock failed to engage."); // Alert the user
+      }
     }
-    else{
-      liftMotor.set(speed ); // Up
+    else{ // If the speed is greater than 0 (down)
+      liftLock.set(false); // Disengage the liftlock
+      liftMotor.set(speed / 1); // Drive the motor down
     }
     
   }
