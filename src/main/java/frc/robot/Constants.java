@@ -44,6 +44,7 @@ public final class Constants {
         public static final int Starboard_Solenoid_Address = 3;         // Configured never
         public static final int Port_Solenoid_Address = 0;              // Configured never
         public static final int Ball_Release_Solenoid_Address = 2;      // Configured never
+		public static final int Lift_Release_Solenoid_Address = 1;
     }
 
     /**
