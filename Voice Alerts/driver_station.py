@@ -4,7 +4,7 @@ import threading
 from networktables import NetworkTables
 
 import logging # Required
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 #ip = "roboRIO-1721-FRC"
 #ip = "10.17.21.2"
 ip = "localhost"
@@ -18,11 +18,11 @@ class Queue():
         self.queue = list() # Create the que list
 
     def enqueue(self, data):
-        self.queue.insert(0, data) # Insert items into it
+        self.queue.insert(0, data) # Insert items into the first spot in the line
 
     def dequeue(self):
         if len(self.queue) > 0:
-            return self.queue.pop()
+            return self.queue.pop() # removes the last one as well as returns it
         return None
 
 def say_messages(queue):
