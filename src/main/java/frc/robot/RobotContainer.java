@@ -28,6 +28,8 @@ import frc.robot.commands.functions.ResetEncoders;
 import frc.robot.commands.functions.ShiftDown;
 import frc.robot.commands.functions.ShiftUp;
 import frc.robot.commands.functions.SpinIntake;
+import frc.robot.commands.functions.TestShooterSolenoidFalse;
+import frc.robot.commands.functions.TestShooterSolenoidTrue;
 import frc.robot.commands.functions.ZeroTurret;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
@@ -95,6 +97,7 @@ public class RobotContainer {
     // Default Commands
     drivetrain.setDefaultCommand(new HumanControl(() -> DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Thro_Axis), () -> DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Yaw_Axis), () -> handlingChooser.getSelected(), drivetrain)); // Set the default command of drivetrain to HumanControl
     shooter.setDefaultCommand(new ZeroTurret(shooter));
+    intake.setDefaultCommand(new PurgeIntake(intake));
     climber.setDefaultCommand(new ManualClimb(climber, () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Gantry_Axis), () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Climb_Axis)));
 
     // ROS Functions
@@ -119,8 +122,9 @@ public class RobotContainer {
     // Operator
     new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Arm_Shooter_Button).whenPressed(new ArmShooter(shooter)); // Arms and disarms the shooter
     new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Disarm_Shooter_Button).whenPressed(new DisarmShooter(shooter));
+    new JoystickButton(OperatorStick, 7).whenPressed(new TestShooterSolenoidTrue(shooter));
+    new JoystickButton(OperatorStick, 8).whenPressed(new TestShooterSolenoidFalse(shooter));
     new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Intake_Button).whenHeld(new SpinIntake(intake));
-    new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Purge_Button).whenHeld(new PurgeIntake(intake));
 
     // Testing and misc
     new JoystickButton(OperatorStick, 4).whenHeld(new DumbShooter(shooter));

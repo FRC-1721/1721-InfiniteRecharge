@@ -7,17 +7,17 @@
 
 package frc.robot.commands.functions;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Shooter;
 
-public class ArmShooter extends CommandBase {
+public class ArmShooter extends InstantCommand {
   private final Shooter shooter;
   
   /**
    * Creates a new ArmShooter.
    */
   public ArmShooter(Shooter _shooter) {
-    addRequirements(_shooter);
+    //addRequirements(_shooter);
 
     shooter = _shooter;
   }
@@ -26,12 +26,6 @@ public class ArmShooter extends CommandBase {
   @Override
   public void initialize() {
     shooter.switchPipelines(1);
-  }
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
     shooter.testShooter(1);
-    end(false);
   }
 }

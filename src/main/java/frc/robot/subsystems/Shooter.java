@@ -190,6 +190,10 @@ public class Shooter extends SubsystemBase {
     //camMode_entry.setNumber(pipeline);
   }
 
+  public void setReleaseSolenoid(boolean target_mode){
+    ballReleaseSolenoid.set(target_mode);
+  }
+
 
   public static double getTurretHeadingRaw(){return turretMotor.getSelectedSensorPosition();}
   public static double getTurretHeading(){return (turretMotor.getSelectedSensorPosition() / Constants.TurretPID.ticksPerRadian);}
@@ -200,6 +204,7 @@ public class Shooter extends SubsystemBase {
   public boolean isAtTopLimit(){if (turretMotor.isFwdLimitSwitchClosed() > 0){ return true; }else{ return false;}}
   public boolean isAtBottomLimit(){if (turretMotor.isRevLimitSwitchClosed() > 0){ return true; }else{ return false;}}
   public boolean isAtLimit(){if (turretMotor.isFwdLimitSwitchClosed() + turretMotor.isFwdLimitSwitchClosed() > 0){ return true; }else{ return false;}}
+  public boolean getReleaseSolenoidStatus(){return ballReleaseSolenoid.get();}
 
   @Override
   public void periodic() {

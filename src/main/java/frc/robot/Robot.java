@@ -53,6 +53,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    SmartDashboard.putString("Alert", "Java disabled");
     ROS.setMode(Constants.RobotOperatingSystem.Modes.Disabled); // Tell ROS what mode we are in
   }
 
@@ -84,6 +85,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    SmartDashboard.putString("Alert", "Teleop Entered");
     ROS.setMode(Constants.RobotOperatingSystem.Modes.Teleop); // Tell ROS what mode we are in
   }
 
