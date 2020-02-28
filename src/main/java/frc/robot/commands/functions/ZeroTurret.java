@@ -9,17 +9,17 @@ package frc.robot.commands.functions;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Turret;
 
 public class ZeroTurret extends CommandBase {
-  private final Shooter shooter; // Include shooter
+  private final Turret turret; // Include shooter
   private boolean done;
   private boolean limit_hit;
 
-  public ZeroTurret(Shooter _shooter) {
-    addRequirements(_shooter); // Requires shooter
+  public ZeroTurret(Turret _turret) {
+    addRequirements(_turret); // Requires shooter
 
-    shooter = _shooter;
+    turret = _turret;
   }
 
   // Called when the command is initially scheduled.
@@ -32,16 +32,16 @@ public class ZeroTurret extends CommandBase {
   @Override
   public void execute() {
     if(!limit_hit){
-      if(!shooter.isAtTopLimit()){
-        shooter.manualTurret(4000);
+      if(!turret.isAtTopLimit()){
+        turret.manualTurret(4000);
       }
       else{
-        shooter.manualTurret(0);
+        turret.manualTurret(0);
         limit_hit = true;
       }
     }
     else if(!done){
-      shooter.targetHeading(Constants.TurretPID.turretDefaultLocation, false);
+      turret.targetHeading(Constants.TurretPID.turretDefaultLocation, false);
     }
   }
 

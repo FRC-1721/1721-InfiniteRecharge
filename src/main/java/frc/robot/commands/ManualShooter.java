@@ -13,9 +13,12 @@ import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Turret;
 
 public class ManualShooter extends CommandBase {
   private final Shooter shooter;
+  private final Turret turret;
+
   private final DoubleSupplier shooter_velocity;
   private final DoubleSupplier turret_velocity;
   private final Joystick operatorJoystick;
@@ -23,25 +26,26 @@ public class ManualShooter extends CommandBase {
   /**
    * Creates a new TestShooter.
    */
-  public ManualShooter(Shooter _shooter, Joystick _operatorJoystick, DoubleSupplier _test_speed, DoubleSupplier _turret_velocity) {
+  public ManualShooter(Shooter _shooter, Turret _turret, Joystick _operatorJoystick, DoubleSupplier _test_speed, DoubleSupplier _turret_velocity) {
     addRequirements(_shooter);
 
     shooter = _shooter;
     shooter_velocity = _test_speed;
     turret_velocity = _turret_velocity;
     operatorJoystick = _operatorJoystick;
+    turret = _turret;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     shooter.testShooter(shooter_velocity.getAsDouble());
-    shooter.manualTurret(turret_velocity.getAsDouble() * 4000); 
+    turret.manualTurret(turret_velocity.getAsDouble() * 4000); 
     
-    if (shooter.isAtTopLimit()){ // If at the top limit
+    if (turret.isAtTopLimit()){ // If at the top limit
       operatorJoystick.setRumble(RumbleType.kLeftRumble, 1); // Rumble the left side
     }
-    else if(shooter.isAtBottomLimit()){ // If at the bottom
+    else if(turret.isAtBottomLimit()){ // If at the bottom
       operatorJoystick.setRumble(RumbleType.kRightRumble, 1); // Rumble the right side
     }
     else{ // If neither

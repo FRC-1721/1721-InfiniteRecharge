@@ -10,19 +10,23 @@ package frc.robot.auto_commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ROS;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Turret;
 
 public class ROSShooter extends CommandBase {
   private final Shooter shooter;
+  private final Turret turret;
   private final ROS ros;
 
   /**
    * Constructs a command to control the shooter under ROS control
    */
-  public ROSShooter(Shooter _shooter, ROS _ros) {
+  public ROSShooter(Shooter _shooter, Turret _turret, ROS _ros) {
     addRequirements(_shooter); // Requires shooter to work
+    addRequirements(_turret);
     // Does not require ROS (allows other commands to use ROS passivly)
 
     shooter = _shooter; // Initalize local shooter
+    turret = _turret;
     ros = _ros; // Initalzie local ROS
   }
 
@@ -36,7 +40,7 @@ public class ROSShooter extends CommandBase {
   @Override
   public void execute() {
     double turret_heading = ros.getTurretHeading(); // Update the target turret heading
-    shooter.targetHeading(turret_heading, false); // Command the turret to that angle
+    turret.targetHeading(turret_heading, false); // Command the turret to that angle
   }
 
   @Override

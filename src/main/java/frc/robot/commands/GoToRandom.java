@@ -8,18 +8,18 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Turret;
 
 public class GoToRandom extends CommandBase {
-  public final Shooter shooter;
+  public final Turret turret;
 
   /**
    * Creates a new GoToRandom.
    */
-  public GoToRandom(Shooter _shooter) {
-    addRequirements(_shooter);
+  public GoToRandom(Turret _turret) {
+    addRequirements(_turret);
 
-    shooter = _shooter;
+    turret = _turret;
   }
 
   // Called when the command is initially scheduled.
@@ -30,21 +30,21 @@ public class GoToRandom extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.targetHeading(-200, false);
+    turret.targetHeading(-200, false);
     try {
       Thread.sleep(4000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
 
-    shooter.targetHeading(-60000, false);
+    turret.targetHeading(-60000, false);
     try {
       Thread.sleep(3400);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
 
-    shooter.targetHeading(-30000, false);
+    turret.targetHeading(-30000, false);
     try {
       Thread.sleep(2000);
     } catch (InterruptedException e) {

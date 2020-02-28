@@ -83,7 +83,7 @@ public class ROS extends SubsystemBase {
   public static void updateTables() {
     starboardEncoderEntry.setDouble(Drivetrain.getDriveEncoderStarboard());
     portEncoderEntry.setDouble(Drivetrain.getDriveEncoderPort());
-    turretEncoderEntry.setDouble(Shooter.getTurretHeadingRaw());
+    turretEncoderEntry.setDouble(Turret.getTurretHeadingRaw());
     rosIndex.setNumber(rosIntex);
 
     networkTableInstance.flush(); // Force an update and flush all values out. (Recomended by https://www.chiefdelphi.com/t/integrating-ros-node-into-roborio-for-slam/358386/40)

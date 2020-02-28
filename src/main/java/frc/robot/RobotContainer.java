@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import com.fasterxml.jackson.databind.deser.impl.PropertyValue;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -36,6 +38,7 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.ROS;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Turret;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -55,6 +58,7 @@ public class RobotContainer {
   private final ROS ros = new ROS();
   private final Shooter shooter = new Shooter();
   private final Climber climber = new Climber();
+  private final Turret turret = new Turret();
 
   // Commands
 
@@ -88,15 +92,15 @@ public class RobotContainer {
     SmartDashboard.putData("Shift Up", new ShiftUp(drivetrain)); // For testing only!
     SmartDashboard.putData("Shift Down", new ShiftDown(drivetrain)); // For testing only!
     SmartDashboard.putData("Arm Shooter", new ArmShooter(shooter)); // For testing only!
-    SmartDashboard.putData("Zero Turret", new ZeroTurret(shooter));
-    SmartDashboard.putData("Move turret randomly", new GoToRandom(shooter));
+    SmartDashboard.putData("Zero Turret", new ZeroTurret(turret));
+    SmartDashboard.putData("Move turret randomly", new GoToRandom(turret));
 
     // Configure the button bindings
     configureButtonBindings();
 
     // Default Commands
     drivetrain.setDefaultCommand(new HumanControl(() -> DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Thro_Axis), () -> DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Yaw_Axis), () -> handlingChooser.getSelected(), drivetrain)); // Set the default command of drivetrain to HumanControl
-    shooter.setDefaultCommand(new ZeroTurret(shooter));
+    turret.setDefaultCommand(new ZeroTurret(turret));
     intake.setDefaultCommand(new PurgeIntake(intake));
     climber.setDefaultCommand(new ManualClimb(climber, () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Gantry_Axis), () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Climb_Axis)));
 
@@ -104,10 +108,10 @@ public class RobotContainer {
     ros.publishCommand("reset_encoders", new ResetEncoders(drivetrain));
     ros.publishCommand("shift_up", new ShiftUp(drivetrain));
     ros.publishCommand("shift_down", new ShiftDown(drivetrain));
-    ros.publishCommand("zero_turret", new ZeroTurret(shooter));
+    ros.publishCommand("zero_turret", new ZeroTurret(turret));
 
     // Secial Commands
-    ros.publishCommand("enable_shooter", new ROSShooter(shooter, ros)); // We may want these commands to be default commands, and be overriden by manual driver commands
+    ros.publishCommand("enable_shooter", new ROSShooter(shooter, turret, ros)); // We may want these commands to be default commands, and be overriden by manual driver commands
   }
 
   /**
@@ -127,8 +131,8 @@ public class RobotContainer {
     new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Intake_Button).whenHeld(new SpinIntake(intake));
 
     // Testing and misc
-    new JoystickButton(OperatorStick, 4).whenHeld(new DumbShooter(shooter));
-    new JoystickButton(OperatorStick, 5).whenHeld(new ManualShooter(shooter, OperatorStick, () -> OperatorStick.getRawAxis(1), () -> (OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_ccw_axis) - OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_cw_axis))));
+    new JoystickButton(OperatorStick, 4).whenHeld(new DumbShooter(shooter, turret));
+    new JoystickButton(OperatorStick, 5).whenHeld(new ManualShooter(shooter, turret, OperatorStick, () -> OperatorStick.getRawAxis(1), () -> (OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_ccw_axis) - OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_cw_axis))));
   }
 
   /**
