@@ -69,6 +69,9 @@ public final class Constants {
         public static final int Arm_Shooter_Button = 3;         // Configured 2/14/2020
         public static final int Disarm_Shooter_Button = 4;      // Configured 2/14/2020
 
+        public static final int Manual_Turret_Button = 5;       // Configured 2/28/2020
+        public static final int Automatic_Turret_Button = 6;    // Congigured 2/28/2020
+
         public static final int Climb_Axis = 1;                 // Configured 2/15/2020
         public static final int Gantry_Axis = 0;                // Congigured 2/15/2020
 

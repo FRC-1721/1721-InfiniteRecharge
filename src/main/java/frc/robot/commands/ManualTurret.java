@@ -15,22 +15,18 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Turret;
 
-public class ManualShooter extends CommandBase {
-  private final Shooter shooter;
+public class ManualTurret extends CommandBase {
   private final Turret turret;
 
-  private final DoubleSupplier shooter_velocity;
   private final DoubleSupplier turret_velocity;
   private final Joystick operatorJoystick;
 
   /**
-   * Creates a new TestShooter.
+   * Creates a new ManualTurret.
    */
-  public ManualShooter(Shooter _shooter, Turret _turret, Joystick _operatorJoystick, DoubleSupplier _test_speed, DoubleSupplier _turret_velocity) {
-    addRequirements(_shooter);
+  public ManualTurret(Turret _turret, Joystick _operatorJoystick, DoubleSupplier _turret_velocity) {
+    addRequirements(_turret);
 
-    shooter = _shooter;
-    shooter_velocity = _test_speed;
     turret_velocity = _turret_velocity;
     operatorJoystick = _operatorJoystick;
     turret = _turret;
@@ -39,7 +35,6 @@ public class ManualShooter extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.testShooter(shooter_velocity.getAsDouble());
     turret.manualTurret(turret_velocity.getAsDouble() * 4000); 
     
     if (turret.isAtTopLimit()){ // If at the top limit

@@ -2,10 +2,12 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -43,6 +45,10 @@ public class Drivetrain extends SubsystemBase {
     starboardMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 
                                                 Constants.DrivetrainPID.kPIDLoopIdx,
                                                 Constants.DrivetrainPID.kTimeoutMs);
+    
+    // Limit Switch Saftey
+    portMotor.overrideLimitSwitchesEnable(false);
+    starboardMotor.overrideLimitSwitchesEnable(false);
     
     // Fix sensor phase here
     portMotor.setSensorPhase(Constants.DrivetrainPID.portSensorPhase);
@@ -181,8 +187,13 @@ public class Drivetrain extends SubsystemBase {
 
   public static void resetEncoders(int position){portMotor.setSelectedSensorPosition(position, Constants.DrivetrainPID.kPIDLoopIdx, Constants.DrivetrainPID.kTimeoutMs); starboardMotor.setSelectedSensorPosition(position, Constants.DrivetrainPID.kPIDLoopIdx, Constants.DrivetrainPID.kTimeoutMs);} // Sets the encoder values to the number you pass
 
+  public boolean isStarboardForeJammed(){if (starboardMotor.isFwdLimitSwitchClosed() > 0){ return true; }else{ return false;}}
+  public boolean isPortForeJammed(){if (portMotor.isFwdLimitSwitchClosed() > 0){ return true; }else{ return false;}}
+  public boolean isJammed(){if (isStarboardForeJammed() || isPortForeJammed()){ return true; }else{ return false;}}
+
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    SmartDashboard.putBoolean("Starboard Fore Jam Detected", isStarboardForeJammed());
+    SmartDashboard.putBoolean("Port Fore Jam Detected", isPortForeJammed());
   }
 }

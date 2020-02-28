@@ -7,8 +7,6 @@
 
 package frc.robot;
 
-import com.fasterxml.jackson.databind.deser.impl.PropertyValue;
-
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -18,11 +16,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.auto_commands.ROSControl;
 import frc.robot.auto_commands.ROSShooter;
-import frc.robot.commands.DumbShooter;
 import frc.robot.commands.GoToRandom;
 import frc.robot.commands.HumanControl;
 import frc.robot.commands.ManualClimb;
-import frc.robot.commands.ManualShooter;
+import frc.robot.commands.ManualTurret;
 import frc.robot.commands.functions.ArmShooter;
 import frc.robot.commands.functions.DisarmShooter;
 import frc.robot.commands.functions.PurgeIntake;
@@ -131,8 +128,8 @@ public class RobotContainer {
     new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Intake_Button).whenHeld(new SpinIntake(intake));
 
     // Testing and misc
-    new JoystickButton(OperatorStick, 4).whenHeld(new DumbShooter(shooter, turret));
-    new JoystickButton(OperatorStick, 5).whenHeld(new ManualShooter(shooter, turret, OperatorStick, () -> OperatorStick.getRawAxis(1), () -> (OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_ccw_axis) - OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_cw_axis))));
+    new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Automatic_Turret_Button).whenPressed(new ROSShooter(shooter, turret, ros));
+    new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Manual_Turret_Button).whenPressed(new ManualTurret(turret, OperatorStick, () -> (OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_ccw_axis) - OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_cw_axis))));
   }
 
   /**
