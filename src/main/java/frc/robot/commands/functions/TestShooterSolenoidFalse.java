@@ -25,6 +25,6 @@ public class TestShooterSolenoidFalse extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    shooter.setReleaseSolenoid(false);
+    shooter.engageMagazine(false);
   }
 }

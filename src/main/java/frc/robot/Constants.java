@@ -44,7 +44,7 @@ public final class Constants {
         public static final int Starboard_Solenoid_Address = 3;         // Configured never
         public static final int Port_Solenoid_Address = 0;              // Configured never
         public static final int Ball_Release_Solenoid_Address = 7;      // Configured never
-		public static final int Lift_Release_Solenoid_Address = 1;
+		public static final int Lift_Release_Solenoid_Address = 4;
     }
 
     /**
@@ -110,6 +110,7 @@ public final class Constants {
         public static int kTimeoutMs = 30; // The timeout to wait when writing variables to the motors
         public static boolean portSensorPhase = true; // The phase of the sensor
         public static boolean portMotorInvert = true; // The inversion of the motor
+        public static NeutralMode drivetrainBrakeMode = NeutralMode.Coast; // The brake mode of the motor
         public static boolean starboardSensorPhase = false;
         public static boolean starboardMotorInvert = false;
         public static final Gains kGains = new Gains(0.15,  // kP TODO
@@ -132,13 +133,16 @@ public final class Constants {
         public static boolean spinnerMotorInvert = false;
         public static NeutralMode shooterBrakeMode = NeutralMode.Brake; // Brake mode
         public static NeutralMode turretBrakeMode = NeutralMode.Brake;
-        public static final Gains kGains = new Gains(0.15,  // kP TODO
+        public static final Gains kGains = new Gains(0.5,  // kP TODO
                                                      0.0,   // kI
-                                                     1.0,   // kD
+                                                     20.0,   // kD
                                                      0.0,   // kF
                                                      0,     // kIzone
                                                      1.0);  // kPeakoutput
+        public static final double AcceptableVelocityError = 100;
+        
         // Measurements and other
+        public static double maximumSpeed = 20000.0;
         public static double radiansToForward = 0.785398; // Radians to reset to zero heading
     }
 

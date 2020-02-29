@@ -10,7 +10,6 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -34,6 +33,9 @@ public class Shooter extends SubsystemBase {
   NetworkTableEntry ta = limelight.getEntry("ta");
   NetworkTableEntry camMode_entry = limelight.getEntry("camMode");
   NetworkTableEntry pipeline_entry = limelight.getEntry("pipeline");
+
+  // Flag Information
+  private double targetVelocity;
 
   /**
    * Creates a new Turret.
@@ -94,6 +96,7 @@ public class Shooter extends SubsystemBase {
    * @param velocity (ticks/10ms)
    */
   public void setShooterVelocity(double velocity){
+    targetVelocity = velocity; // We use targetVelocity to check weather ready to shoot 
     shooterMotor.set(ControlMode.Velocity, velocity);
   }
 
@@ -103,7 +106,12 @@ public class Shooter extends SubsystemBase {
    * @param state
    */
   public void engageMagazine(boolean state){
-    ballReleaseSolenoid.set(state);
+    if (isReadyToFire()){
+      ballReleaseSolenoid.set(state);
+    }
+    else{
+      ballReleaseSolenoid.set(false);
+    }
   }
 
   /**
@@ -115,20 +123,25 @@ public class Shooter extends SubsystemBase {
     //camMode_entry.setNumber(pipeline);
   }
 
-  public void setReleaseSolenoid(boolean target_mode){
-    ballReleaseSolenoid.set(target_mode);
-  }
-
 
   
 
   public double getLimelightAzimuth(){return Math.toRadians(tx.getDouble(0.0));}
   public double getLimelightElevation(){return Math.toRadians(ty.getDouble(0.0));}
   public double getRoughLimelightDistance(){return ta.getDouble(0.0);}
+  public double getShooterVelocity(){return shooterMotor.getSelectedSensorVelocity();}
+
   public boolean getReleaseSolenoidStatus(){return ballReleaseSolenoid.get();}
+  public boolean isReadyToFire(){return ( (targetVelocity > getShooterVelocity() - Constants.ShooterPID.AcceptableVelocityError) && (targetVelocity < getShooterVelocity() + Constants.ShooterPID.AcceptableVelocityError) && (targetVelocity > 100));}
 
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Limelight Azimuth", getLimelightAzimuth());
+    SmartDashboard.putBoolean("Is ready to fire", isReadyToFire());
+    SmartDashboard.putNumber("Shooter Temperature", shooterMotor.getTemperature());
+
+    if (isReadyToFire()){
+      SmartDashboard.putString("Alert", "Ready to fire");
+    }
   }
 }

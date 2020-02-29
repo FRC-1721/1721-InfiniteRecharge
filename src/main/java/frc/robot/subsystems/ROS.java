@@ -27,6 +27,8 @@ public class ROS extends SubsystemBase {
 
   // Initilize counters
   private static int rosIntex = 1;
+  private String alert;
+  private String previousAlert;
 
   // Setup networkTables
   private static NetworkTableInstance networkTableInstance; // The networktable instance
@@ -119,6 +121,11 @@ public class ROS extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putString("Alert", rosStatus.getString("Waiting for ROS to connect"));
+    // Alert passing
+    alert = rosStatus.getString("Waiting for ROS to connect");
+    if (alert != previousAlert){
+      SmartDashboard.putString("Alert", alert);
+      previousAlert = alert;
+    }
   }
 }

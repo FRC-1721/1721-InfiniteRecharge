@@ -8,6 +8,7 @@
 package frc.robot.commands.functions;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.Constants;
 import frc.robot.subsystems.Shooter;
 
 public class ArmShooter extends InstantCommand {
@@ -26,6 +27,6 @@ public class ArmShooter extends InstantCommand {
   @Override
   public void initialize() {
     shooter.switchPipelines(1);
-    shooter.testShooter(1);
+    shooter.setShooterVelocity(Constants.ShooterPID.maximumSpeed);;
   }
 }

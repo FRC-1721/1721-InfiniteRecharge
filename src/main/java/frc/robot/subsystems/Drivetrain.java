@@ -105,6 +105,10 @@ public class Drivetrain extends SubsystemBase {
     starboardMotorSlave0.setInverted(Constants.DrivetrainPID.starboardMotorInvert);
     starboardMotorSlave1.setInverted(Constants.DrivetrainPID.starboardMotorInvert);
 
+    // Coast mode
+    portMotor.setNeutralMode(Constants.DrivetrainPID.drivetrainBrakeMode);
+    starboardMotor.setNeutralMode(Constants.DrivetrainPID.drivetrainBrakeMode);
+
     // Set followers
     portMotorSlave0.follow(portMotor); // Set to follow the master controller
     portMotorSlave1.follow(portMotor); // Set to follow the master controller
@@ -195,5 +199,10 @@ public class Drivetrain extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putBoolean("Starboard Fore Jam Detected", isStarboardForeJammed());
     SmartDashboard.putBoolean("Port Fore Jam Detected", isPortForeJammed());
+    SmartDashboard.putNumber("Drivetrain Temperature", (starboardMotor.getTemperature() + portMotor.getTemperature()) / 2);
+
+    if (isJammed()){
+      SmartDashboard.putString("Alert", "Wheel Jam Detected!");
+    }
   }
 }
