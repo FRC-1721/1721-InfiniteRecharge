@@ -33,12 +33,12 @@ public final class Constants {
         public static final int VictorSPX_Port_Slave_Address1 = 1;      // Configured 1/25/2020
         public static final int VictorSPX_Starboard_Slave_Address0 = 2; // Configured 1/25/2020
         public static final int VictorSPX_Starboard_Slave_Address1 = 3; // Configured 1/25/2020
-        public static final int VictorSPX_IntakeMotor_Address = 4;      // Configured 2/8/2020
         
         // Three-phase/other
         public static final int Lift_Motor_Address = 1;                 // Congigured 2/9/2020
         public static final int Gantry_Motor_Address = 2;               // Configured never
         public static final int TalonFX_Shooter_Address = 3;            // Configured never
+        public static final int IntakeMotor_Address = 3;                // Configured 3/1/2020
 
         // Solenoids
         public static final int Starboard_Solenoid_Address = 3;         // Configured never

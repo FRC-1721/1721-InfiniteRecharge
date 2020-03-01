@@ -7,7 +7,6 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -22,7 +21,7 @@ public class Intake extends SubsystemBase {
    * Creates a new Intake.
    */
   public Intake() {
-    intakeMotor = new CANSparkMax(Constants.CANIds.VictorSPX_IntakeMotor_Address, MotorType.kBrushless);
+    intakeMotor = new CANSparkMax(Constants.CANIds.IntakeMotor_Address, MotorType.kBrushless);
     intakeMotor.restoreFactoryDefaults();
     intakeMotor.setInverted(true);
   }
