@@ -18,6 +18,9 @@
 *.so
 *.dylib
 *.dll
+!de.dll
+!dectalk.dll
+!MSVCRTd.DLL
 
 # Fortran module files
 *.mod
@@ -31,6 +34,7 @@
 
 # Executables
 *.exe
+!say.exe
 *.out
 *.app
 
