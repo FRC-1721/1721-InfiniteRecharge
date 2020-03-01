@@ -90,12 +90,22 @@ public final class Constants {
 
     public static final class RobotOperatingSystem{
         public static double rosUpdateFrequency = 0.02;
-        public static String rosTablename = "ROS";
-        public static String starboardEncoderName = "Starboard";
-        public static String portEncoderName = "Port";
-        public static String rosIndexName = "rosIndex";
-		public static String turretEncoderName = "Turret";
-        public static String robotModeEntryName = "RobotMode";
+
+        public static final class Names{
+            public static String rosTablename = "ROS";
+            public static String starboardEncoderName = "Starboard";
+            public static String portEncoderName = "Port";
+            public static String rosIndexName = "rosIndex";
+            public static String turretEncoderName = "Turret";
+            public static String robotModeEntryName = "RobotMode";
+
+            public static String ROSShooterTable = "enable_shooter";
+            public static String DrivetrainTable = "ros_drivetrain";
+            public static String ResetEncoders = "reset_encoders";
+            public static String ShiftUp = "shift_up";
+            public static String ShiftDown = "shift_down";
+            public static String ZeroTurret = "zero_turret";
+        }
         
         public static final class Modes{
             public static String NoMode = "NoMode";

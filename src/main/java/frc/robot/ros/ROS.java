@@ -60,14 +60,14 @@ public class ROS extends SubsystemBase {
     // Network tables
     networkTableInstance = NetworkTableInstance.create(); // Get the default instance of network tables on the rio
     networkTableInstance.startServer("ros.ini", "10.17.21.2", 5800); // Start a new server on a different port\
-    rosTable = networkTableInstance.getTable(Constants.RobotOperatingSystem.rosTablename); // Get the table ros out of that instance
+    rosTable = networkTableInstance.getTable(Constants.RobotOperatingSystem.Names.rosTablename); // Get the table ros out of that instance
 
     // Get the writable entries
-    starboardEncoderEntry = rosTable.getEntry(Constants.RobotOperatingSystem.starboardEncoderName);
-    portEncoderEntry = rosTable.getEntry(Constants.RobotOperatingSystem.portEncoderName);
-    turretEncoderEntry = rosTable.getEntry(Constants.RobotOperatingSystem.turretEncoderName);
-    robotModeEntry = rosTable.getEntry(Constants.RobotOperatingSystem.robotModeEntryName);
-    rosIndex = rosTable.getEntry(Constants.RobotOperatingSystem.rosIndexName);
+    starboardEncoderEntry = rosTable.getEntry(Constants.RobotOperatingSystem.Names.starboardEncoderName);
+    portEncoderEntry = rosTable.getEntry(Constants.RobotOperatingSystem.Names.portEncoderName);
+    turretEncoderEntry = rosTable.getEntry(Constants.RobotOperatingSystem.Names.turretEncoderName);
+    robotModeEntry = rosTable.getEntry(Constants.RobotOperatingSystem.Names.robotModeEntryName);
+    rosIndex = rosTable.getEntry(Constants.RobotOperatingSystem.Names.rosIndexName);
 
     // Get the return entries
     coprocessorPort = rosTable.getEntry("coprocessorPort"); // Coprossesor speed values

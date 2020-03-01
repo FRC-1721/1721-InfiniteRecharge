@@ -10,6 +10,7 @@ package frc.robot.ros;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Turret;
 
@@ -35,7 +36,7 @@ public class ROSShooter extends CommandBase {
     ros = _ros; // Initalzie local ROS
 
     // NT
-    shooterCommandTable = ROS.rosTable.getSubTable("enable_shooter");
+    shooterCommandTable = ROS.rosTable.getSubTable(Constants.RobotOperatingSystem.Names.ROSShooterTable);
     shooterCommandStatus = shooterCommandTable.getEntry("running_somewhere");
   }
 

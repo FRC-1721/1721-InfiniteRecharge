@@ -106,11 +106,12 @@ public class RobotContainer {
     //shooter.setDefaultCommand(new ManualShooter(shooter, OperatorStick, () -> OperatorStick.getRawAxis(3), () -> (OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_cw_axis) - OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_ccw_axis))));
 
     // ROS Commands
-    ros.publishCommand("enable_shooter", new ROSShooter(shooter, turret, ros)); // We may want these commands to be default commands, and be overriden by manual driver commands
-    ros.publishCommand("resetEncoders", new ResetEncoders(drivetrain));
-    ros.publishCommand("shiftUp", new ShiftUp(drivetrain));
-    ros.publishCommand("shiftDown", new ShiftDown(drivetrain));
-    ros.publishCommand("zero_turret", new ZeroTurret(turret));
+    ros.publishCommand(Constants.RobotOperatingSystem.Names.ROSShooterTable, new ROSShooter(shooter, turret, ros)); // We may want these commands to be default commands, and be overriden by manual driver commands
+    ros.publishCommand(Constants.RobotOperatingSystem.Names.ResetEncoders, new ResetEncoders(drivetrain));
+    ros.publishCommand(Constants.RobotOperatingSystem.Names.ShiftUp, new ShiftUp(drivetrain));
+    ros.publishCommand(Constants.RobotOperatingSystem.Names.ShiftDown, new ShiftDown(drivetrain));
+    ros.publishCommand(Constants.RobotOperatingSystem.Names.ZeroTurret, new ZeroTurret(turret));
+    ros.publishCommand(Constants.RobotOperatingSystem.Names.DrivetrainTable, new ROSControl(drivetrain, ros, shooter));
   }
 
   /**
