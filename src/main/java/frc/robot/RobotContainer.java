@@ -24,12 +24,14 @@ import frc.robot.commands.functions.PurgeIntake;
 import frc.robot.commands.functions.ResetEncoders;
 import frc.robot.commands.functions.ShiftDown;
 import frc.robot.commands.functions.ShiftUp;
+import frc.robot.commands.functions.SolveStage2;
 import frc.robot.commands.functions.SpinIntake;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.ROS;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Solver;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -49,6 +51,7 @@ public class RobotContainer {
   private final ROS ros = new ROS();
   private final Shooter shooter = new Shooter();
   private final Climber climber = new Climber();
+  private final Solver solver = new Solver();
 
   // Commands
 
@@ -106,6 +109,7 @@ public class RobotContainer {
     new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Disarm_Shooter_Button).whenPressed(new DisarmShooter(shooter));
     new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Intake_Button).whenHeld(new SpinIntake(intake));
     new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Purge_Button).whenHeld(new PurgeIntake(intake));
+    new JoystickButton(DSTogglePanel, Constants.DSTogglePanelSettings.SolveStageTwo).whenPressed(new SolveStage2(solver));
   }
 
   /**
