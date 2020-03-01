@@ -81,6 +81,7 @@ public final class Constants {
      */
     public static final class DSTogglePanelSettings{
         public static final int DS_Toggle_Panel_Port = 2;       // The USB order of the controller
+        public static final int SolveStageTwo = 1;              // A button to solve stage 2
     }
 
     public static final class RobotOperatingSystem{
