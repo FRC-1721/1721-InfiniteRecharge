@@ -7,20 +7,22 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Intake extends SubsystemBase {
   // Motor objects
-  public static final VictorSPX intakeMotor = new VictorSPX(Constants.CANIds.VictorSPX_IntakeMotor_Address);
+  private CANSparkMax intakeMotor;
 
   /**
    * Creates a new Intake.
    */
   public Intake() {
+    intakeMotor = new CANSparkMax(Constants.CANIds.IntakeMotor_Address, MotorType.kBrushless);
+    intakeMotor.restoreFactoryDefaults();
     intakeMotor.setInverted(true);
   }
 
@@ -31,7 +33,7 @@ public class Intake extends SubsystemBase {
    * @param speed (The speed at witch to spin the intake, postive numbers being "in")
    */
   public void driveIntake(double speed){
-    intakeMotor.set(ControlMode.PercentOutput, speed); // Set the motor to the required speed
+    intakeMotor.set(speed); // Set the motor to the required speed
   }
 
   /**
@@ -39,7 +41,7 @@ public class Intake extends SubsystemBase {
    * @author Joe Sedutto
    */
   public void purgeIntake(){
-    intakeMotor.set(ControlMode.PercentOutput, -1.0);
+    intakeMotor.set(-1.0);
   }
 
   @Override
