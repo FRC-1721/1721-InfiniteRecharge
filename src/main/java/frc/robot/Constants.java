@@ -131,7 +131,7 @@ public final class Constants {
                                                      0,     // kIzone
                                                      1.0);  // kPeakoutput
         // Measurements and other
-        public static int ticksPerMeter = 10000;        // Calibrated 12/16/2019
+        public static int TicksPerRotation = 10000;        // Calibrated 12/16/2019
     }
 
     public static final class Colors{

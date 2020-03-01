@@ -10,20 +10,13 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.revrobotics.ColorSensorV3;
 
-import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Solver extends SubsystemBase {
   // Motors
   private static final TalonSRX solverMotor = new TalonSRX(Constants.CANIds.TalonSRX_Solver_Address); // Creates a new motor
-
-  // Sensors and IO
-  private final I2C.Port i2cPort = I2C.Port.kOnboard;
-  private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort); 
 
   /**
    * Creates a new Solver.
@@ -62,13 +55,13 @@ public class Solver extends SubsystemBase {
   }
 
   /**
-   * Rotates the drum until that color
+   * Takes a target and drives the solver
+   * to there using only the encoder
    * @author Joe Sedutto
-   * @param speed
+   * @param target (A target in controlpanel rotations)
    */
-  public void solveUntillColor(double red, double green, double blue){
-    final Color detectedColor = m_colorSensor.getColor(); 
-    final double IR = m_colorSensor.getIR(); 
+  public void setPositionNoColor(double target){
+    solverMotor.set(ControlMode.Position, (target * Constants.SolverPID.TicksPerRotation));
   }
 
   @Override
