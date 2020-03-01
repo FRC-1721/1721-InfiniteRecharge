@@ -7,6 +7,8 @@
 
 package frc.robot.ros;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Turret;
@@ -15,6 +17,10 @@ public class ROSShooter extends CommandBase {
   private final Shooter shooter;
   private final Turret turret;
   private final ROS ros;
+
+  // NT
+  private static NetworkTable shooterCommandTable;
+  private static NetworkTableEntry shooterCommandStatus; // an entry to tell ros if any instance of rosshooter is running
 
   /**
    * Constructs a command to control the shooter under ROS control
@@ -27,12 +33,17 @@ public class ROSShooter extends CommandBase {
     shooter = _shooter; // Initalize local shooter
     turret = _turret;
     ros = _ros; // Initalzie local ROS
+
+    // NT
+    shooterCommandTable = ROS.rosTable.getSubTable("enable_shooter");
+    shooterCommandStatus = shooterCommandTable.getEntry("running_somewhere");
   }
 
   // Called once when the command is initally schedueled
   @Override
   public void initialize() {
     shooter.switchPipelines(1); // Arms and readies the vision for tracking
+    shooterCommandStatus.setBoolean(true);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -45,5 +56,6 @@ public class ROSShooter extends CommandBase {
   @Override
   public void end(boolean interrupted){
     shooter.switchPipelines(0); // Disable the vision tracking
+    shooterCommandStatus.setBoolean(true);
   }
 }

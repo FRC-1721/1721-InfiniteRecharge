@@ -34,14 +34,18 @@ public class ROS extends SubsystemBase {
 
   // Setup networkTables
   private static NetworkTableInstance networkTableInstance; // The networktable instance
-  private static NetworkTable rosTable; // The table in that instance of networktables
+  public static NetworkTable rosTable; // The table in that instance of networktables
+
   private static NetworkTableEntry starboardEncoderEntry; // An entry objecy
   private static NetworkTableEntry portEncoderEntry;
   private static NetworkTableEntry turretEncoderEntry;
+
   private static NetworkTableEntry rosIndex;
+
   private static NetworkTableEntry coprocessorPort; // For tank drive
   private static NetworkTableEntry coprocessorStarboard;
   private static NetworkTableEntry coprocessorTurret;
+
   private static NetworkTableEntry rosStatus;
   private static NetworkTableEntry robotModeEntry;
   //private static NetworkTableEntry rosTime; // Is ros time (slow estimate)
