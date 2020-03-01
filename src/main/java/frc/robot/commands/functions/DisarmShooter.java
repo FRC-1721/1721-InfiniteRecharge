@@ -26,7 +26,7 @@ public class DisarmShooter extends InstantCommand {
   @Override
   public void initialize() {
     shooter.switchPipelines(0);
-    shooter.testShooter(0);
+    shooter.setShooterVelocity(0);
   }
 
 }
