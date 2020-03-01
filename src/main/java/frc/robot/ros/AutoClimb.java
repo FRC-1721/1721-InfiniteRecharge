@@ -5,33 +5,36 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.auto_commands;
+package frc.robot.ros;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.ros.ROS;
-import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Shooter;
 
-
-public class ROSControl extends CommandBase {
-  private final Drivetrain drivetrain;
-  private final ROS ros;
-  
+public class AutoClimb extends CommandBase {
   /**
-   * Creates a new ROSControl.
-   * @author Joe
+   * Creates a new AutoClimb.
    */
-  public ROSControl(Drivetrain _drivetrain, ROS _ros, Shooter _shooter) {
-    addRequirements(_drivetrain);
-    addRequirements(_ros);
+  public AutoClimb() {
+    // Use addRequirements() here to declare subsystem dependencies.
+  }
 
-    drivetrain = _drivetrain;
-    ros = _ros;
+  // Called when the command is initially scheduled.
+  @Override
+  public void initialize() {
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.FlyWithWiresB(ros.getStarboardSpeed(), ros.getPortSpeed()); // Operate the drivetrain with commands from ROS
+  }
+
+  // Called once the command ends or is interrupted.
+  @Override
+  public void end(boolean interrupted) {
+  }
+
+  // Returns true when the command should end.
+  @Override
+  public boolean isFinished() {
+    return false;
   }
 }
