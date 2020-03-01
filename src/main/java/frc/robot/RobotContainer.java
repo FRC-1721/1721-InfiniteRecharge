@@ -26,15 +26,17 @@ import frc.robot.commands.functions.PurgeIntake;
 import frc.robot.commands.functions.ResetEncoders;
 import frc.robot.commands.functions.ShiftDown;
 import frc.robot.commands.functions.ShiftUp;
+import frc.robot.commands.functions.SolveStage2;
 import frc.robot.commands.functions.SpinIntake;
 import frc.robot.commands.functions.TestShooterSolenoidFalse;
 import frc.robot.commands.functions.TestShooterSolenoidTrue;
 import frc.robot.commands.functions.ZeroTurret;
+import frc.robot.ros.ROS;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.ROS;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Solver;
 import frc.robot.subsystems.Turret;
 
 /**
@@ -56,6 +58,7 @@ public class RobotContainer {
   private final Shooter shooter = new Shooter();
   private final Climber climber = new Climber();
   private final Turret turret = new Turret();
+  private final Solver solver = new Solver();
 
   // Commands
 
@@ -130,6 +133,8 @@ public class RobotContainer {
     // Testing and misc
     new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Automatic_Turret_Button).whenPressed(new ROSShooter(shooter, turret, ros));
     new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Manual_Turret_Button).whenPressed(new ManualTurret(turret, OperatorStick, () -> (OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_ccw_axis) - OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_cw_axis))));
+    new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Purge_Button).whenHeld(new PurgeIntake(intake));
+    new JoystickButton(DSTogglePanel, Constants.DSTogglePanelSettings.SolveStageTwo).whenPressed(new SolveStage2(solver));
   }
 
   /**

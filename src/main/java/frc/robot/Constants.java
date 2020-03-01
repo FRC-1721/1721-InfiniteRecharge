@@ -27,18 +27,19 @@ public final class Constants {
         public static final int TalonSRX_Port_Address = 0;              // Configured 1/25/2020
         public static final int TalonSRX_Starboard_Address = 1;         // Configured 1/25/2020
         public static final int TalonSRX_Turret_Address = 2;            // Configured 2/8/2020
+        public static final int TalonSRX_Solver_Address = 3;            // Configured never
 
         // VictorSPX
         public static final int VictorSPX_Port_Slave_Address0 = 0;      // Configured 1/25/2020
         public static final int VictorSPX_Port_Slave_Address1 = 1;      // Configured 1/25/2020
         public static final int VictorSPX_Starboard_Slave_Address0 = 2; // Configured 1/25/2020
         public static final int VictorSPX_Starboard_Slave_Address1 = 3; // Configured 1/25/2020
-        public static final int VictorSPX_IntakeMotor_Address = 4;      // Configured 2/8/2020
         
         // Three-phase/other
         public static final int Lift_Motor_Address = 1;                 // Congigured 2/9/2020
         public static final int Gantry_Motor_Address = 2;               // Configured never
         public static final int TalonFX_Shooter_Address = 3;            // Configured never
+        public static final int IntakeMotor_Address = 3;                // Configured 3/1/2020
 
         // Solenoids
         public static final int Starboard_Solenoid_Address = 3;         // Configured never
@@ -84,6 +85,7 @@ public final class Constants {
      */
     public static final class DSTogglePanelSettings{
         public static final int DS_Toggle_Panel_Port = 2;       // The USB order of the controller
+        public static final int SolveStageTwo = 1;              // A button to solve stage 2
     }
 
     public static final class RobotOperatingSystem{
@@ -181,9 +183,51 @@ public final class Constants {
         public static int arbAnalogPerRadian = 10;
     }
 
+    public static final class SolverPID{
+
+        public static int kPIDLoopIdx = 0; // The loop Index
+        public static int kTimeoutMs = 30; // The timeout to wait when writing variables to the motors
+        public static boolean sensorPhase = true; // The phase of the sensor
+        public static boolean motorInvert = false;
+        public static final Gains kGains = new Gains(0.15,  // kP TODO
+                                                     0.0,   // kI
+                                                     1.0,   // kD
+                                                     0.0,   // kF
+                                                     0,     // kIzone
+                                                     1.0);  // kPeakoutput
+        // Measurements and other
+        public static int TicksPerRotation = 10000;        // Calibrated 12/16/2019
+    }
+
+    public static final class Colors{
+        public static final class Blue{
+            public static double red = 0.0;
+            public static double green = 0.0;
+            public static double blue = 0.0;
+        }
+
+        public static final class Yellow{
+            public static double red = 0.0;
+            public static double green = 0.0;
+            public static double blue = 0.0;
+        }
+
+        public static final class Red{
+            public static double red = 0.0;
+            public static double green = 0.0;
+            public static double blue = 0.0;
+        }
+
+        public static final class Green{
+            public static double red = 0.0;
+            public static double green = 0.0;
+            public static double blue = 0.0;
+        }
+    }
+
     public static final class Misc{
 
         public static final double Downshift_Max_Speed = 0; // The maximum speed that you can downshift at.
-		public static final double Upshift_Min_Speed = 0;
+        public static final double Upshift_Min_Speed = 0;
     }
 }

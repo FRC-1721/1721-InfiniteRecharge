@@ -30,6 +30,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    SmartDashboard.putString("Alert", "Robot Program Started");
+    
     m_robotContainer = new RobotContainer(); // Define our Robot Container
 
     SmartDashboard.putString("Alert", "Java Code has started, Robot connected.");
