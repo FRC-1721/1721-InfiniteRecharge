@@ -144,7 +144,9 @@ public class ROS extends SubsystemBase {
     gameMessage.setString(driverStation.getGameSpecificMessage());
     driverStationLocation.setNumber(driverStation.getLocation());
     eventNameAndMatch.setString(driverStation.getEventName() + "-" + driverStation.getMatchNumber());
-    
+
+    SmartDashboard.putString("Game Message", driverStation.getGameSpecificMessage());
+
     // Alert passing
     alert = rosStatus.getString("Waiting for ROS to connect");
     if (alert != previousAlert){
