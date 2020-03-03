@@ -20,7 +20,7 @@ public class Climber extends SubsystemBase {
   private CANSparkMax gantryMotor;
   private CANSparkMax liftMotor;
 
-  private static final Solenoid liftLock = new Solenoid(Constants.CANIds.Lift_Release_Solenoid_Address);
+  private static final Solenoid liftLockSolenoid = new Solenoid(Constants.CANIds.Lift_Release_Solenoid_Address);
 
   /**
    * Creates a new Climber.
@@ -49,11 +49,17 @@ public class Climber extends SubsystemBase {
     }
   }
 
-  public void ManualControl(double speed){
+  public void ManualControl(double speed, boolean isoverride, boolean override){
+    speed = speed * -1;
 
-    if (speed > 0){ // If the speed is less than 0 (up)
-      liftLock.set(true); // Engage the liftlock
-      if (liftLock.get()){ // Liftlock must be engaged to drive
+    if (speed > 0){ // If the speed is greater than 0 (up)
+      if (isoverride){
+        liftLockSolenoid.set(override); // Engage the liftlock
+      }
+      else{
+        liftLockSolenoid.set(true);
+      }
+      if (liftLockSolenoid.get()){ // Liftlock must be engaged to drive
         liftMotor.set(speed / 1); // up
       }
       else{ // If user requests up but the lock did not report being engaged
@@ -61,10 +67,15 @@ public class Climber extends SubsystemBase {
       }
     }
     else{ // If the speed is greater than 0 (down)
-      liftLock.set(false); // Disengage the liftlock
+      if (isoverride){
+        liftLockSolenoid.set(override); // Disengage the liftlock
+      }
+      else{
+        liftLockSolenoid.set(false);
+      }
       liftMotor.set(speed / 1); // Drive the motor down
     }
-    
+    SmartDashboard.putBoolean("Lift is override", isoverride);
   }
 
   public boolean isAtLowerLimit(){return (liftMotor.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyOpen).get());} // Gets the value of that limit switch

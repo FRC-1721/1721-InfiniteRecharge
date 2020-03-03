@@ -41,7 +41,7 @@ public class Intake extends SubsystemBase {
    * @author Joe Sedutto
    */
   public void purgeIntake(){
-    intakeMotor.set(-1.0);
+    intakeMotor.set(-0.3);
   }
 
   @Override
