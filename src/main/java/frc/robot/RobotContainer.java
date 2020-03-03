@@ -26,10 +26,10 @@ import frc.robot.commands.functions.ShiftDown;
 import frc.robot.commands.functions.ShiftUp;
 import frc.robot.commands.functions.SolveStage2;
 import frc.robot.commands.functions.SpinIntake;
+import frc.robot.ros.ROS;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.ROS;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Solver;
 
