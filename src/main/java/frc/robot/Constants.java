@@ -105,6 +105,9 @@ public final class Constants {
             public static String ShiftUp = "shift_up";
             public static String ShiftDown = "shift_down";
             public static String ZeroTurret = "zero_turret";
+            public static String gameMessageEntryName = "game_message";
+            public static String driverStationEntryName = "starting_station";
+            public static String eventNameAndMatch = "event_name_and_match";
         }
         
         public static final class Modes{

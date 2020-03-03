@@ -13,6 +13,7 @@ import java.util.Map;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableRegistry;
@@ -47,11 +48,17 @@ public class ROS extends SubsystemBase {
   private static NetworkTableEntry coprocessorTurret;
 
   private static NetworkTableEntry rosStatus;
+  private static NetworkTableEntry gameMessage;
+  private static NetworkTableEntry driverStationLocation;
   private static NetworkTableEntry robotModeEntry;
+  private static NetworkTableEntry eventNameAndMatch;
   //private static NetworkTableEntry rosTime; // Is ros time (slow estimate)
 
   // Initialize noifiers
   private static Notifier ros_notifier;
+
+  // Other
+  private static DriverStation driverStation;
 
   /**
    * Creates a new ROS.
@@ -67,6 +74,9 @@ public class ROS extends SubsystemBase {
     portEncoderEntry = rosTable.getEntry(Constants.RobotOperatingSystem.Names.portEncoderName);
     turretEncoderEntry = rosTable.getEntry(Constants.RobotOperatingSystem.Names.turretEncoderName);
     robotModeEntry = rosTable.getEntry(Constants.RobotOperatingSystem.Names.robotModeEntryName);
+    gameMessage = rosTable.getEntry(Constants.RobotOperatingSystem.Names.gameMessageEntryName);
+    driverStationLocation = rosTable.getEntry(Constants.RobotOperatingSystem.Names.driverStationEntryName);
+    eventNameAndMatch = rosTable.getEntry(Constants.RobotOperatingSystem.Names.eventNameAndMatch);
     rosIndex = rosTable.getEntry(Constants.RobotOperatingSystem.Names.rosIndexName);
 
     // Get the return entries
@@ -83,6 +93,9 @@ public class ROS extends SubsystemBase {
     coprocessorPort.setDouble(0.0);
     coprocessorStarboard.setDouble(0.0);
     coprocessorTurret.setDouble(0.0);
+
+    // Other
+    driverStation = DriverStation.getInstance();
   }
 
   /**
@@ -127,6 +140,11 @@ public class ROS extends SubsystemBase {
 
   @Override
   public void periodic() {
+    // Less important nt updates
+    gameMessage.setString(driverStation.getGameSpecificMessage());
+    driverStationLocation.setNumber(driverStation.getLocation());
+    eventNameAndMatch.setString(driverStation.getEventName() + "-" + driverStation.getMatchNumber());
+    
     // Alert passing
     alert = rosStatus.getString("Waiting for ROS to connect");
     if (alert != previousAlert){
