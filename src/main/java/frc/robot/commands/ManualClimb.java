@@ -10,7 +10,6 @@ package frc.robot.commands;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber;
 
@@ -35,10 +34,13 @@ public class ManualClimb extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climber.GantryManualControl(gantry_speed.getAsDouble());
-    climber.ManualControl(lift_speed.getAsDouble(), releaseOverride.getAsBoolean(), releaseOverride.getAsBoolean());
+    climber.GantryManualControl(gantry_speed.getAsDouble()); // Control gantry
+    climber.ClimberManualControl(lift_speed.getAsDouble()); // Control climber
+    if (releaseOverride.getAsBoolean()){
+      climber.OverrideSolenoid(releaseOverride.getAsBoolean()); // Ovveride solenoid
+    }
 
-    SmartDashboard.putNumber("Lift Manual Control", lift_speed.getAsDouble());
-    SmartDashboard.putNumber("Gantry Manual Control", gantry_speed.getAsDouble());
+    //SmartDashboard.putNumber("Lift Manual Control", lift_speed.getAsDouble());
+    //SmartDashboard.putNumber("Gantry Manual Control", gantry_speed.getAsDouble());
   }
 }

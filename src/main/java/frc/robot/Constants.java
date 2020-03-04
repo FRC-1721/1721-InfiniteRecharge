@@ -157,7 +157,7 @@ public final class Constants {
         public static final double AcceptableVelocityError = 100;
         
         // Measurements and other
-        public static double maximumSpeed = 20000.0;
+        public static double maximumSpeed = 20000.0; // Ticks/100ms
         public static double radiansToForward = 0.785398; // Radians to reset to zero heading
     }
 

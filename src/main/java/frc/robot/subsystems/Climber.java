@@ -49,33 +49,37 @@ public class Climber extends SubsystemBase {
     }
   }
 
-  public void ManualControl(double speed, boolean isoverride, boolean override){
-    speed = speed * -1;
+  /**
+   * Enables external control of the lift
+   * @author Joe Sedutto
+   * @param speed (Positive numbers are UP)
+   */
+  public void ClimberManualControl(double speed){
+    speed = (speed * -1) - 0.025; // 0.025 helps prevent deadzone noise
 
     if (speed > 0){ // If the speed is greater than 0 (up)
-      if (isoverride){
-        liftLockSolenoid.set(override); // Engage the liftlock
-      }
-      else{
-        liftLockSolenoid.set(true);
-      }
-      if (liftLockSolenoid.get()){ // Liftlock must be engaged to drive
-        liftMotor.set(speed / 1); // up
+      liftLockSolenoid.set(true); // Pull the lock
+      if (liftLockSolenoid.get()){ // Lift lock must be disengaged (pulled) to drive up
+        liftMotor.set(speed / 1); // Drive up
       }
       else{ // If user requests up but the lock did not report being engaged
         SmartDashboard.putString("Alert", "Liftlock failed to engage."); // Alert the user
       }
     }
-    else{ // If the speed is greater than 0 (down)
-      if (isoverride){
-        liftLockSolenoid.set(override); // Disengage the liftlock
-      }
-      else{
-        liftLockSolenoid.set(false);
-      }
+    else{ // If the speed is less than 0 (down)
+      liftLockSolenoid.set(false); // Drop the lock (not pulled)
       liftMotor.set(speed / 1); // Drive the motor down
     }
-    SmartDashboard.putBoolean("Lift is override", isoverride);
+  }
+
+  /**
+   * Allows a user to force ovveride the commands
+   * of ManualControl
+   * @author Joe Sedutto
+   * @param on
+   */
+  public void OverrideSolenoid(boolean on){
+    liftLockSolenoid.set(on); // Set to that state.
   }
 
   public boolean isAtLowerLimit(){return (liftMotor.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyOpen).get());} // Gets the value of that limit switch

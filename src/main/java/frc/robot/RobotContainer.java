@@ -26,8 +26,8 @@ import frc.robot.commands.functions.ShiftDown;
 import frc.robot.commands.functions.ShiftUp;
 import frc.robot.commands.functions.SolveStage2;
 import frc.robot.commands.functions.SpinIntake;
-import frc.robot.commands.functions.TestShooterSolenoidFalse;
-import frc.robot.commands.functions.TestShooterSolenoidTrue;
+import frc.robot.commands.functions.ShooterSolenoidOverrideOff;
+import frc.robot.commands.functions.ShooterSolenoidOverrideOn;
 import frc.robot.commands.functions.ZeroTurret;
 import frc.robot.ros.ROS;
 import frc.robot.ros.ROSControl;
@@ -126,8 +126,8 @@ public class RobotContainer {
     // Operator
     new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Arm_Shooter_Button).whenPressed(new ArmShooter(shooter)); // Arms and disarms the shooter
     new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Disarm_Shooter_Button).whenPressed(new DisarmShooter(shooter));
-    new JoystickButton(OperatorStick, 7).whenPressed(new TestShooterSolenoidTrue(shooter));
-    new JoystickButton(OperatorStick, 8).whenPressed(new TestShooterSolenoidFalse(shooter));
+    new JoystickButton(OperatorStick, 7).whenPressed(new ShooterSolenoidOverrideOn(shooter));
+    new JoystickButton(OperatorStick, 8).whenPressed(new ShooterSolenoidOverrideOff(shooter));
     new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Intake_Button).whenHeld(new SpinIntake(intake));
 
     // Testing and misc

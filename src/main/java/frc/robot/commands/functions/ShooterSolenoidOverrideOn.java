@@ -13,18 +13,16 @@ import frc.robot.subsystems.Shooter;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class TestShooterSolenoidFalse extends InstantCommand {
+public class ShooterSolenoidOverrideOn extends InstantCommand {
   private final Shooter shooter;
 
-  public TestShooterSolenoidFalse(Shooter _shooter) {
-    // Use addRequirements() here to declare subsystem dependencies.
-
+  public ShooterSolenoidOverrideOn(Shooter _shooter) {
     shooter = _shooter;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    shooter.engageMagazine(false);
+    shooter.engageMagazine(true);
   }
 }
