@@ -61,6 +61,7 @@ public class RobotContainer {
   private final Solver solver = new Solver();
 
   // Commands
+  private final ROSShooter rosShooter = new ROSShooter(shooter, turret, ros);
 
 
   // Selectors
@@ -106,7 +107,7 @@ public class RobotContainer {
     //shooter.setDefaultCommand(new ManualShooter(shooter, OperatorStick, () -> OperatorStick.getRawAxis(3), () -> (OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_cw_axis) - OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_ccw_axis))));
 
     // ROS Commands
-    ros.publishCommand(Constants.RobotOperatingSystem.Names.ROSShooterTable, new ROSShooter(shooter, turret, ros)); // We may want these commands to be default commands, and be overriden by manual driver commands
+    ros.publishCommand(Constants.RobotOperatingSystem.Names.ROSShooterTable, rosShooter); // We may want these commands to be default commands, and be overriden by manual driver commands
     ros.publishCommand(Constants.RobotOperatingSystem.Names.ResetEncoders, new ResetEncoders(drivetrain));
     ros.publishCommand(Constants.RobotOperatingSystem.Names.ShiftUp, new ShiftUp(drivetrain));
     ros.publishCommand(Constants.RobotOperatingSystem.Names.ShiftDown, new ShiftDown(drivetrain));
@@ -131,7 +132,7 @@ public class RobotContainer {
     new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Intake_Button).whenHeld(new SpinIntake(intake));
 
     // Testing and misc
-    new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Automatic_Turret_Button).whenPressed(new ROSShooter(shooter, turret, ros));
+    new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Automatic_Turret_Button).whenPressed(rosShooter);
     new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Manual_Turret_Button).whenPressed(new ManualTurret(turret, OperatorStick, () -> (OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_ccw_axis) - OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_cw_axis))));
     new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Purge_Button).whenHeld(new PurgeIntake(intake));
     new JoystickButton(DSTogglePanel, Constants.DSTogglePanelSettings.SolveStageTwo).whenPressed(new SolveStage2(solver));
