@@ -3,7 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 
 public class LiveSettings {
-  public static final Joystick DSTogglePanel = new Joystick(Constants.DSTogglePanelSettings.DS_Toggle_Panel_Port);
+  public static final Joystick DSModePanel = new Joystick(Constants.DSTogglePanelSettings.DS_Toggle_Panel_Port);
 
     /**
      * Constructs LiveSettings.
@@ -26,8 +26,8 @@ public class LiveSettings {
         turretMode() { }
 
         public static turretMode getValue() {
-            if (DSTogglePanel.getRawButton(1)){ return disengaged; }
-            else if (DSTogglePanel.getRawButton(2)){ return auxiliary; }
+            if (DSModePanel.getRawButton(1)){ return disengaged; }
+            else if (DSModePanel.getRawButton(2)){ return auxiliary; }
             else { return normal; }
         }
     }
@@ -45,8 +45,27 @@ public class LiveSettings {
         elevatorMode() { }
 
         public static elevatorMode getValue() {
-            if (DSTogglePanel.getRawButton(3)){ return disengaged; }
-            else if (DSTogglePanel.getRawButton(4)){ return auxiliary; }
+            if (DSModePanel.getRawButton(3)){ return disengaged; }
+            else if (DSModePanel.getRawButton(4)){ return auxiliary; }
+            else { return normal; }
+        }
+    }
+
+    /**
+     * An enum allowing you to switch
+     * elevator modes during a match
+     * @author Joe S
+     */
+    public static enum intakeMode {
+        normal,
+        disengaged,
+        auxiliary;
+
+        intakeMode() { }
+
+        public static intakeMode getValue() {
+            if (DSModePanel.getRawButton(5)){ return disengaged; }
+            else if (DSModePanel.getRawButton(6)){ return auxiliary; }
             else { return normal; }
         }
     }

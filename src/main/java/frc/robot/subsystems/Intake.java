@@ -12,6 +12,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.LiveSettings;
 
 public class Intake extends SubsystemBase {
   // Motor objects
@@ -41,7 +42,14 @@ public class Intake extends SubsystemBase {
    * @author Joe Sedutto
    */
   public void purgeIntake(){
-    intakeMotor.set(-0.3);
+    switch (LiveSettings.intakeMode.getValue()){
+      case auxiliary:
+      case normal:
+      intakeMotor.set(-0.3);
+      break;
+      case disengaged:
+      intakeMotor.set(0);
+    }
   }
 
   @Override
