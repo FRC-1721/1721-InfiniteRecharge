@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.LiveSettings;
 
 public class Climber extends SubsystemBase {
   private CANSparkMax gantryMotor;
@@ -55,20 +56,33 @@ public class Climber extends SubsystemBase {
    * @param speed (Positive numbers are UP)
    */
   public void ClimberManualControl(double speed){
-    speed = (speed * -1) - 0.025; // 0.025 helps prevent deadzone noise
+    speed = (speed * 1);
 
-    if (speed > 0){ // If the speed is greater than 0 (up)
-      liftLockSolenoid.set(true); // Pull the lock
-      if (liftLockSolenoid.get()){ // Lift lock must be disengaged (pulled) to drive up
-        liftMotor.set(speed / 1); // Drive up
+    switch(LiveSettings.elevatorMode.getValue()){
+      case normal: // If set to normal mode
+      if (speed > Constants.OperatorInputSettings.LiftDeadzone){ // If going up
+        liftLockSolenoid.set(true); // Pull the lock
+        if (liftLockSolenoid.get() && speed > Constants.OperatorInputSettings.LiftDeadzone + 0.1){ // Lift lock must be disengaged
+          liftMotor.set(speed / 1); // Drive up
+        }
       }
-      else{ // If user requests up but the lock did not report being engaged
-        SmartDashboard.putString("Alert", "Liftlock failed to engage."); // Alert the user
+      else if (speed < -Constants.OperatorInputSettings.LiftDeadzone){ // If going down
+        liftLockSolenoid.set(true); // Pull the lock
+        if (liftLockSolenoid.get() && speed < -Constants.OperatorInputSettings.LiftDeadzone - 0.1){ // Lift lock must be disengaged
+          liftMotor.set(speed / 1); // Drive down
+        }
       }
-    }
-    else{ // If the speed is less than 0 (down)
-      liftLockSolenoid.set(false); // Drop the lock (not pulled)
-      liftMotor.set(speed / 1); // Drive the motor down
+      else{
+        liftLockSolenoid.set(false);
+        liftMotor.set(0);
+      }
+      break;
+
+      case disengaged: // If set to disabled
+      break; // Do nothing if disengaged.
+
+      case auxiliary: // If set to aux
+      liftLockSolenoid.set(true); // Just lockup the solenoid on
     }
   }
 

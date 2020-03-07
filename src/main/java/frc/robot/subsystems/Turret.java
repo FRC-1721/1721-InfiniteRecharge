@@ -14,6 +14,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.LiveSettings;
 
 public class Turret extends SubsystemBase {
   // TalonSRX objects
@@ -77,7 +78,14 @@ public class Turret extends SubsystemBase {
    * @param velocity (ticks/10ms)
    */
   public void manualTurret(double velocity) {
-    turretMotor.set(ControlMode.Velocity, velocity); // Sets the motor to some velocity 
+    switch (LiveSettings.turretMode.getValue()){
+      case auxiliary:
+      case normal:
+      turretMotor.set(ControlMode.Velocity, velocity); // Sets the motor to some velocity 
+      break;
+      case disengaged:
+      break;
+    }
   }
 
   /**

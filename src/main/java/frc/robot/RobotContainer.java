@@ -49,7 +49,6 @@ public class RobotContainer {
   // Joysticks and Operator Input
   public static final Joystick DriverStick = new Joystick(Constants.DriverInputSettings.Driver_Stick_Port);
   public static final Joystick OperatorStick = new Joystick(Constants.OperatorInputSettings.Operator_Controller_Port);
-  public static final Joystick DSTogglePanel = new Joystick(Constants.DSTogglePanelSettings.DS_Toggle_Panel_Port);
 
   // Subsystems
   private final Drivetrain drivetrain = new Drivetrain();
@@ -135,7 +134,7 @@ public class RobotContainer {
     new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Automatic_Turret_Button).whenPressed(rosShooter);
     new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Manual_Turret_Button).whenPressed(new ManualTurret(turret, OperatorStick, () -> (OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_ccw_axis) - OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_cw_axis))));
     new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Purge_Button).whenHeld(new PurgeIntake(intake));
-    new JoystickButton(DSTogglePanel, Constants.DSTogglePanelSettings.SolveStageTwo).whenPressed(new SolveStage2(solver));
+    //new JoystickButton(DSTogglePanel, Constants.DSTogglePanelSettings.SolveStageTwo).whenPressed(new SolveStage2(solver));
   }
 
   /**

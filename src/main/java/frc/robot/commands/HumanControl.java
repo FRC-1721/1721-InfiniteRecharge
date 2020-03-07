@@ -36,17 +36,13 @@ public class HumanControl extends CommandBase {
   public void execute() {
     switch(handlingMode.get()){ // Ask the handlingMode supplier what its value is
       case kStandard: // In the case of standard mode..
-        //System.out.println("Running in mode Standard");
         drivetrain.FlyByWireA(steerage.getAsDouble(), thro.getAsDouble());
         break;
       case kDiffLock: // In the case of diff mode..
-        //System.out.println("Running in mode Diff Lock"); 
         break;
       case kLaneAssist: // In the case of lane asisst mode..
-        //System.out.println("Running in mode LaneAssist");
         break;
       case kFlyByWire: // In the case of flybywire mode..
-        //System.out.println("Running in mode FlyByWire");
         drivetrain.FlyByWireA(steerage.getAsDouble(), thro.getAsDouble());
         break;
       default:
