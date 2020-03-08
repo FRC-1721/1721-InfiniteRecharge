@@ -40,12 +40,13 @@ public final class Constants {
         public static final int Gantry_Motor_Address = 2;               // Configured never
         public static final int TalonFX_Shooter_Address = 3;            // Configured never
         public static final int IntakeMotor_Address = 3;                // Configured 3/1/2020
+		public static final int MiniNeo_Shooter_Loader_Address = 4;
 
         // Solenoids
         public static final int Starboard_Solenoid_Address = 3;         // Configured never
         public static final int Port_Solenoid_Address = 0;              // Configured never
         public static final int Ball_Release_Solenoid_Address = 7;      // Configured never
-		public static final int Lift_Release_Solenoid_Address = 4;
+        public static final int Lift_Release_Solenoid_Address = 4;
     }
 
     /**
@@ -110,6 +111,7 @@ public final class Constants {
             public static String gameMessageEntryName = "game_message";
             public static String driverStationEntryName = "starting_station";
             public static String eventNameAndMatch = "event_name_and_match";
+            public static String distanceAlongInitLine = "distance_along_init_line";
         }
         
         public static final class Modes{

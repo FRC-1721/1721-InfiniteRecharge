@@ -34,7 +34,13 @@ public class Intake extends SubsystemBase {
    * @param speed (The speed at witch to spin the intake, postive numbers being "in")
    */
   public void driveIntake(double speed){
-    intakeMotor.set(speed); // Set the motor to the required speed
+    switch (LiveSettings.intakeMode.getValue()){
+      case disengaged:
+      intakeMotor.set(0);
+      default:
+      intakeMotor.set(speed); // Set the motor to the required speed
+			break;
+    }
   }
 
   /**

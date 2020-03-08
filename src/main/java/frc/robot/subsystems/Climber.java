@@ -83,6 +83,8 @@ public class Climber extends SubsystemBase {
 
       case auxiliary: // If set to aux
       liftLockSolenoid.set(true); // Just lockup the solenoid on
+      liftMotor.set(speed / 1); // Drive
+      break;
     }
   }
 

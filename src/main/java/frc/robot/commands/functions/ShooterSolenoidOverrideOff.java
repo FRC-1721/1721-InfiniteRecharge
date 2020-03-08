@@ -23,6 +23,6 @@ public class ShooterSolenoidOverrideOff extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    shooter.engageMagazine(false);
+    shooter.forceEngageMagazine(1.0);
   }
 }

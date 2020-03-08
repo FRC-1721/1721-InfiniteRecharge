@@ -9,6 +9,7 @@ package frc.robot.ros;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Drivetrain;
@@ -43,6 +44,7 @@ public class ROSControl extends CommandBase {
   @Override
   public void initialize() {
     drivetrainCommandStatus.setBoolean(true); 
+    SmartDashboard.putString("Alert", "ROS has the stick");
   }
 
   // Called every time the scheduler runs while the command is scheduled.

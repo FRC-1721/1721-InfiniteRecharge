@@ -52,6 +52,7 @@ public class ROS extends SubsystemBase {
   private static NetworkTableEntry driverStationLocation;
   private static NetworkTableEntry robotModeEntry;
   private static NetworkTableEntry eventNameAndMatch;
+  private static NetworkTableEntry distanceAlongInitLine;
   //private static NetworkTableEntry rosTime; // Is ros time (slow estimate)
 
   // Initialize noifiers
@@ -78,6 +79,9 @@ public class ROS extends SubsystemBase {
     driverStationLocation = rosTable.getEntry(Constants.RobotOperatingSystem.Names.driverStationEntryName);
     eventNameAndMatch = rosTable.getEntry(Constants.RobotOperatingSystem.Names.eventNameAndMatch);
     rosIndex = rosTable.getEntry(Constants.RobotOperatingSystem.Names.rosIndexName);
+
+    distanceAlongInitLine = rosTable.getEntry(Constants.RobotOperatingSystem.Names.distanceAlongInitLine);
+    SmartDashboard.putNumber("Distance From Right Wall", 4); // Distance from wall
 
     // Get the return entries
     coprocessorPort = rosTable.getEntry("coprocessorPort"); // Coprossesor speed values
@@ -146,6 +150,8 @@ public class ROS extends SubsystemBase {
     eventNameAndMatch.setString(driverStation.getEventName() + "-" + driverStation.getMatchNumber());
 
     SmartDashboard.putString("Game Message", driverStation.getGameSpecificMessage());
+
+    distanceAlongInitLine.setNumber(SmartDashboard.getNumber("Distance From Right Wall", 4));
 
     // Alert passing
     alert = rosStatus.getString("Waiting for ROS to connect");

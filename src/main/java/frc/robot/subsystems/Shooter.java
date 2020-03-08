@@ -10,11 +10,12 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -23,8 +24,8 @@ public class Shooter extends SubsystemBase {
   // FalconFX objects
   private static final TalonFX shooterMotor = new TalonFX(Constants.CANIds.TalonFX_Shooter_Address);
 
-  // Solenoids
-  private static final Solenoid ballReleaseSolenoid = new Solenoid(Constants.CANIds.Ball_Release_Solenoid_Address);
+  // CANSParkMax Objects
+  private static final CANSparkMax shooterLoader = new CANSparkMax(Constants.CANIds.MiniNeo_Shooter_Loader_Address, MotorType.kBrushless);
 
   // Dumb targeting
   private static final NetworkTable limelight = NetworkTableInstance.getDefault().getTable("limelight");
@@ -73,10 +74,6 @@ public class Shooter extends SubsystemBase {
 
     // Set Inverted
     shooterMotor.setInverted(Constants.ShooterPID.shooterMotorInvert); // Sets the output of the motor backwards
-
-
-    // Other init
-    ballReleaseSolenoid.set(false);
   }
   
   /**
@@ -101,17 +98,26 @@ public class Shooter extends SubsystemBase {
   }
 
   /**
-   * Set the shooter solenoid to the state listed here
+   * Set the shooter motor to the state passed
    * @author Joe Sedutto
-   * @param state
+   * @param state (-1 to 1)
    */
-  public void engageMagazine(boolean state){
+  public void safeEngageMagazine(Double state){
     if (isReadyToFire()){
-      ballReleaseSolenoid.set(state);
+      shooterLoader.set(state);
     }
     else{
-      ballReleaseSolenoid.set(false);
+      shooterLoader.set(0);
     }
+  }
+
+  /**
+   * Forces the shooter feeder to a specified state
+   * @author Joe S
+   * @param state (-1 to 1)
+   */
+  public void forceEngageMagazine(Double state){
+    shooterLoader.set(state);
   }
 
   /**
@@ -131,7 +137,6 @@ public class Shooter extends SubsystemBase {
   public double getRoughLimelightDistance(){return ta.getDouble(0.0);}
   public double getShooterVelocity(){return shooterMotor.getSelectedSensorVelocity();}
 
-  public boolean getReleaseSolenoidStatus(){return ballReleaseSolenoid.get();}
   public boolean isReadyToFire(){return ( (targetVelocity > getShooterVelocity() - Constants.ShooterPID.AcceptableVelocityError) && (targetVelocity < getShooterVelocity() + Constants.ShooterPID.AcceptableVelocityError) && (targetVelocity > 100));}
 
   @Override
