@@ -44,13 +44,13 @@ public class ROSControl extends CommandBase {
   @Override
   public void initialize() {
     drivetrainCommandStatus.setBoolean(true); 
-    SmartDashboard.putString("Alert", "ROS has the stick");
+    SmartDashboard.putString("Alert", "ROS Control Enabled.");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.FlyWithWiresB(ros.getStarboardSpeed(), ros.getPortSpeed()); // Operate the drivetrain with commands from ROS
+    drivetrain.FlyWithWiresA(ros.getStarboardSpeed(), ros.getPortSpeed()); // Operate the drivetrain with commands from ROS
   }
 
   @Override

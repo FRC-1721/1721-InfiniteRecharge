@@ -95,7 +95,8 @@ public final class Constants {
         public static double rosUpdateFrequency = 0.02;
 
         public static final class Names{
-            public static String rosTablename = "ROS";
+            public static String ManualTurret = "manual_turret";
+			public static String rosTablename = "ROS";
             public static String starboardEncoderName = "Starboard";
             public static String portEncoderName = "Port";
             public static String rosIndexName = "rosIndex";

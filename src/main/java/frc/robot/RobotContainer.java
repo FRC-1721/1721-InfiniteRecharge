@@ -60,7 +60,7 @@ public class RobotContainer {
 
   // Commands
   private final ROSShooter rosShooter = new ROSShooter(shooter, turret, ros);
-
+  private final ManualTurret manualTurret = new ManualTurret(turret, OperatorStick, () -> (OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_ccw_axis) - OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_cw_axis)));
 
   // Selectors
   Command robot_autonomous; // Autonomous object, will be populated later by the contents of the sendable chooser
@@ -111,6 +111,7 @@ public class RobotContainer {
     ros.publishCommand(Constants.RobotOperatingSystem.Names.ShiftDown, new ShiftDown(drivetrain));
     ros.publishCommand(Constants.RobotOperatingSystem.Names.ZeroTurret, new ZeroTurret(turret));
     ros.publishCommand(Constants.RobotOperatingSystem.Names.DrivetrainTable, new ROSControl(drivetrain, ros, shooter));
+    ros.publishCommand(Constants.RobotOperatingSystem.Names.ManualTurret, manualTurret); // Not to be called by ROS but to check its status.
   }
 
   /**
@@ -131,7 +132,7 @@ public class RobotContainer {
 
     // Testing and misc
     new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Automatic_Turret_Button).whenPressed(rosShooter);
-    new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Manual_Turret_Button).whenPressed(new ManualTurret(turret, OperatorStick, () -> (OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_ccw_axis) - OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_cw_axis))));
+    new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Manual_Turret_Button).whenPressed(manualTurret);
     new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Purge_Button).whenHeld(new PurgeIntake(intake));
     //new JoystickButton(DSTogglePanel, Constants.DSTogglePanelSettings.SolveStageTwo).whenPressed(new SolveStage2(solver));
   }
