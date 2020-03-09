@@ -53,7 +53,7 @@ public class LiveSettings {
 
     /**
      * An enum allowing you to switch
-     * elevator modes during a match
+     * intake modes during a match
      * @author Joe S
      */
     public static enum intakeMode {
