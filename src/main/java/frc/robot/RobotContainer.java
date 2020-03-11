@@ -24,9 +24,8 @@ import frc.robot.commands.functions.PurgeIntake;
 import frc.robot.commands.functions.ResetEncoders;
 import frc.robot.commands.functions.ShiftDown;
 import frc.robot.commands.functions.ShiftUp;
-import frc.robot.commands.functions.ShooterSolenoidOverrideOff;
-import frc.robot.commands.functions.ShooterSolenoidOverrideOn;
 import frc.robot.commands.functions.SpinIntake;
+import frc.robot.commands.functions.UnloadMagazineWhenReady;
 import frc.robot.commands.functions.ZeroTurret;
 import frc.robot.ros.ROS;
 import frc.robot.ros.ROSControl;
@@ -34,6 +33,7 @@ import frc.robot.ros.ROSShooter;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Magazine;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Solver;
 import frc.robot.subsystems.Turret;
@@ -56,11 +56,13 @@ public class RobotContainer {
   private final Shooter shooter = new Shooter();
   private final Climber climber = new Climber();
   private final Turret turret = new Turret();
+  private final Magazine magazine = new Magazine();
   private final Solver solver = new Solver();
 
   // Commands
-  private final ROSShooter rosShooter = new ROSShooter(shooter, turret, ros);
+  private final ROSShooter rosShooter = new ROSShooter(shooter, turret, magazine, ros);
   private final ManualTurret manualTurret = new ManualTurret(turret, OperatorStick, () -> (OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_ccw_axis) - OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_cw_axis)));
+  private final UnloadMagazineWhenReady unloadMagazineWhenReady = new UnloadMagazineWhenReady(magazine);
 
   // Selectors
   Command robot_autonomous; // Autonomous object, will be populated later by the contents of the sendable chooser
@@ -125,9 +127,8 @@ public class RobotContainer {
     
     // Operator
     new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Arm_Shooter_Button).whenPressed(new ArmShooter(shooter)); // Arms and disarms the shooter
+    new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Fire_When_Ready_Button).whileHeld(unloadMagazineWhenReady);
     new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Disarm_Shooter_Button).whenPressed(new DisarmShooter(shooter));
-    new JoystickButton(OperatorStick, 7).whenPressed(new ShooterSolenoidOverrideOn(shooter));
-    new JoystickButton(OperatorStick, 8).whenPressed(new ShooterSolenoidOverrideOff(shooter));
     new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Intake_Button).whenHeld(new SpinIntake(intake));
 
     // Testing and misc

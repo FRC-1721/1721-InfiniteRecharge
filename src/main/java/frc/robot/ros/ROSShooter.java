@@ -11,12 +11,14 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.subsystems.Magazine;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Turret;
 
 public class ROSShooter extends CommandBase {
   private final Shooter shooter;
   private final Turret turret;
+  private final Magazine magazine;
   private final ROS ros;
 
   // NT
@@ -26,13 +28,15 @@ public class ROSShooter extends CommandBase {
   /**
    * Constructs a command to control the shooter under ROS control
    */
-  public ROSShooter(Shooter _shooter, Turret _turret, ROS _ros) {
+  public ROSShooter(Shooter _shooter, Turret _turret, Magazine _magazine, ROS _ros) {
     addRequirements(_shooter); // Requires shooter to work
     addRequirements(_turret);
+    addRequirements(_magazine);
     // Does not require ROS (allows other commands to use ROS passivly)
 
     shooter = _shooter; // Initalize local shooter
     turret = _turret;
+    magazine = _magazine;
     ros = _ros; // Initalzie local ROS
 
     // NT

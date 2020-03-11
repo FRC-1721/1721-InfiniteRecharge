@@ -52,7 +52,7 @@ public class Intake extends SubsystemBase {
     switch (LiveSettings.intakeMode.getValue()){
       case auxiliary:
       case normal:
-      intakeMotor.set(-0.3);
+      intakeMotor.set(-0.15);
       break;
       case disengaged:
       intakeMotor.set(0);

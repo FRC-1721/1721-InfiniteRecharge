@@ -24,9 +24,6 @@ public class Shooter extends SubsystemBase {
   // FalconFX objects
   private static final TalonFX shooterMotor = new TalonFX(Constants.CANIds.TalonFX_Shooter_Address);
 
-  // CANSParkMax Objects
-  private static final CANSparkMax shooterLoader = new CANSparkMax(Constants.CANIds.MiniNeo_Shooter_Loader_Address, MotorType.kBrushless);
-
   // Dumb targeting
   private static final NetworkTable limelight = NetworkTableInstance.getDefault().getTable("limelight");
   NetworkTableEntry tx = limelight.getEntry("tx");
@@ -36,7 +33,7 @@ public class Shooter extends SubsystemBase {
   NetworkTableEntry pipeline_entry = limelight.getEntry("pipeline");
 
   // Flag Information
-  private double targetVelocity;
+  private static double targetVelocity;
 
   /**
    * Creates a new Turret.
@@ -98,29 +95,6 @@ public class Shooter extends SubsystemBase {
   }
 
   /**
-   * Set the shooter motor to the state passed
-   * @author Joe Sedutto
-   * @param state (-1 to 1)
-   */
-  public void safeEngageMagazine(Double state){
-    if (isReadyToFire()){
-      shooterLoader.set(state);
-    }
-    else{
-      shooterLoader.set(0);
-    }
-  }
-
-  /**
-   * Forces the shooter feeder to a specified state
-   * @author Joe S
-   * @param state (-1 to 1)
-   */
-  public void forceEngageMagazine(Double state){
-    shooterLoader.set(state);
-  }
-
-  /**
    * Takes a int and sets the pipeline accordingly
    * @param pipeline
    */
@@ -135,9 +109,9 @@ public class Shooter extends SubsystemBase {
   public double getLimelightAzimuth(){return Math.toRadians(tx.getDouble(0.0));}
   public double getLimelightElevation(){return Math.toRadians(ty.getDouble(0.0));}
   public double getRoughLimelightDistance(){return ta.getDouble(0.0);}
-  public double getShooterVelocity(){return shooterMotor.getSelectedSensorVelocity();}
+  public static double getShooterVelocity(){return shooterMotor.getSelectedSensorVelocity();}
 
-  public boolean isReadyToFire(){return ( (targetVelocity > getShooterVelocity() - Constants.ShooterPID.AcceptableVelocityError) && (targetVelocity < getShooterVelocity() + Constants.ShooterPID.AcceptableVelocityError) && (targetVelocity > 100));}
+  public static boolean isReadyToFire(){return ( (targetVelocity > getShooterVelocity() - Constants.ShooterPID.AcceptableVelocityError) && (targetVelocity < getShooterVelocity() + Constants.ShooterPID.AcceptableVelocityError) && (targetVelocity > 100));}
 
   @Override
   public void periodic() {

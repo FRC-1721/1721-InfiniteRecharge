@@ -68,19 +68,19 @@ public final class Constants {
 
         public static final int Turret_Spin_cw_axis = 3;        // Configured never
         public static final int Turret_Spin_ccw_axis = 2;       // Configured never
+
+        public static final int Intake_Button = 1;              // Configured never
+        public static final int Purge_Button = 2;               // Configured never
         public static final int Arm_Shooter_Button = 3;         // Configured 2/14/2020
         public static final int Disarm_Shooter_Button = 4;      // Configured 2/14/2020
-
         public static final int Manual_Turret_Button = 5;       // Configured 2/28/2020
         public static final int Automatic_Turret_Button = 6;    // Congigured 2/28/2020
+        public static final int Fire_When_Ready_Button = 7;
 
         public static final int Climb_Axis = 1;                 // Configured 2/15/2020
         public static final int Gantry_Axis = 0;                // Congigured 2/15/2020
 
-        public static final int Intake_Button = 1;              // Configured never
-        public static final int Purge_Button = 2;               // Configured never
-
-		public static final double LiftDeadzone = 0.1;
+        public static final double LiftDeadzone = 0.1;
     }
 
     /**
