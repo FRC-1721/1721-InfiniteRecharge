@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.GoToRandom;
 import frc.robot.commands.HumanControl;
 import frc.robot.commands.ManualClimb;
 import frc.robot.commands.ManualTurret;
@@ -94,7 +93,6 @@ public class RobotContainer {
     SmartDashboard.putData("Shift Down", new ShiftDown(drivetrain)); // For testing only!
     SmartDashboard.putData("Arm Shooter", new ArmShooter(shooter)); // For testing only!
     SmartDashboard.putData("Zero Turret", new ZeroTurret(turret));
-    SmartDashboard.putData("Move turret randomly", new GoToRandom(turret));
 
     // Configure the button bindings
     configureButtonBindings();
