@@ -5,14 +5,14 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.functions;
+package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Solver;
 
-public class SolveStage2 extends InstantCommand {
-  private static Solver solver;
-
+public class SolveStage2 extends CommandBase {
+  private static Solver solver; // A local referance to the solver subsystem
+  
   /**
    * Creates a new SolveStage2.
    */
@@ -25,6 +25,22 @@ public class SolveStage2 extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+  }
+
+  // Called every time the scheduler runs while the command is scheduled.
+  @Override
+  public void execute() {
     solver.setPositionNoColor(3);
+  }
+
+  // Called once the command ends or is interrupted.
+  @Override
+  public void end(boolean interrupted) {
+  }
+
+  // Returns true when the command should end.
+  @Override
+  public boolean isFinished() {
+    return solver.isSolverDone();
   }
 }

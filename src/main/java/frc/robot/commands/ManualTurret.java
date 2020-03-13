@@ -12,40 +12,38 @@ import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Turret;
 
-public class ManualShooter extends CommandBase {
-  private final Shooter shooter;
-  private final DoubleSupplier test_speed;
-  private final DoubleSupplier turret_speed;
+public class ManualTurret extends CommandBase {
+  private final Turret turret;
+
+  private final DoubleSupplier turret_velocity;
   private final Joystick operatorJoystick;
 
   /**
-   * Creates a new TestShooter.
+   * Creates a new ManualTurret.
    */
-  public ManualShooter(Shooter _shooter, Joystick _operatorJoystick, DoubleSupplier _test_speed, DoubleSupplier _turret_speed) {
-    addRequirements(_shooter);
+  public ManualTurret(Turret _turret, Joystick _operatorJoystick, DoubleSupplier _turret_velocity) {
+    addRequirements(_turret);
 
-    shooter = _shooter;
-    test_speed = _test_speed;
-    turret_speed = _turret_speed;
+    turret_velocity = _turret_velocity;
     operatorJoystick = _operatorJoystick;
+    turret = _turret;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.testShooter(test_speed.getAsDouble());
-    shooter.testTurret(turret_speed.getAsDouble());
-
-    if (shooter.isAtTopLimit()){
-      operatorJoystick.setRumble(RumbleType.kLeftRumble, 1);
+    turret.manualTurret(turret_velocity.getAsDouble() * 4000); 
+    
+    if (turret.isAtTopLimit()){ // If at the top limit
+      operatorJoystick.setRumble(RumbleType.kLeftRumble, 1); // Rumble the left side
     }
-    else if(shooter.isAtBottomLimit()){
-      operatorJoystick.setRumble(RumbleType.kRightRumble, 1);
+    else if(turret.isAtBottomLimit()){ // If at the bottom
+      operatorJoystick.setRumble(RumbleType.kRightRumble, 1); // Rumble the right side
     }
-    else{
-      operatorJoystick.setRumble(RumbleType.kLeftRumble, 0);
+    else{ // If neither
+      operatorJoystick.setRumble(RumbleType.kLeftRumble, 0); // Dont rumble
       operatorJoystick.setRumble(RumbleType.kRightRumble, 0);
     }
   }

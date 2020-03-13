@@ -7,17 +7,17 @@
 
 package frc.robot.commands.functions;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Shooter;
 
-public class DisarmShooter extends CommandBase {
+public class DisarmShooter extends InstantCommand {
   private final Shooter shooter;
   
   /**
    * Creates a new DisarmShooter.
    */
   public DisarmShooter(Shooter _shooter) {
-    addRequirements(_shooter);
+    //addRequirements(_shooter);
 
     shooter = _shooter;
   }
@@ -26,11 +26,7 @@ public class DisarmShooter extends CommandBase {
   @Override
   public void initialize() {
     shooter.switchPipelines(0);
+    shooter.setShooterVelocity(0);
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    shooter.testShooter(0);
-  }
 }

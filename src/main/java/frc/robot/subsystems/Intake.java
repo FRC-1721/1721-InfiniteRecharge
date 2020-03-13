@@ -12,6 +12,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.LiveSettings;
 
 public class Intake extends SubsystemBase {
   // Motor objects
@@ -33,7 +34,13 @@ public class Intake extends SubsystemBase {
    * @param speed (The speed at witch to spin the intake, postive numbers being "in")
    */
   public void driveIntake(double speed){
-    intakeMotor.set(speed); // Set the motor to the required speed
+    switch (LiveSettings.intakeMode.getValue()){
+      case disengaged:
+      intakeMotor.set(0);
+      default:
+      intakeMotor.set(speed); // Set the motor to the required speed
+			break;
+    }
   }
 
   /**
@@ -41,7 +48,14 @@ public class Intake extends SubsystemBase {
    * @author Joe Sedutto
    */
   public void purgeIntake(){
-    intakeMotor.set(-1.0);
+    switch (LiveSettings.intakeMode.getValue()){
+      case auxiliary:
+      case normal:
+      intakeMotor.set(-0.15);
+      break;
+      case disengaged:
+      intakeMotor.set(0);
+    }
   }
 
   @Override

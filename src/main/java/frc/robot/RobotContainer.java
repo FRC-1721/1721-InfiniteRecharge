@@ -7,31 +7,34 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.HumanControl;
 import frc.robot.commands.ManualClimb;
-import frc.robot.commands.ManualShooter;
-import frc.robot.commands.ROSControl;
+import frc.robot.commands.ManualTurret;
+import frc.robot.commands.SolveStage2;
 import frc.robot.commands.functions.ArmShooter;
 import frc.robot.commands.functions.DisarmShooter;
 import frc.robot.commands.functions.PurgeIntake;
 import frc.robot.commands.functions.ResetEncoders;
 import frc.robot.commands.functions.ShiftDown;
 import frc.robot.commands.functions.ShiftUp;
-import frc.robot.commands.functions.SolveStage2;
 import frc.robot.commands.functions.SpinIntake;
+import frc.robot.commands.functions.UnloadMagazineWhenReady;
+import frc.robot.commands.functions.ZeroTurret;
 import frc.robot.ros.ROS;
+import frc.robot.ros.ROSControl;
+import frc.robot.ros.ROSShooter;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Magazine;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Solver;
+import frc.robot.subsystems.Turret;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -43,7 +46,6 @@ public class RobotContainer {
   // Joysticks and Operator Input
   public static final Joystick DriverStick = new Joystick(Constants.DriverInputSettings.Driver_Stick_Port);
   public static final Joystick OperatorStick = new Joystick(Constants.OperatorInputSettings.Operator_Controller_Port);
-  public static final Joystick DSTogglePanel = new Joystick(Constants.DSTogglePanelSettings.DS_Toggle_Panel_Port);
 
   // Subsystems
   private final Drivetrain drivetrain = new Drivetrain();
@@ -51,10 +53,15 @@ public class RobotContainer {
   private final ROS ros = new ROS();
   private final Shooter shooter = new Shooter();
   private final Climber climber = new Climber();
+  private final Turret turret = new Turret();
+  private final Magazine magazine = new Magazine();
   private final Solver solver = new Solver();
 
   // Commands
-
+  private final ROSShooter rosShooter = new ROSShooter(shooter, turret, magazine, ros);
+  private final ManualTurret manualTurret = new ManualTurret(turret, OperatorStick, () -> (OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_ccw_axis) - OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_cw_axis)));
+  private final UnloadMagazineWhenReady unloadMagazineWhenReady = new UnloadMagazineWhenReady(magazine);
+  private final SolveStage2 solveStage2 = new SolveStage2(solver); // Create the Solve Stage 2 Command for driving the solver during stage 2
 
   // Selectors
   Command robot_autonomous; // Autonomous object, will be populated later by the contents of the sendable chooser
@@ -85,36 +92,51 @@ public class RobotContainer {
     SmartDashboard.putData("Shift Up", new ShiftUp(drivetrain)); // For testing only!
     SmartDashboard.putData("Shift Down", new ShiftDown(drivetrain)); // For testing only!
     SmartDashboard.putData("Arm Shooter", new ArmShooter(shooter)); // For testing only!
+    SmartDashboard.putData("Zero Turret", new ZeroTurret(turret));
 
     // Configure the button bindings
     configureButtonBindings();
 
-    // Default commands
+    // Default Commands
     drivetrain.setDefaultCommand(new HumanControl(() -> DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Thro_Axis), () -> DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Yaw_Axis), () -> handlingChooser.getSelected(), drivetrain)); // Set the default command of drivetrain to HumanControl
-    shooter.setDefaultCommand(new ManualShooter(shooter, OperatorStick, () -> OperatorStick.getRawAxis(3), () -> (OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_cw_axis) - OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_ccw_axis))));
-    climber.setDefaultCommand(new ManualClimb(climber, () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Gantry_Axis), () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Climb_Axis)));
+    turret.setDefaultCommand(new ZeroTurret(turret));
+    intake.setDefaultCommand(new PurgeIntake(intake));
+    climber.setDefaultCommand(new ManualClimb(climber, () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Gantry_Axis), () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Climb_Axis), () -> OperatorStick.getRawButton(9)));
+    //shooter.setDefaultCommand(new ManualShooter(shooter, OperatorStick, () -> OperatorStick.getRawAxis(3), () -> (OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_cw_axis) - OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_ccw_axis))));
 
     // ROS Commands
-    ros.publishCommand("resetEncoders", new ResetEncoders(drivetrain));
-    ros.publishCommand("shiftUp", new ShiftUp(drivetrain));
-    ros.publishCommand("shiftDown", new ShiftDown(drivetrain));
+    ros.publishCommand(Constants.RobotOperatingSystem.Names.ROSShooterTable, rosShooter); // We may want these commands to be default commands, and be overriden by manual driver commands
+    ros.publishCommand(Constants.RobotOperatingSystem.Names.ResetEncoders, new ResetEncoders(drivetrain));
+    ros.publishCommand(Constants.RobotOperatingSystem.Names.ShiftUp, new ShiftUp(drivetrain));
+    ros.publishCommand(Constants.RobotOperatingSystem.Names.ShiftDown, new ShiftDown(drivetrain));
+    ros.publishCommand(Constants.RobotOperatingSystem.Names.ZeroTurret, new ZeroTurret(turret));
+    ros.publishCommand(Constants.RobotOperatingSystem.Names.DrivetrainTable, new ROSControl(drivetrain, ros, shooter));
+    ros.publishCommand(Constants.RobotOperatingSystem.Names.ManualTurret, manualTurret); // Not to be called by ROS but to check its status.
   }
 
   /**
-   * Use this method to define your button->command mappings.  Buttons can be created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
-   * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+   * This method contains instantioations for connecting
+   * buttons and commands.
    */
   private void configureButtonBindings() {
+    // Driver
     new JoystickButton(DriverStick, Constants.DriverInputSettings.Autonomous_Restart_Button).whenPressed(new ROSControl(drivetrain, ros, shooter)); // When you press the Autonomous Restart Button
     
-    // Operator
-    new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Arm_Shooter_Button).whenPressed(new ArmShooter(shooter)); // Arms and disarms the shooter
+    // Operator Commands
+    // Arms and disarms the shooter (spinup)
+    new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Arm_Shooter_Button).whenPressed(new ArmShooter(shooter)); 
+    // Runs a command to unload the magazine into the shooter only if the shooter reports that it is ready to fire
+    new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Fire_When_Ready_Button).whileHeld(unloadMagazineWhenReady); 
+    // A command to disarm the shooter. (spindown)
     new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Disarm_Shooter_Button).whenPressed(new DisarmShooter(shooter));
+    // A command to inturupt the default purgeIntake command, and spin the intake in
     new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Intake_Button).whenHeld(new SpinIntake(intake));
+
+    // Un-fixed/testing/misc
+    new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Automatic_Turret_Button).whenPressed(rosShooter);
+    new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Manual_Turret_Button).whenPressed(manualTurret);
     new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Purge_Button).whenHeld(new PurgeIntake(intake));
-    new JoystickButton(DSTogglePanel, Constants.DSTogglePanelSettings.SolveStageTwo).whenPressed(new SolveStage2(solver));
+    //new JoystickButton(DSTogglePanel, Constants.DSTogglePanelSettings.SolveStageTwo).whenPressed(solveStage2);
   }
 
   /**

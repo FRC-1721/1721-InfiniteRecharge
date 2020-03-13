@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.ros.ROS;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -32,6 +33,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putString("Alert", "Robot Program Started");
     
     m_robotContainer = new RobotContainer(); // Define our Robot Container
+
+    SmartDashboard.putString("Alert", "Java Code has started, Robot connected.");
+    ROS.setMode(Constants.RobotOperatingSystem.Modes.NoMode); // Tell ROS what mode we are in
   }
 
   /**
@@ -51,6 +55,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    SmartDashboard.putString("Alert", "Java disabled");
+    ROS.setMode(Constants.RobotOperatingSystem.Modes.Disabled); // Tell ROS what mode we are in
   }
 
   /** This function is called all the time during Disabled mode */
@@ -63,6 +69,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    ROS.setMode(Constants.RobotOperatingSystem.Modes.Autonomous); // Tell ROS what mode we are in
+
     m_autonomousCommand = m_robotContainer.getAutonomousCommand(); // Get the selected autonomous command
 
     if (m_autonomousCommand != null) { // If the command is not null
@@ -79,6 +87,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    SmartDashboard.putString("Alert", "Teleop Entered");
+    ROS.setMode(Constants.RobotOperatingSystem.Modes.Teleop); // Tell ROS what mode we are in
   }
 
   /**
@@ -93,6 +103,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testInit() {
+    ROS.setMode(Constants.RobotOperatingSystem.Modes.Test); // Tell ROS what mode we are in
     // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
   }

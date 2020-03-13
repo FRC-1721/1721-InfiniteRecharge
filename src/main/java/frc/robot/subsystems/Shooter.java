@@ -10,25 +10,17 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Shooter extends SubsystemBase {
-  // TalonSRX objects
-  private static final TalonSRX turretMotor = new TalonSRX(Constants.CANIds.TalonSRX_Turret_Address);
-
   // FalconFX objects
   private static final TalonFX shooterMotor = new TalonFX(Constants.CANIds.TalonFX_Shooter_Address);
-
-  // Solenoids
-  private static final Solenoid ballReleaseSolenoid = new Solenoid(Constants.CANIds.Ball_Release_Solenoid_Address);
 
   // Dumb targeting
   private static final NetworkTable limelight = NetworkTableInstance.getDefault().getTable("limelight");
@@ -38,6 +30,9 @@ public class Shooter extends SubsystemBase {
   NetworkTableEntry camMode_entry = limelight.getEntry("camMode");
   NetworkTableEntry pipeline_entry = limelight.getEntry("pipeline");
 
+  // Flag Information
+  private static double targetVelocity;
+
   /**
    * Creates a new Turret.
    */
@@ -46,8 +41,8 @@ public class Shooter extends SubsystemBase {
     // Set motors to default to prevent weirdness
     shooterMotor.configFactoryDefault();
 
-    // Set break mode
-    shooterMotor.setNeutralMode(Constants.ShooterPID.shooterBreakMode);
+    // Set brake mode
+    shooterMotor.setNeutralMode(Constants.ShooterPID.shooterBrakeMode);
 
     // Set feedback sensors here
     shooterMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor, 
@@ -74,81 +69,27 @@ public class Shooter extends SubsystemBase {
 
     // Set Inverted
     shooterMotor.setInverted(Constants.ShooterPID.shooterMotorInvert); // Sets the output of the motor backwards
-
-
-    // Turret PID and init
-    // Set motors to default to prevent weirdness
-    turretMotor.configFactoryDefault();
-
-    // Set feedback sensors here
-    turretMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 
-                                             Constants.DrivetrainPID.kPIDLoopIdx,
-                                             Constants.DrivetrainPID.kTimeoutMs);
-    
-    // Sets the position to clear when the F limit switch is pressed
-    turretMotor.configClearPositionOnLimitF(true, Constants.DrivetrainPID.kTimeoutMs);
-
-    // Fix sensor phase here
-    turretMotor.setSensorPhase(Constants.TurretPID.turretSensorPhase);
-
-    // Configure nominal outputs
-    turretMotor.configNominalOutputForward(0, Constants.TurretPID.kTimeoutMs);
-		turretMotor.configNominalOutputReverse(0, Constants.TurretPID.kTimeoutMs);
-		turretMotor.configPeakOutputForward(1, Constants.TurretPID.kTimeoutMs);
-    turretMotor.configPeakOutputReverse(-1, Constants.TurretPID.kTimeoutMs);
-    
-    // Configure allowable closed loop error (dead zone)
-    turretMotor.configAllowableClosedloopError(0, Constants.TurretPID.kPIDLoopIdx, Constants.TurretPID.kTimeoutMs);
-
-    // Config slot0 gains
-    turretMotor.config_kF(Constants.TurretPID.kPIDLoopIdx, Constants.TurretPID.kGains.kF, Constants.TurretPID.kTimeoutMs);
-		turretMotor.config_kP(Constants.TurretPID.kPIDLoopIdx, Constants.TurretPID.kGains.kP, Constants.TurretPID.kTimeoutMs);
-		turretMotor.config_kI(Constants.TurretPID.kPIDLoopIdx, Constants.TurretPID.kGains.kI, Constants.TurretPID.kTimeoutMs);
-    turretMotor.config_kD(Constants.TurretPID.kPIDLoopIdx, Constants.TurretPID.kGains.kD, Constants.TurretPID.kTimeoutMs);    
-
-    // Set Inverted
-    turretMotor.setInverted(Constants.TurretPID.turretMotorInvert); // Sets the output of the motor backwards
-
-    // Other init
-    ballReleaseSolenoid.set(false);
   }
   
   /**
    * Sets the shooter motor to some speed
    * Does not use velocity control
    * @author Joe Sedutto
+   * @deprecated use setShooterVelocity instead
    * @param speed
    */
-  public void testShooter(double speed){
-    shooterMotor.set(ControlMode.PercentOutput, speed);
+  public void testShooter(double power){
+    shooterMotor.set(ControlMode.PercentOutput, power);
   }
 
   /**
-   * For testing only
+   * Sets the shooter velocity.
    * @author Joe Sedutto
-   * @param asDouble
+   * @param velocity (ticks/10ms)
    */
-  public void testTurret(double speed) {
-    turretMotor.set(ControlMode.PercentOutput, speed);
-  }
-
-  /**
-   * Set the shooter solenoid to the state listed here
-   * @author Joe Sedutto
-   * @param state
-   */
-  public void releaseShooter(boolean state){
-    ballReleaseSolenoid.set(state);
-  }
-
-  /**
-   * Takes an angle in radians and converts
-   * it to ticks to send to the turret control
-   * @author Joe Sedutto
-   * @param heading
-   */
-  public void targetHeading(double heading){
-    turretMotor.set(ControlMode.Position, heading * Constants.TurretPID.ticksPerRadian);
+  public void setShooterVelocity(double velocity){
+    targetVelocity = velocity; // We use targetVelocity to check weather ready to shoot 
+    shooterMotor.set(ControlMode.Velocity, velocity);
   }
 
   /**
@@ -161,17 +102,23 @@ public class Shooter extends SubsystemBase {
   }
 
 
-  public double getTurretHeading(){return (turretMotor.getSelectedSensorPosition() / Constants.TurretPID.ticksPerRadian);}
+  
 
-  public double getLimelightHeading(){return Math.toRadians(tx.getDouble(0.0));}
+  public double getLimelightAzimuth(){return Math.toRadians(tx.getDouble(0.0));}
   public double getLimelightElevation(){return Math.toRadians(ty.getDouble(0.0));}
-  public double getLimelightDistance(){return ta.getDouble(0.0);}
-  public boolean isAtTopLimit(){if (turretMotor.isFwdLimitSwitchClosed() > 0){ return true; }else{ return false;}}
-  public boolean isAtBottomLimit(){if (turretMotor.isFwdLimitSwitchClosed() > 0){ return true; }else{ return false;}}
-  public boolean isAtLimit(){if (turretMotor.isFwdLimitSwitchClosed() + turretMotor.isFwdLimitSwitchClosed() > 0){ return true; }else{ return false;}}
+  public double getRoughLimelightDistance(){return ta.getDouble(0.0);}
+  public static double getShooterVelocity(){return shooterMotor.getSelectedSensorVelocity();}
+
+  public static boolean isReadyToFire(){return ( (targetVelocity > getShooterVelocity() - Constants.ShooterPID.AcceptableVelocityError) && (targetVelocity < getShooterVelocity() + Constants.ShooterPID.AcceptableVelocityError) && (targetVelocity > 100));}
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Turret Pulse", turretMotor.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Limelight Azimuth", getLimelightAzimuth());
+    SmartDashboard.putBoolean("Is ready to fire", isReadyToFire());
+    SmartDashboard.putNumber("Shooter Temperature", shooterMotor.getTemperature());
+
+    if (isReadyToFire()){
+      SmartDashboard.putString("Alert", "Ready to fire");
+    }
   }
 }

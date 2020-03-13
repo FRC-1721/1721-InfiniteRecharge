@@ -13,12 +13,15 @@ import java.util.Map;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableRegistry;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Turret;
 
 public class ROS extends SubsystemBase {
   //From SmartDashboard,class
@@ -27,19 +30,36 @@ public class ROS extends SubsystemBase {
 
   // Initilize counters
   private static int rosIntex = 1;
+  private String alert;
+  private String previousAlert;
 
   // Setup networkTables
   private static NetworkTableInstance networkTableInstance; // The networktable instance
-  private static NetworkTable rosTable; // The table in that instance of networktables
+  public static NetworkTable rosTable; // The table in that instance of networktables
+
   private static NetworkTableEntry starboardEncoderEntry; // An entry objecy
   private static NetworkTableEntry portEncoderEntry;
+  private static NetworkTableEntry turretEncoderEntry;
+
   private static NetworkTableEntry rosIndex;
+
   private static NetworkTableEntry coprocessorPort; // For tank drive
   private static NetworkTableEntry coprocessorStarboard;
+  private static NetworkTableEntry coprocessorTurret;
+
+  private static NetworkTableEntry rosStatus;
+  private static NetworkTableEntry gameMessage;
+  private static NetworkTableEntry driverStationLocation;
+  private static NetworkTableEntry robotModeEntry;
+  private static NetworkTableEntry eventNameAndMatch;
+  private static NetworkTableEntry distanceAlongInitLine;
   //private static NetworkTableEntry rosTime; // Is ros time (slow estimate)
 
   // Initialize noifiers
   private static Notifier ros_notifier;
+
+  // Other
+  private static DriverStation driverStation;
 
   /**
    * Creates a new ROS.
@@ -48,20 +68,38 @@ public class ROS extends SubsystemBase {
     // Network tables
     networkTableInstance = NetworkTableInstance.create(); // Get the default instance of network tables on the rio
     networkTableInstance.startServer("ros.ini", "10.17.21.2", 5800); // Start a new server on a different port\
-    rosTable = networkTableInstance.getTable(Constants.RobotOperatingSystem.rosTablename); // Get the table ros out of that instance
+    rosTable = networkTableInstance.getTable(Constants.RobotOperatingSystem.Names.rosTablename); // Get the table ros out of that instance
 
     // Get the writable entries
-    starboardEncoderEntry = rosTable.getEntry(Constants.RobotOperatingSystem.starboardEncoderName);
-    portEncoderEntry = rosTable.getEntry(Constants.RobotOperatingSystem.portEncoderName);
-    rosIndex = rosTable.getEntry(Constants.RobotOperatingSystem.rosIndexName);
+    starboardEncoderEntry = rosTable.getEntry(Constants.RobotOperatingSystem.Names.starboardEncoderName);
+    portEncoderEntry = rosTable.getEntry(Constants.RobotOperatingSystem.Names.portEncoderName);
+    turretEncoderEntry = rosTable.getEntry(Constants.RobotOperatingSystem.Names.turretEncoderName);
+    robotModeEntry = rosTable.getEntry(Constants.RobotOperatingSystem.Names.robotModeEntryName);
+    gameMessage = rosTable.getEntry(Constants.RobotOperatingSystem.Names.gameMessageEntryName);
+    driverStationLocation = rosTable.getEntry(Constants.RobotOperatingSystem.Names.driverStationEntryName);
+    eventNameAndMatch = rosTable.getEntry(Constants.RobotOperatingSystem.Names.eventNameAndMatch);
+    rosIndex = rosTable.getEntry(Constants.RobotOperatingSystem.Names.rosIndexName);
+
+    distanceAlongInitLine = rosTable.getEntry(Constants.RobotOperatingSystem.Names.distanceAlongInitLine);
+    SmartDashboard.putNumber("Distance From Right Wall", 4); // Distance from wall
 
     // Get the return entries
     coprocessorPort = rosTable.getEntry("coprocessorPort"); // Coprossesor speed values
     coprocessorStarboard = rosTable.getEntry("coprocessorStarboard");
+    coprocessorTurret = rosTable.getEntry("coprocessorTurret");
+    rosStatus = rosTable.getEntry("ROSStatus");
 
     // Notifier (auto runs a method similar to a command but with NO PROTECTION )
     ros_notifier = new Notifier(ROS::updateTables); // Set the ros_notifer to update the command update, in the package ros
     ros_notifier.startPeriodic(Constants.RobotOperatingSystem.rosUpdateFrequency); // Start the ros notifer
+
+    // Initalize coprosessor values for verboseness
+    coprocessorPort.setDouble(0.0);
+    coprocessorStarboard.setDouble(0.0);
+    coprocessorTurret.setDouble(0.0);
+
+    // Other
+    driverStation = DriverStation.getInstance();
   }
 
   /**
@@ -70,6 +108,7 @@ public class ROS extends SubsystemBase {
   public static void updateTables() {
     starboardEncoderEntry.setDouble(Drivetrain.getDriveEncoderStarboard());
     portEncoderEntry.setDouble(Drivetrain.getDriveEncoderPort());
+    turretEncoderEntry.setDouble(Turret.getTurretHeadingRaw());
     rosIndex.setNumber(rosIntex);
 
     networkTableInstance.flush(); // Force an update and flush all values out. (Recomended by https://www.chiefdelphi.com/t/integrating-ros-node-into-roborio-for-slam/358386/40)
@@ -98,11 +137,27 @@ public class ROS extends SubsystemBase {
     }
   }
 
+  public static void setMode(String mode){robotModeEntry.setString(mode);}
   public double getStarboardSpeed(){return coprocessorStarboard.getDouble(0);} // A number in m/s (translate to ticks/100ms in Drivetrain)
   public double getPortSpeed(){return coprocessorPort.getDouble(0);} // A number in m/s
+  public double getTurretHeading(){return coprocessorTurret.getDouble(0);} // A heading in radians
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    // Less important nt updates
+    gameMessage.setString(driverStation.getGameSpecificMessage());
+    driverStationLocation.setNumber(driverStation.getLocation());
+    eventNameAndMatch.setString(driverStation.getEventName() + "-" + driverStation.getMatchNumber());
+
+    SmartDashboard.putString("Game Message", driverStation.getGameSpecificMessage());
+
+    distanceAlongInitLine.setNumber(SmartDashboard.getNumber("Distance From Right Wall", 4));
+
+    // Alert passing
+    alert = rosStatus.getString("Waiting for ROS to connect");
+    if (alert != previousAlert){
+      SmartDashboard.putString("Alert", alert);
+      previousAlert = alert;
+    }
   }
 }
