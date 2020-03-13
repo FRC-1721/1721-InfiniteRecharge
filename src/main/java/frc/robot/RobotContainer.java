@@ -7,9 +7,7 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -17,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.HumanControl;
 import frc.robot.commands.ManualClimb;
 import frc.robot.commands.ManualTurret;
+import frc.robot.commands.SolveStage2;
 import frc.robot.commands.functions.ArmShooter;
 import frc.robot.commands.functions.DisarmShooter;
 import frc.robot.commands.functions.PurgeIntake;
@@ -62,6 +61,7 @@ public class RobotContainer {
   private final ROSShooter rosShooter = new ROSShooter(shooter, turret, magazine, ros);
   private final ManualTurret manualTurret = new ManualTurret(turret, OperatorStick, () -> (OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_ccw_axis) - OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_cw_axis)));
   private final UnloadMagazineWhenReady unloadMagazineWhenReady = new UnloadMagazineWhenReady(magazine);
+  private final SolveStage2 solveStage2 = new SolveStage2(solver); // Create the Solve Stage 2 Command for driving the solver during stage 2
 
   // Selectors
   Command robot_autonomous; // Autonomous object, will be populated later by the contents of the sendable chooser
@@ -115,25 +115,28 @@ public class RobotContainer {
   }
 
   /**
-   * Use this method to define your button->command mappings.  Buttons can be created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
-   * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+   * This method contains instantioations for connecting
+   * buttons and commands.
    */
   private void configureButtonBindings() {
+    // Driver
     new JoystickButton(DriverStick, Constants.DriverInputSettings.Autonomous_Restart_Button).whenPressed(new ROSControl(drivetrain, ros, shooter)); // When you press the Autonomous Restart Button
     
-    // Operator
-    new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Arm_Shooter_Button).whenPressed(new ArmShooter(shooter)); // Arms and disarms the shooter
-    new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Fire_When_Ready_Button).whileHeld(unloadMagazineWhenReady);
+    // Operator Commands
+    // Arms and disarms the shooter (spinup)
+    new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Arm_Shooter_Button).whenPressed(new ArmShooter(shooter)); 
+    // Runs a command to unload the magazine into the shooter only if the shooter reports that it is ready to fire
+    new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Fire_When_Ready_Button).whileHeld(unloadMagazineWhenReady); 
+    // A command to disarm the shooter. (spindown)
     new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Disarm_Shooter_Button).whenPressed(new DisarmShooter(shooter));
+    // A command to inturupt the default purgeIntake command, and spin the intake in
     new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Intake_Button).whenHeld(new SpinIntake(intake));
 
-    // Testing and misc
+    // Un-fixed/testing/misc
     new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Automatic_Turret_Button).whenPressed(rosShooter);
     new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Manual_Turret_Button).whenPressed(manualTurret);
     new JoystickButton(OperatorStick, Constants.OperatorInputSettings.Purge_Button).whenHeld(new PurgeIntake(intake));
-    //new JoystickButton(DSTogglePanel, Constants.DSTogglePanelSettings.SolveStageTwo).whenPressed(new SolveStage2(solver));
+    //new JoystickButton(DSTogglePanel, Constants.DSTogglePanelSettings.SolveStageTwo).whenPressed(solveStage2);
   }
 
   /**
