@@ -25,7 +25,7 @@ public class Drivetrain extends SubsystemBase {
   // Shifting Gearboxes
   //private static final Solenoid starboardSolenoid = new Solenoid(Constants.CANIds.Starboard_Solenoid_Address);
   //private static final Solenoid portSolenoid = new Solenoid(Constants.CANIds.Port_Solenoid_Address);
-  private static CANEncoder portMotorEncoder;
+  private static CANEncoder portMotorEncoder, starboardMotorEncoder;
   
   /**
    * The drivetrain subsystem controls the movement of the robot.
@@ -39,8 +39,9 @@ public class Drivetrain extends SubsystemBase {
     portMotorSlave.follow(portMotor); // Set to follow the master controller
     starboardMotorSlave.follow(starboardMotor); // Set to follow the master controller
 
-    // Set encoders?
+    // Get encoder objects from the motor
     portMotorEncoder = portMotor.getEncoder();
+    starboardMotorEncoder = starboardMotor.getEncoder();
   }
 
   /**
@@ -115,8 +116,8 @@ public class Drivetrain extends SubsystemBase {
     return false;
   }
 
-  public static double getDriveEncoderPort(){return portMotor.getCPR();} // Returns the encoder value of the port motor
-  public static double getDriveEncoderStarboard(){return starboardMotor.getSelectedSensorPosition();} // Returns the encoder value of the starboard motor
+  public static double getDriveEncoderPort(){return portMotorEncoder.getCountsPerRevolution();} // Returns the encoder value of the port motor
+  public static double getDriveEncoderStarboard(){return starboardMotorEncoder.getCountsPerRevolution();} // Returns the encoder value of the starboard motor
   //public static double getOverallSpeed(){return (((starboardMotor.getSelectedSensorVelocity() + portMotor.getSelectedSensorVelocity()) / 2) * 10) / Constants.DrivetrainPID.ticksPerMeter;} // Returns the average speed of the robot in knots
 
   //public static void resetEncoders(int position){portMotor.setSelectedSensorPosition(position, Constants.DrivetrainPID.kPIDLoopIdx, Constants.DrivetrainPID.kTimeoutMs); starboardMotor.setSelectedSensorPosition(position, Constants.DrivetrainPID.kPIDLoopIdx, Constants.DrivetrainPID.kTimeoutMs);} // Sets the encoder values to the number you pass
