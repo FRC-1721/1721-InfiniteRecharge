@@ -68,8 +68,8 @@ public class ROS extends SubsystemBase {
    * Is called by a notifier at the ros update frequency
    */
   public static void updateTables() {
-    //starboardEncoderEntry.setDouble(Drivetrain.getDriveEncoderStarboard());
-    //portEncoderEntry.setDouble(Drivetrain.getDriveEncoderPort());
+    starboardEncoderEntry.setDouble(Drivetrain.getDriveEncoderStarboard());
+    portEncoderEntry.setDouble(Drivetrain.getDriveEncoderPort());
     rosIndex.setNumber(rosIntex);
 
     networkTableInstance.flush(); // Force an update and flush all values out. (Recomended by https://www.chiefdelphi.com/t/integrating-ros-node-into-roborio-for-slam/358386/40)
