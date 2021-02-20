@@ -17,15 +17,14 @@ public class ResetEncoders extends CommandBase {
    */
   public ResetEncoders(Drivetrain _drivetrain) {
     addRequirements(_drivetrain);
-    //addRequirements(_shooter);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    //Drivetrain.resetEncoders(0); // Reset the encoders to 0
+    Drivetrain.resetEncoders(0); // Reset the encoders to 0
     System.out.println("Reset Encoders");
-    //end(isFinished());
+    end(isFinished());
   }
 
   // Called once the command ends or is interrupted.
@@ -41,11 +40,10 @@ public class ResetEncoders extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    //if(Drivetrain.getDriveEncoderPort() == 0 && Drivetrain.getDriveEncoderStarboard() == 0){
-    //  return true;
-    //}else{
-    //return false;
-    //}
+    if(Drivetrain.getDriveEncoderPort() == 0 && Drivetrain.getDriveEncoderStarboard() == 0){
+      return true;
+    }else{
     return false;
-  }
+    }
+  } //TODO: Clean up the code
 }

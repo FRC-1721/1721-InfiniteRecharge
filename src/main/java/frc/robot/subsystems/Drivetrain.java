@@ -1,9 +1,5 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -23,8 +19,8 @@ public class Drivetrain extends SubsystemBase {
   private static final CANSparkMax starboardMotorSlave = new CANSparkMax(Constants.CANIds.CANSparkMax_Starboard_Slave_Address, MotorType.kBrushless);
 
   // Shifting Gearboxes
-  //private static final Solenoid starboardSolenoid = new Solenoid(Constants.CANIds.Starboard_Solenoid_Address);
-  //private static final Solenoid portSolenoid = new Solenoid(Constants.CANIds.Port_Solenoid_Address);
+  private static final Solenoid starboardSolenoid = new Solenoid(Constants.CANIds.Starboard_Solenoid_Address);
+  private static final Solenoid portSolenoid = new Solenoid(Constants.CANIds.Port_Solenoid_Address);
   private static CANEncoder portMotorEncoder, starboardMotorEncoder;
   
   /**
@@ -96,32 +92,31 @@ public class Drivetrain extends SubsystemBase {
    * A method to set the shifting gearboxes to a manual gear.
    * @param gear
    * @author Joe Sedutto
-   * @deprecated 02/17/21
    */
   public void ShiftGearboxesStandard(boolean gear){
-    //starboardSolenoid.set(gear);
-    //portSolenoid.set(gear);
+    starboardSolenoid.set(gear);
+    portSolenoid.set(gear);
   }
 
   /**
    * A method to set the shifting gearboxes to a manual gear
    * without dropping into a low speed too quickly.
+   * @author Joe Sedutto
+   * @author Aidan
    * @return
-   * @deprecated
    */
   public boolean ShiftGearboxesAutomatic(boolean target_gear){
-    //if (target_gear == false && Math.abs(getOverallSpeed()) < Constants.Misc.Downshift_Max_Speed){ // If the user want to shift down, they must be going below the max speed
-    //  ShiftGearboxesStandard(false);
-    //  return true;
-    //}
-    //else if (target_gear == true && Math.abs(getOverallSpeed()) > Constants.Misc.Upshift_Min_Speed){ // If a user wants to shift up, they must be going above the min speed
-    //  ShiftGearboxesStandard(true);
-    //  return true;
-    //}
-    //else{ // All other conditions will result in a false
-    //  return false;
-    //}
-    return false;
+    if (target_gear == false && Math.abs(getOverallSpeed()) < Constants.Misc.Downshift_Max_Speed){ // If the user want to shift down, they must be going below the max speed
+      ShiftGearboxesStandard(false);
+      return true;
+    }
+    else if (target_gear == true && Math.abs(getOverallSpeed()) > Constants.Misc.Upshift_Min_Speed){ // If a user wants to shift up, they must be going above the min speed
+      ShiftGearboxesStandard(true);
+      return true;
+    }
+    else{ // All other conditions will result in a false
+      return false;
+    }
   }
 
   public static double getDriveEncoderPort(){return portMotorEncoder.getCountsPerRevolution();} // Returns the encoder value of the port motor
