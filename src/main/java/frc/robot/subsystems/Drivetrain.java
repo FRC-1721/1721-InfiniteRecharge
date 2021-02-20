@@ -31,13 +31,21 @@ public class Drivetrain extends SubsystemBase {
    * The drivetrain subsystem controls the movement of the robot.
    */
   public Drivetrain() {
+    // Set motors to default on boot
+    portMotor.restoreFactoryDefaults();
+    portMotorSlave.restoreFactoryDefaults();
+    starboardMotor.restoreFactoryDefaults();
+    starboardMotorSlave.restoreFactoryDefaults();
+
     // Set Inverted
-    portMotor.setInverted(Constants.DrivetrainPID.portMotorInvert); // Sets the output of the motor backwards
-    starboardMotor.setInverted(Constants.DrivetrainPID.starboardMotorInvert);
+    portMotor.setInverted(false);
+    starboardMotor.setInverted(true);
+    //portMotor.setInverted(Constants.DrivetrainPID.portMotorInvert); // Sets the output of the motor backwards
+    //starboardMotor.setInverted(Constants.DrivetrainPID.starboardMotorInvert);
 
     // Set followers
     portMotorSlave.follow(portMotor); // Set to follow the master controller
-    starboardMotorSlave.follow(starboardMotor); // Set to follow the master controller
+    //starboardMotorSlave.follow(starboardMotor); // Set to follow the master controller
 
     // Get encoder objects from the motor
     portMotorEncoder = portMotor.getEncoder();
@@ -52,8 +60,8 @@ public class Drivetrain extends SubsystemBase {
    * @param thro
    */
   public void FlyByWireA(double steerage, double thro){
-    starboardMotor.set((thro + (steerage)) * -1); // Set the starboard motor to the sum of thro - steerage
-    portMotor.set((thro - (steerage)) * -1); // Set the port motor to the sum of thro + steerage
+    starboardMotor.set(thro + (steerage)); // Set the starboard motor to the sum of thro - steerage
+    portMotor.set(thro - (steerage)); // Set the port motor to the sum of thro + steerage
   }
 
   /**

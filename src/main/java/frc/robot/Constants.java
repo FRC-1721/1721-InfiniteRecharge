@@ -32,10 +32,10 @@ public final class Constants {
         public static final int VictorSPX_Starboard_Slave_Address1 = 3; // Configured 1/25/2020
         
         // Three-phase/other
-        public static final int CANSparkMax_Port_Address = 0;                 // Configured 2/17/2021
-        public static final int CANSparkMax_Starboard_Address = 1;            // Configured 2/17/2021
-        public static final int CANSparkMax_Port_Slave_Address = 2;           // Configured 2/17/2021
-        public static final int CANSparkMax_Starboard_Slave_Address = 3;      // Configured 2/17/2021
+        public static final int CANSparkMax_Port_Address = 1;                 // Configured 2/20/2021
+        public static final int CANSparkMax_Starboard_Address = 3;            // Configured 2/20/2021
+        public static final int CANSparkMax_Port_Slave_Address = 2;           // Configured 2/20/2021
+        public static final int CANSparkMax_Starboard_Slave_Address = 4;      // Configured 2/20/2021
         public static final int Lift_Motor_Address = 4;                       // Congigured never
         public static final int Gantry_Motor_Address = 5;                     // Configured never
         public static final int TalonFX_Shooter_Address = 6;                  // Configured never
@@ -96,8 +96,8 @@ public final class Constants {
 
         public static int kPIDLoopIdx = 0; // The loop Index
         public static int kTimeoutMs = 30; // The timeout to wait when writing variables to the motors
-        public static boolean portSensorPhase = true; // The phase of the sensor
-        public static boolean portMotorInvert = true; // The inversion of the motor
+        public static boolean portSensorPhase = false; // The phase of the sensor
+        public static boolean portMotorInvert = false; // The inversion of the motor
         public static boolean starboardSensorPhase = false;
         public static boolean starboardMotorInvert = false;
         public static final Gains kGains = new Gains(0.15,  // kP TODO
