@@ -77,8 +77,8 @@ public class Drivetrain extends SubsystemBase {
    */
   public void FlyWithWiresB(double starboard_meters, double port_meters){
     // Convert the M/s into M/10ms, then, convert M/10ms into Ticks/10ms
-    double starboard_miliseconds = ((starboard_meters / 100) * Constants.DrivetrainPID.ticksPerMeter);
-    double port_miliseconds = ((port_meters / 100) * Constants.DrivetrainPID.ticksPerMeter);
+    double starboard_miliseconds = ((starboard_meters / 100) * Constants.DrivetrainPID.rotationsPerMeter);
+    double port_miliseconds = ((port_meters / 100) * Constants.DrivetrainPID.rotationsPerMeter);
 
     starboardMotor.set(starboard_miliseconds);
     portMotor.set(port_miliseconds);
@@ -118,7 +118,7 @@ public class Drivetrain extends SubsystemBase {
 
   public static double getDriveEncoderPort(){return portMotorEncoder.getCountsPerRevolution();} // Returns the encoder value of the port motor
   public static double getDriveEncoderStarboard(){return starboardMotorEncoder.getCountsPerRevolution();} // Returns the encoder value of the starboard motor
-  //public static double getOverallSpeed(){return (((starboardMotor.getSelectedSensorVelocity() + portMotor.getSelectedSensorVelocity()) / 2) * 10) / Constants.DrivetrainPID.ticksPerMeter;} // Returns the average speed of the robot in knots
+  public static double getOverallSpeed(){return ((starboardMotorEncoder.getVelocity() + portMotorEncoder.getVelocity()) / 2) / Constants.DrivetrainPID.rotationsPerMeter;} // Returns the average speed of the robot in knots
 
   public static void resetEncoders(int position){portMotorEncoder.setPosition(0); starboardMotorEncoder.setPosition(0);} // Sets the encoder values to the number you pass
 
