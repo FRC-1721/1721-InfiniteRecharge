@@ -23,8 +23,8 @@ public class Drivetrain extends SubsystemBase {
   private static final CANSparkMax starboardMotorSlave = new CANSparkMax(Constants.CANIds.CANSparkMax_Starboard_Slave_Address, MotorType.kBrushless);
 
   // Shifting Gearboxes
-  //private static final Solenoid starboardSolenoid = new Solenoid(Constants.CANIds.Starboard_Solenoid_Address);
-  //private static final Solenoid portSolenoid = new Solenoid(Constants.CANIds.Port_Solenoid_Address);
+  private static final Solenoid starboardSolenoid = new Solenoid(Constants.CANIds.Starboard_Solenoid_Address);
+  private static final Solenoid portSolenoid = new Solenoid(Constants.CANIds.Port_Solenoid_Address);
   private static CANEncoder portMotorEncoder, starboardMotorEncoder;
   
   /**
@@ -88,11 +88,10 @@ public class Drivetrain extends SubsystemBase {
    * A method to set the shifting gearboxes to a manual gear.
    * @param gear
    * @author Joe Sedutto
-   * @deprecated 02/17/21
    */
   public void ShiftGearboxesStandard(boolean gear){
-    //starboardSolenoid.set(gear);
-    //portSolenoid.set(gear);
+    starboardSolenoid.set(gear);
+    portSolenoid.set(gear);
   }
 
   /**
