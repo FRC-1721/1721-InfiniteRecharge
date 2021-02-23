@@ -17,7 +17,6 @@ public class ResetEncoders extends CommandBase {
    */
   public ResetEncoders(Drivetrain _drivetrain) {
     addRequirements(_drivetrain);
-    //addRequirements(_shooter);
   }
 
   // Called when the command is initially scheduled.
@@ -25,7 +24,7 @@ public class ResetEncoders extends CommandBase {
   public void initialize() {
     Drivetrain.resetEncoders(0); // Reset the encoders to 0
     System.out.println("Reset Encoders");
-    //end(isFinished());
+    end(isFinished());
   }
 
   // Called once the command ends or is interrupted.
@@ -46,5 +45,5 @@ public class ResetEncoders extends CommandBase {
     }else{
     return false;
     }
-  }
+  } //TODO: Clean up the code
 }

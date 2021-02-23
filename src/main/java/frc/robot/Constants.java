@@ -24,22 +24,22 @@ public final class Constants {
      */
     public static final class CANIds{
         // TalonSRX
-        public static final int TalonSRX_Port_Address = 0;              // Configured 1/25/2020
-        public static final int TalonSRX_Starboard_Address = 1;         // Configured 1/25/2020
         public static final int TalonSRX_Turret_Address = 2;            // Configured 2/8/2020
         public static final int TalonSRX_Solver_Address = 3;            // Configured never
 
         // VictorSPX
-        public static final int VictorSPX_Port_Slave_Address0 = 0;      // Configured 1/25/2020
-        public static final int VictorSPX_Port_Slave_Address1 = 1;      // Configured 1/25/2020
         public static final int VictorSPX_Starboard_Slave_Address0 = 2; // Configured 1/25/2020
         public static final int VictorSPX_Starboard_Slave_Address1 = 3; // Configured 1/25/2020
         
         // Three-phase/other
-        public static final int Lift_Motor_Address = 1;                 // Congigured 2/9/2020
-        public static final int Gantry_Motor_Address = 2;               // Configured never
-        public static final int TalonFX_Shooter_Address = 3;            // Configured never
-        public static final int IntakeMotor_Address = 3;                // Configured 3/1/2020
+        public static final int CANSparkMax_Port_Address = 1;                 // Configured 2/20/2021
+        public static final int CANSparkMax_Starboard_Address = 3;            // Configured 2/20/2021
+        public static final int CANSparkMax_Port_Slave_Address = 2;           // Configured 2/20/2021
+        public static final int CANSparkMax_Starboard_Slave_Address = 4;      // Configured 2/20/2021
+        public static final int Lift_Motor_Address = 4;                       // Congigured never
+        public static final int Gantry_Motor_Address = 5;                     // Configured never
+        public static final int TalonFX_Shooter_Address = 6;                  // Configured never
+        public static final int IntakeMotor_Address = 7;                      // Configured never
 
         // Solenoids
         public static final int Starboard_Solenoid_Address = 3;         // Configured never
@@ -96,8 +96,8 @@ public final class Constants {
 
         public static int kPIDLoopIdx = 0; // The loop Index
         public static int kTimeoutMs = 30; // The timeout to wait when writing variables to the motors
-        public static boolean portSensorPhase = true; // The phase of the sensor
-        public static boolean portMotorInvert = true; // The inversion of the motor
+        public static boolean portSensorPhase = false; // The phase of the sensor
+        public static boolean portMotorInvert = false; // The inversion of the motor
         public static boolean starboardSensorPhase = false;
         public static boolean starboardMotorInvert = false;
         public static final Gains kGains = new Gains(0.15,  // kP TODO
@@ -107,7 +107,7 @@ public final class Constants {
                                                      0,     // kIzone
                                                      1.0);  // kPeakoutput
         // Measurements and other
-        public static int ticksPerMeter = 10000;        // Calibrated 12/16/2019
+        public static int rotationsPerMeter = 10000;        // Calibrated Never
     }
 
     public static final class ShooterPID{
