@@ -34,8 +34,8 @@ public class Drivetrain extends SubsystemBase {
     starboardMotorSlave.restoreFactoryDefaults();
 
     // Set Inverted
-    portMotor.setInverted(false);
-    starboardMotor.setInverted(true);
+    portMotor.setInverted(true);
+    starboardMotor.setInverted(false);
     //portMotor.setInverted(Constants.DrivetrainPID.portMotorInvert); // Sets the output of the motor backwards
     //starboardMotor.setInverted(Constants.DrivetrainPID.starboardMotorInvert);
 
