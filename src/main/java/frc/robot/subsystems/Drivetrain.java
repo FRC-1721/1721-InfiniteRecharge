@@ -60,6 +60,19 @@ public class Drivetrain extends SubsystemBase {
     portMotor.set(thro - (steerage)); // Set the port motor to the sum of thro + steerage
   }
 
+    /**
+   * Using a joystick as input with logarithmically dampened values.
+   * @author Aidan B
+   * @param steerage
+   * @param thro
+   */
+  public void FlyByWireB(double steerage, double thro){
+    double dampened_thro = 1 * Math.pow(thro, 3);
+    double dampened_steerage = 1 * Math.pow(steerage, 3);
+    starboardMotor.set((dampened_thro + (dampened_steerage)) * -1); // Set the starboard motor to the sum of thro - steerage
+    portMotor.set((dampened_thro - (dampened_steerage)) * -1); // Set the port motor to the sum of thro + steerage
+  }
+
   /**
    * Drives the robot using two values for each wheel
    * in percentage output
