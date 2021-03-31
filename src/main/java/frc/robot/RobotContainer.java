@@ -13,25 +13,11 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.HumanControl;
-import frc.robot.commands.ManualClimb;
-import frc.robot.commands.ManualShooter;
-import frc.robot.commands.ROSControl;
-import frc.robot.commands.functions.ArmShooter;
-import frc.robot.commands.functions.DisarmShooter;
-import frc.robot.commands.functions.PurgeIntake;
 import frc.robot.commands.functions.ResetEncoders;
 import frc.robot.commands.functions.ShiftDown;
 import frc.robot.commands.functions.ShiftUp;
-import frc.robot.commands.functions.SolveStage2;
-import frc.robot.commands.functions.SpinIntake;
-import frc.robot.ros.ROS;
-import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.Solver;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
