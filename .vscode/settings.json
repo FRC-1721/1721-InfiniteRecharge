@@ -13,5 +13,6 @@
     "**/.settings": true,
     "**/.factorypath": true,
     "**/*~": true
-  }
+  },
+  "java.checkstyle.configuration": "/google_checks.xml"
 }
