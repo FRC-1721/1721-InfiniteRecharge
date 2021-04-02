@@ -14,5 +14,4 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         reporter: 'github-pr-check'
         filter_mode: nofilter
-        fail_on_error: true
         checkstyle_config: checkstyle/1721_google_checks.xml
