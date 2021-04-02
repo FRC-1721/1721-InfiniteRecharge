@@ -24,7 +24,7 @@ public class ShiftUp extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    drivetrain.ShiftGearboxesStandard(true);
+    drivetrain.shiftGearboxesStandard(true);
     end(false);
   }
 }
