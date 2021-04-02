@@ -63,7 +63,7 @@ public class Drivetrain extends SubsystemBase {
    @param steerage Steering value
    @param thro Throttle value
    */
-  public void flyByWireA(double steerage, double thro){
+  public void flyByWireA(double steerage, double thro) {
     starboardMotor.set(thro + (steerage)); // Set the starboard motor to the sum of thro - steerage
     portMotor.set(thro - (steerage)); // Set the port motor to the sum of thro + steerage
   }
@@ -74,7 +74,7 @@ public class Drivetrain extends SubsystemBase {
    @param steerage Steering value
    @param thro Throttle Value
    */
-  public void flyByWireB(double steerage, double thro){
+  public void flyByWireB(double steerage, double thro) {
     double dampenedThro = 1 * Math.pow(thro, 3);
     double dampenedSteerage = 1 * Math.pow(steerage, 3);
     // Set the starboard motor to the sum of thro - steerage
@@ -90,7 +90,7 @@ public class Drivetrain extends SubsystemBase {
    @param starboard Speed value for the starboard side
    @param port Speed value for the port side
    */
-  public void flyWithWiresA(double starboard, double port){
+  public void flyWithWiresA(double starboard, double port) {
     starboardMotor.set(starboard);
     portMotor.set(port);
   }
@@ -102,7 +102,7 @@ public class Drivetrain extends SubsystemBase {
    * @param starboardMeters (A Value in M/s)
    * @param portMeters (A value in M/s)
    */
-  public void flyWithWiresB(double starboardMeters, double portMeters){
+  public void flyWithWiresB(double starboardMeters, double portMeters) {
     // Convert the M/s into M/10ms, then, convert M/10ms into Ticks/10ms
     double starboardMiliseconds 
         = ((starboardMeters / 100) * Constants.DrivetrainPID.rotationsPerMeter);
@@ -118,7 +118,7 @@ public class Drivetrain extends SubsystemBase {
    @param gear The target gear
    @author Joe Sedutto
    */
-  public void shiftGearboxesStandard(boolean gear){
+  public void shiftGearboxesStandard(boolean gear) {
     starboardSolenoid.set(gear);
     portSolenoid.set(gear);
   }
@@ -130,7 +130,7 @@ public class Drivetrain extends SubsystemBase {
    * @author Aidan
    * @return
    */
-  public boolean shiftGearboxesAutomatic(boolean targetGear){
+  public boolean shiftGearboxesAutomatic(boolean targetGear) {
     if (targetGear == false && Math.abs(getOverallSpeed()) < Constants.Misc.Downshift_Max_Speed) { 
       // If the user want to shift down, they must be going below the max speed
       shiftGearboxesStandard(false);
@@ -145,11 +145,29 @@ public class Drivetrain extends SubsystemBase {
     }
   }
 
-  public static double getDriveEncoderPort(){return portMotorEncoder.getCountsPerRevolution();} // Returns the encoder value of the port motor
-  public static double getDriveEncoderStarboard(){return starboardMotorEncoder.getCountsPerRevolution();} // Returns the encoder value of the starboard motor
-  public static double getOverallSpeed(){return ((starboardMotorEncoder.getVelocity() + portMotorEncoder.getVelocity()) / 2) / Constants.DrivetrainPID.rotationsPerMeter;} // Returns the average speed of the robot in knots
+  public static double getDriveEncoderPort() {
+    return portMotorEncoder.getCountsPerRevolution(); // Returns the encoder value of the port motor
+  } 
 
-  public static void resetEncoders(int position){portMotorEncoder.setPosition(0); starboardMotorEncoder.setPosition(0);} // Sets the encoder values to the number you pass
+  public static double getDriveEncoderStarboard() {
+    // Returns the encoder value of the starboard motor
+    return starboardMotorEncoder.getCountsPerRevolution();
+  }
+
+  public static double getOverallSpeed() {
+    // Returns the average speed of the robot in knots
+    return ((starboardMotorEncoder.getVelocity() + portMotorEncoder.getVelocity()) / 2) / Constants.DrivetrainPID.rotationsPerMeter;
+  }
+
+  /**
+   * Sets the encoders back to 0.
+   * @param position NotImplemented
+   */
+  public static void resetEncoders(int position) {
+    // Sets the encoder values to the number you pass
+    portMotorEncoder.setPosition(0); 
+    starboardMotorEncoder.setPosition(0);
+  } 
 
   @Override
   public void periodic() {

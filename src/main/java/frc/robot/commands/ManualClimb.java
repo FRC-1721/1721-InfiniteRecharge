@@ -21,7 +21,10 @@ public class ManualClimb extends CommandBase {
   /**
    * Creates a new TestShooter.
    */
-  public ManualClimb(Climber _climber, DoubleSupplier _gantry_speed, DoubleSupplier _lift_speed) {
+  public ManualClimb(
+      Climber _climber, 
+      DoubleSupplier _gantry_speed, 
+      DoubleSupplier _lift_speed) {
     addRequirements(_climber);
 
     climber = _climber;
@@ -32,8 +35,8 @@ public class ManualClimb extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climber.GantryManualControl(gantryspeed.getAsDouble());
-    climber.ManualControl(liftspeed.getAsDouble());
+    climber.gantryManualControl(gantryspeed.getAsDouble());
+    climber.manualControl(liftspeed.getAsDouble());
 
     SmartDashboard.putNumber("Lift Manual Control", liftspeed.getAsDouble());
     SmartDashboard.putNumber("Gantry Manual Control", gantryspeed.getAsDouble());

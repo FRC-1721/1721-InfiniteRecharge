@@ -11,8 +11,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.ros.ROS;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Shooter;
-
-
+    
 public class ROSControl extends CommandBase {
   private final Drivetrain drivetrain;
   private final ROS ros;
@@ -22,7 +21,10 @@ public class ROSControl extends CommandBase {
    * Creates a new ROSControl.
    * @author Joe
    */
-  public ROSControl(Drivetrain _drivetrain, ROS _ros, Shooter _shooter) {
+  public ROSControl(
+      Drivetrain _drivetrain, 
+      ROS _ros, 
+      Shooter _shooter) {
     addRequirements(_drivetrain);
     addRequirements(_ros);
     addRequirements(_shooter);
@@ -37,6 +39,7 @@ public class ROSControl extends CommandBase {
   public void execute() {
     drivetrain.flyWithWiresB(ros.getStarboardSpeed(), ros.getPortSpeed());
 
-    shooter.targetHeading(shooter.getTurretHeading() + shooter.getLimelightHeading()); // TODO change this so it actually is 10/10 not 3/10
+    // TODO change this so it actually is 10/10 not 3/10
+    shooter.targetHeading(shooter.getTurretHeading() + shooter.getLimelightHeading());
   }
 }
