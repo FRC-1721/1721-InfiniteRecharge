@@ -22,6 +22,7 @@ public class ManualShooter extends CommandBase {
   /**
    * Creates a new TestShooter.
    */
+  @SuppressWarnings("checkstyle:ParameterName")
   public ManualShooter(
       Shooter _shooter, 
       Joystick _operatorJoystick, 

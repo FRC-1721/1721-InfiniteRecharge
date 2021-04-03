@@ -23,6 +23,7 @@ public class HumanControl extends CommandBase {
    * @param _drivingMode Driving mode supplier
    * @param _drivetrain Drivetrain object
    */
+  @SuppressWarnings("checkstyle:ParameterName")
   public HumanControl(
       DoubleSupplier _thro, 
       DoubleSupplier _steerage, 

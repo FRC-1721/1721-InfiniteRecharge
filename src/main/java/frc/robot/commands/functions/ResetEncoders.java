@@ -15,6 +15,7 @@ public class ResetEncoders extends CommandBase {
    * Resets the encoders and finishes.
    * @author Joe Sedutto
    */
+  @SuppressWarnings("checkstyle:ParameterName")
   public ResetEncoders(Drivetrain _drivetrain) {
     addRequirements(_drivetrain);
   }

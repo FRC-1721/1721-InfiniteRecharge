@@ -17,12 +17,13 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
+@SuppressWarnings("checkstyle:AbbreviationAsWordInName")
 public final class Constants {
 
   /**
    * Use only for can IDs.
    */
-  public static final class CANIds{
+  public static final class CANIds {
     // TalonSRX
     public static final int TalonSRX_Turret_Address = 2;      // Configured 2/8/2020
     public static final int TalonSRX_Solver_Address = 3;      // Configured never
@@ -55,13 +56,14 @@ public final class Constants {
     public static final int Drivebase_Thro_Axis = 1;    // Configured never
     public static final int Drivebase_Yaw_Axis = 2;     // Configured never
     public static final int RestartAutonomous = 1;      // Configured never
-    public static final double Overide_Threshold = 0.2; // The value the driver must overcome to manually disable the auto
+    // The value the driver must overcome to manually disable the auto
+    public static final double Overide_Threshold = 0.2; 
   }
 
   /**
    * Change button and stick mappings for Operator Controller.
    */
-  public static final class OperatorInputSettings{
+  public static final class OperatorInputSettings {
     public static final int Operator_Controller_Port = 1;   // The USB order of the controller
 
     public static final int Turret_Spin_cw_axis = 3;    // Configured never
@@ -79,12 +81,12 @@ public final class Constants {
   /**
    * Change button mappings for the DS Toggle Switchboard.
    */
-  public static final class DSTogglePanelSettings{
+  public static final class DSTogglePanelSettings {
     public static final int DS_Toggle_Panel_Port = 2;     // The USB order of the controller
     public static final int SolveStageTwo = 1;        // A button to solve stage 2
   }
 
-  public static final class RobotOperatingSystem{
+  public static final class RobotOperatingSystem {
     public static double rosUpdateFrequency = 0.02;
     public static String rosTablename = "ROS";
     public static String starboardEncoderName = "Starboard";
@@ -92,7 +94,7 @@ public final class Constants {
     public static String rosIndexName = "rosIndex";
   }
 
-  public static final class DrivetrainPID{
+  public static final class DrivetrainPID {
 
     public static int kPIDLoopIdx = 0; // The loop Index
     public static int kTimeoutMs = 30; // The timeout to wait when writing variables to the motors
@@ -110,7 +112,7 @@ public final class Constants {
     public static int rotationsPerMeter = 10000;    // Calibrated Never
   }
 
-  public static final class ShooterPID{
+  public static final class ShooterPID {
 
     public static int kPIDLoopIdx = 0; // The loop Index
     public static int kTimeoutMs = 30; // The timeout to wait when writing variables to the motors
@@ -127,7 +129,7 @@ public final class Constants {
                            1.0);  // kPeakoutput
   }
 
-  public static final class TurretPID{
+  public static final class TurretPID {
 
     public static int kPIDLoopIdx = 0; // The loop Index
     public static int kTimeoutMs = 30; // The timeout to wait when writing variables to the motors
@@ -144,7 +146,7 @@ public final class Constants {
     public static int ticksPerRadian = 10000;    // Calibrated Never
   }
 
-  public static final class ClimberPID{
+  public static final class ClimberPID {
 
     public static int kPIDLoopIdx = 0; // The loop Index
     public static int kTimeoutMs = 30; // The timeout to wait when writing variables to the motors
@@ -160,7 +162,7 @@ public final class Constants {
     public static int arbAnalogPerRadian = 10;
   }
 
-  public static final class SolverPID{
+  public static final class SolverPID {
 
     public static int kPIDLoopIdx = 0; // The loop Index
     public static int kTimeoutMs = 30; // The timeout to wait when writing variables to the motors
@@ -202,7 +204,7 @@ public final class Constants {
     }
   }
 
-  public static final class Misc{
+  public static final class Misc {
     // The maximum speed that you can downshift at.
     public static final double Downshift_Max_Speed = 0; 
     public static final double Upshift_Min_Speed = 0;

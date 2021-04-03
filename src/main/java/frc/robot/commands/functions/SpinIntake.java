@@ -17,6 +17,7 @@ public class SpinIntake extends CommandBase {
    * Creates a new PurgeIntake.
    * @author Joe Sedutto
    */
+  @SuppressWarnings("checkstyle:ParameterName")
   public SpinIntake(Intake _intake) {
     addRequirements(_intake);
     intake = _intake;

@@ -20,6 +20,7 @@ public class ManualClimb extends CommandBase {
   /**
    * Creates a new TestShooter.
    */
+  @SuppressWarnings("checkstyle:ParameterName")
   public ManualClimb(
       Climber _climber, 
       DoubleSupplier _gantry_speed, 

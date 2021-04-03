@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-
+@SuppressWarnings("checkstyle:AbbreviationAsWordInName")
 public class ROS extends SubsystemBase {
   //From SmartDashboard,class
   @SuppressWarnings("PMD.UseConcurrentHashMap")

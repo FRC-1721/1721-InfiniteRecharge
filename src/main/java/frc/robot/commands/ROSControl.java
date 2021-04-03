@@ -11,7 +11,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.ros.ROS;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Shooter;
-    
+
+@SuppressWarnings("checkstyle:AbbreviationAsWordInName")
 public class ROSControl extends CommandBase {
   private final Drivetrain drivetrain;
   private final ROS ros;
@@ -21,6 +22,7 @@ public class ROSControl extends CommandBase {
    * Creates a new ROSControl.
    * @author Joe
    */
+  @SuppressWarnings("checkstyle:ParameterName")
   public ROSControl(
       Drivetrain _drivetrain, 
       ROS _ros, 

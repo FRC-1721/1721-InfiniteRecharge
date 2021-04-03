@@ -17,6 +17,7 @@ public class PurgeIntake extends CommandBase {
    * Creates a new PurgeIntake.
    * @author Joe Sedutto
    */
+  @SuppressWarnings("checkstyle:ParameterName")
   public PurgeIntake(Intake _intake) {
     addRequirements(_intake);
     intake = _intake;
