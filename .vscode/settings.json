@@ -14,5 +14,5 @@
     "**/.factorypath": true,
     "**/*~": true
   },
-  "java.checkstyle.configuration": "/google_checks.xml"
+  "java.checkstyle.configuration": "${workspaceFolder}/checkstyle/1721_checks.xml"
 }
