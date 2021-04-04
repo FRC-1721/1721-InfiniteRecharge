@@ -23,7 +23,7 @@ public final class Constants {
   /**
    * Use only for can IDs.
    */
-  public static final class CANIds {
+  public static final class CANAddresses {
     // TalonSRX
     public static final int TalonSRX_Turret_Address = 2;      // Configured 2/8/2020
     public static final int TalonSRX_Solver_Address = 3;      // Configured never

@@ -18,7 +18,7 @@ public class Solver extends SubsystemBase {
   // Motors
   // Creates a new motor
   private static final TalonSRX solverMotor
-      = new TalonSRX(Constants.CANIds.TalonSRX_Solver_Address);
+      = new TalonSRX(Constants.CANAddresses.TalonSRX_Solver_Address);
 
   /**
    * Creates a new Solver.

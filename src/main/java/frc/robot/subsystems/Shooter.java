@@ -23,15 +23,15 @@ import frc.robot.Constants;
 public class Shooter extends SubsystemBase {
   // TalonSRX objects
   private static final TalonSRX turretMotor
-      = new TalonSRX(Constants.CANIds.TalonSRX_Turret_Address);
+      = new TalonSRX(Constants.CANAddresses.TalonSRX_Turret_Address);
 
   // FalconFX objects
   private static final TalonFX shooterMotor 
-      = new TalonFX(Constants.CANIds.TalonFX_Shooter_Address);
+      = new TalonFX(Constants.CANAddresses.TalonFX_Shooter_Address);
 
   // Solenoids
   private static final Solenoid ballReleaseSolenoid 
-      = new Solenoid(Constants.CANIds.Ball_Release_Solenoid_Address);
+      = new Solenoid(Constants.CANAddresses.Ball_Release_Solenoid_Address);
 
   // Dumb targeting
   private static final NetworkTable limelight 
