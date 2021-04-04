@@ -16,6 +16,7 @@ public class DisarmShooter extends CommandBase {
   /**
    * Creates a new DisarmShooter.
    */
+  @SuppressWarnings("checkstyle:ParameterName")
   public DisarmShooter(Shooter _shooter) {
     addRequirements(_shooter);
 

@@ -16,6 +16,7 @@ public class ShiftUp extends InstantCommand {
   /**
    * Creates a new ShiftUp.
    */
+  @SuppressWarnings("checkstyle:ParameterName")
   public ShiftUp(Drivetrain _drivetrain) {
     // Do not require drivetrain as they are not mutually exclusive.
     drivetrain = _drivetrain;
@@ -24,7 +25,7 @@ public class ShiftUp extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    drivetrain.ShiftGearboxesStandard(true);
+    drivetrain.shiftGearboxesStandard(true);
     end(false);
   }
 }

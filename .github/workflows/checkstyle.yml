@@ -1,0 +1,19 @@
+name: Check Style
+on: pull_request
+
+jobs:
+  checkstyle_job:
+    runs-on: ubuntu-latest
+    name: Checkstyle job
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Run check style
+      uses: nikitasavinov/checkstyle-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        reporter: 'github-pr-check'
+        filter_mode: nofilter
+        fail_on_error: true
+        checkstyle_config: checkstyle/1721_checks.xml
+        checkstyle_version: '8.18'

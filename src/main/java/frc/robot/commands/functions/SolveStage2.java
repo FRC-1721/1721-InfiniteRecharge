@@ -16,6 +16,7 @@ public class SolveStage2 extends InstantCommand {
   /**
    * Creates a new SolveStage2.
    */
+  @SuppressWarnings("checkstyle:ParameterName")
   public SolveStage2(Solver _solver) {
     addRequirements(_solver);
 
