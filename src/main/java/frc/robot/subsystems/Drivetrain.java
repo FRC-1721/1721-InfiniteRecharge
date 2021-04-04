@@ -12,20 +12,24 @@ import frc.robot.Constants;
  */
 public class Drivetrain extends SubsystemBase {
   // Rev Robotics controllers For the win!
-  private static final CANSparkMax portMotor 
-      = new CANSparkMax(Constants.CANIds.CANSparkMax_Port_Address, MotorType.kBrushless);
-  private static final CANSparkMax starboardMotor 
-      = new CANSparkMax(Constants.CANIds.CANSparkMax_Starboard_Address, MotorType.kBrushless);
-  private static final CANSparkMax portMotorSlave
-      = new CANSparkMax(Constants.CANIds.CANSparkMax_Port_Slave_Address, MotorType.kBrushless);
-  private static final CANSparkMax starboardMotorSlave
-      = new CANSparkMax(Constants.CANIds.CANSparkMax_Starboard_Slave_Address, MotorType.kBrushless);
+  private static final CANSparkMax portMotor = new CANSparkMax(
+      Constants.CANAddresses.SparkMax_Port_Drive_Address, 
+      MotorType.kBrushless);
+  private static final CANSparkMax starboardMotor = new CANSparkMax(
+      Constants.CANAddresses.SparkMax_Starboard_Drive_Address, 
+      MotorType.kBrushless);
+  private static final CANSparkMax portMotorSlave = new CANSparkMax(
+      Constants.CANAddresses.SparkMax_Port_Drive_Slave_Address, 
+      MotorType.kBrushless);
+  private static final CANSparkMax starboardMotorSlave = new CANSparkMax(
+      Constants.CANAddresses.SparkMax_Starboard_Drive_Slave_Address, 
+      MotorType.kBrushless);
 
   // Shifting Gearboxes
   private static final Solenoid starboardSolenoid 
-      = new Solenoid(Constants.CANIds.Starboard_Solenoid_Address);
+      = new Solenoid(Constants.CANAddresses.Starboard_Gear_Select_Solenoid);
   private static final Solenoid portSolenoid 
-      = new Solenoid(Constants.CANIds.Port_Solenoid_Address);
+      = new Solenoid(Constants.CANAddresses.Port_Gear_Select_Solenoid);
   private static CANEncoder portMotorEncoder;
   private static CANEncoder starboardMotorEncoder;
   

@@ -17,7 +17,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
-@SuppressWarnings("checkstyle:AbbreviationAsWordInName")
+@SuppressWarnings({"checkstyle:AbbreviationAsWordInName", "checkstyle:LineLength"})
 public final class Constants {
 
   /**
@@ -25,27 +25,29 @@ public final class Constants {
    */
   public static final class CANAddresses {
     // TalonSRX
-    public static final int TalonSRX_Turret_Address = 2;      // Configured 2/8/2020
-    public static final int TalonSRX_Solver_Address = 3;      // Configured never
+    public static final int TalonSRX_Turret_Address = 2;            // TODO: Remove this
+    public static final int TalonSRX_Solver_Address = 3;            // Configured never
 
     // VictorSPX
-    public static final int VictorSPX_Starboard_Slave_Address0 = 2; // Configured 1/25/2020
-    public static final int VictorSPX_Starboard_Slave_Address1 = 3; // Configured 1/25/2020
+    //public static final int VictorSPX_Starboard_Slave_Address0 = 2; // Configured 1/25/2020
+    //public static final int VictorSPX_Starboard_Slave_Address1 = 3; // Configured 1/25/2020
     
     // Three-phase/other
-    public static final int CANSparkMax_Port_Address = 1;         // Configured 2/20/2021
-    public static final int CANSparkMax_Starboard_Address = 3;      // Configured 2/20/2021
-    public static final int CANSparkMax_Port_Slave_Address = 2;       // Configured 2/20/2021
-    public static final int CANSparkMax_Starboard_Slave_Address = 4;    // Configured 2/20/2021
-    public static final int Lift_Motor_Address = 4;             // Congigured never
-    public static final int Gantry_Motor_Address = 5;           // Configured never
-    public static final int TalonFX_Shooter_Address = 6;          // Configured never
-    public static final int IntakeMotor_Address = 7;            // Configured never
+    public static final int SparkMax_Port_Drive_Address = 1;             // Configured 2/20/2021
+    public static final int SparkMax_Starboard_Drive_Address = 3;        // Configured 2/20/2021
+    public static final int SparkMax_Port_Drive_Slave_Address = 2;       // Configured 2/20/2021
+    public static final int SparkMax_Starboard_Drive_Slave_Address = 4;  // Configured 2/20/2021
+    public static final int Neo_Lift_Motor_Address = 4;                  // Congigured never
+    public static final int MiniNeo_Gantry_Motor_Address = 5;            // Configured never
+    public static final int TalonFX_Shooter_Address = 6;                 // Configured never
+    public static final int MiniNeo_Outrunner_IntakeMotor_Address = 7;   // Configured never
 
     // Solenoids
-    public static final int Starboard_Solenoid_Address = 3;     // Configured never
-    public static final int Port_Solenoid_Address = 0;        // Configured never
+    public static final int Starboard_Gear_Select_Solenoid = 3;   // Configured never
+    public static final int Port_Gear_Select_Solenoid = 0;        // Configured never
     public static final int Ball_Release_Solenoid_Address = 2;    // Configured never
+    public static final int Intake_Retract_Solenoid = -1;         // Configured never
+    public static final int Intake_Deploy = -1;                   // Configured never
   }
 
   /**
