@@ -21,7 +21,9 @@ public class Intake extends SubsystemBase {
    * Creates a new Intake.
    */
   public Intake() {
-    intakeMotor = new CANSparkMax(Constants.CANAddresses.MiniNeo_Outrunner_IntakeMotor_Address, MotorType.kBrushless);
+    intakeMotor = new CANSparkMax(
+      Constants.CANAddresses.MiniNeo_Outrunner_IntakeMotor_Address, 
+      MotorType.kBrushless);
     intakeMotor.restoreFactoryDefaults();
     intakeMotor.setInverted(true);
   }

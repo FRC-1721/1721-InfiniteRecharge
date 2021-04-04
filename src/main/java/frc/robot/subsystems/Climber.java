@@ -23,11 +23,14 @@ public class Climber extends SubsystemBase {
   public Climber() { 
     // For initalization code
     // Creates a new motor
-    gantryMotor 
-      = new CANSparkMax(Constants.CANAddresses.MiniNeo_Gantry_Motor_Address, MotorType.kBrushless); 
+    gantryMotor = new CANSparkMax(
+      Constants.CANAddresses.MiniNeo_Gantry_Motor_Address, 
+      MotorType.kBrushless); 
     gantryMotor.restoreFactoryDefaults();
 
-    liftMotor = new CANSparkMax(Constants.CANAddresses.Neo_Lift_Motor_Address, MotorType.kBrushless);
+    liftMotor = new CANSparkMax(
+      Constants.CANAddresses.Neo_Lift_Motor_Address, 
+      MotorType.kBrushless);
     liftMotor.restoreFactoryDefaults();
   }
 
@@ -38,7 +41,8 @@ public class Climber extends SubsystemBase {
    */
   public void gantryManualControl(double speed) {
     if (Math.abs(speed) <= 0.05) {
-      
+      //TODO: What went here?...
+      ;
     } else {
       gantryMotor.set(speed);
     }
