@@ -149,12 +149,12 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public static double getDriveEncoderPort() {
-    return portMotorEncoder.getCountsPerRevolution(); // Returns the encoder value of the port motor
+    return portMotorEncoder.getPosition(); // Returns the encoder value of the port motor
   } 
 
   public static double getDriveEncoderStarboard() {
     // Returns the encoder value of the starboard motor
-    return starboardMotorEncoder.getCountsPerRevolution();
+    return starboardMotorEncoder.getPosition();
   }
 
   public static double getOverallSpeed() {
