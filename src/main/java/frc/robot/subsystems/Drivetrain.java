@@ -2,8 +2,10 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.EncoderType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -55,8 +57,8 @@ public class Drivetrain extends SubsystemBase {
     //starboardMotorSlave.follow(starboardMotor); // Set to follow the master controller
 
     // Get encoder objects from the motor
-    portMotorEncoder = portMotor.getEncoder();
-    starboardMotorEncoder = starboardMotor.getEncoder();
+    portMotorEncoder = portMotor.getEncoder(EncoderType.kHallSensor, 4096);
+    starboardMotorEncoder = starboardMotor.getEncoder(EncoderType.kHallSensor, 4096);
   }
 
   /**
@@ -149,7 +151,8 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public static double getDriveEncoderPort() {
-    return portMotorEncoder.getPosition(); // Returns the encoder value of the port motor
+    // Returns the encoder value of the port motor
+    return portMotorEncoder.getPosition(); 
   } 
 
   public static double getDriveEncoderStarboard() {
@@ -174,6 +177,7 @@ public class Drivetrain extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Port Side Encoder", getDriveEncoderPort());
+    SmartDashboard.putNumber("Starboard Side Encoder", getDriveEncoderStarboard());
   }
 }
