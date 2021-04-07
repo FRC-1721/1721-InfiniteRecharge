@@ -15,6 +15,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.HumanControl;
+import frc.robot.commands.ManualShooter;
+import frc.robot.commands.functions.ArmShooter;
+import frc.robot.commands.functions.DisarmShooter;
 import frc.robot.commands.functions.PurgeIntake;
 import frc.robot.commands.functions.ResetEncoders;
 import frc.robot.commands.functions.ShiftDown;
@@ -22,6 +25,7 @@ import frc.robot.commands.functions.ShiftUp;
 import frc.robot.commands.functions.SpinIntake;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -42,7 +46,7 @@ public class RobotContainer {
   private final Drivetrain drivetrain = new Drivetrain();
   private final Intake intake = new Intake();
   //private final ROS ros = new ROS();
-  //private final Shooter shooter = new Shooter();
+  private final Shooter shooter = new Shooter();
   //private final Climber climber = new Climber();
   //private final Solver solver = new Solver();
 
@@ -81,7 +85,7 @@ public class RobotContainer {
     SmartDashboard.putData("Reset Encoders", new ResetEncoders(drivetrain));
     SmartDashboard.putData("Shift Up", new ShiftUp(drivetrain)); // For testing only!
     SmartDashboard.putData("Shift Down", new ShiftDown(drivetrain)); // For testing only!
-    //SmartDashboard.putData("Arm Shooter", new ArmShooter(shooter)); // For testing only!
+    SmartDashboard.putData("Arm Shooter", new ArmShooter(shooter)); // For testing only!
 
     // Configure the button bindings
     configureButtonBindings();
@@ -93,10 +97,10 @@ public class RobotContainer {
         () -> DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Yaw_Axis),
         () -> handlingChooser.getSelected(),
         drivetrain));
-    //shooter.setDefaultCommand(new ManualShooter(
-    //    shooter, OperatorStick, 
-    //    () -> OperatorStick.getRawAxis(3), 
-    //    () -> (OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_cw_axis) - OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_ccw_axis))));
+    shooter.setDefaultCommand(new ManualShooter(
+        shooter, OperatorStick, 
+        () -> OperatorStick.getRawAxis(3), 
+        () -> (OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_cw_axis) - OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_ccw_axis))));
     //climber.setDefaultCommand(new ManualClimb(
     //    climber, 
     //    () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Gantry_Axis), 
@@ -120,14 +124,14 @@ public class RobotContainer {
     //  new ROSControl(drivetrain, ros, shooter));
     
     // Operator
-    //new JoystickButton(
-    //  OperatorStick, 
-    //  Constants.OperatorInputSettings.Arm_Shooter_Button).whenPressed(
-    //    new ArmShooter(shooter)); // Arms and disarms the shooter
-    //new JoystickButton(
-    //  OperatorStick, 
-    //  Constants.OperatorInputSettings.Disarm_Shooter_Button).whenPressed(
-    //    new DisarmShooter(shooter));
+    new JoystickButton(
+        OperatorStick, 
+        Constants.OperatorInputSettings.Arm_Shooter_Button).whenPressed(
+        new ArmShooter(shooter)); // Arms and disarms the shooter
+    new JoystickButton(
+        OperatorStick, 
+        Constants.OperatorInputSettings.Disarm_Shooter_Button).whenPressed(
+        new DisarmShooter(shooter));
     new JoystickButton(
         OperatorStick, 
         Constants.OperatorInputSettings.Intake_Button).whenHeld(
