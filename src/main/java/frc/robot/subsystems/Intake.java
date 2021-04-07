@@ -79,6 +79,10 @@ public class Intake extends SubsystemBase {
     magazineIntakeMotor.set(ControlMode.PercentOutput, 0.25);
   }
 
+  public DoubleSolenoid.Value getDeployState() {
+    return intakeDeploySolenoid.get();
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
