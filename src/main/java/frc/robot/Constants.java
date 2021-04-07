@@ -25,7 +25,6 @@ public final class Constants {
    */
   public static final class CANAddresses {
     // TalonSRX
-    public static final int TalonSRX_Turret_Address = 2;            // TODO: Remove this
     public static final int TalonSRX_Solver_Address = 3;            // Configured never
 
     // VictorSPX
@@ -41,6 +40,7 @@ public final class Constants {
     public static final int MiniNeo_Gantry_Motor_Address = 5;            // Configured never
     public static final int TalonFX_Shooter_Address = 6;                 // Configured never
     public static final int MiniNeo_Outrunner_IntakeMotor_Address = 7;   // Configured never
+    public static final int Turret_Motor_Address = 0;
 
     // Solenoids
     public static final int Starboard_Gear_Select_Solenoid = 3;   // Configured never
@@ -55,6 +55,10 @@ public final class Constants {
     // Intake solenoids
     public static final int Intake_Solenoid_Forward = -1;          //(Deploy)  Configured never
     public static final int Intake_Solenoid_Reverse = -1;         //(Retract) Configured never
+
+    // Shooter solenoids
+    public static final int Hood_Solenoid_Forward = -1;          //(Up)  Configured never
+    public static final int Hood_Solenoid_Reverse = -1;         //(Down) Configured never
   }
 
   /**

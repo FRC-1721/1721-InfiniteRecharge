@@ -10,28 +10,25 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Shooter extends SubsystemBase {
-  // TalonSRX objects
-  private static final TalonSRX turretMotor
-      = new TalonSRX(Constants.CANAddresses.TalonSRX_Turret_Address);
-
   // FalconFX objects
-  private static final TalonFX shooterMotor 
-      = new TalonFX(Constants.CANAddresses.TalonFX_Shooter_Address);
+  private static TalonFX shooterMotor;
+
+  // Neo 550
+  private static CANSparkMax turretMotor;
 
   // Solenoids
-  private static final Solenoid ballReleaseSolenoid 
-      = new Solenoid(Constants.CANAddresses.Ball_Release_Solenoid_Address);
+  private static DoubleSolenoid shooterHood;
 
   // Dumb targeting
   private static final NetworkTable limelight 
@@ -46,6 +43,20 @@ public class Shooter extends SubsystemBase {
    * Creates a new Turret.
    */
   public Shooter() {
+    // Setup Motors
+    shooterMotor = new TalonFX(
+      Constants.CANAddresses.TalonFX_Shooter_Address);
+    
+    turretMotor = new CANSparkMax(
+      Constants.CANAddresses.Turret_Motor_Address,
+      MotorType.kBrushless);
+
+    // Setup other
+    shooterHood = new DoubleSolenoid(
+      Constants.Pneumatics.Hood_Solenoid_Forward, 
+      Constants.Pneumatics.Hood_Solenoid_Forward);
+
+
     // Shooter PID and init
     // Set motors to default to prevent weirdness
     shooterMotor.configFactoryDefault();
@@ -97,55 +108,52 @@ public class Shooter extends SubsystemBase {
 
     // Turret PID and init
     // Set motors to default to prevent weirdness
-    turretMotor.configFactoryDefault();
+    turretMotor.restoreFactoryDefaults();
 
     // Set feedback sensors here
-    turretMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 
-                                             Constants.DrivetrainPID.kPIDLoopIdx,
-                                             Constants.DrivetrainPID.kTimeoutMs);
-    
+    //turretMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 
+    //                                         Constants.DrivetrainPID.kPIDLoopIdx,
+    //                                         Constants.DrivetrainPID.kTimeoutMs);
+    //
     // Sets the position to clear when the F limit switch is pressed
-    turretMotor.configClearPositionOnLimitF(true, Constants.DrivetrainPID.kTimeoutMs);
+    //turretMotor.configClearPositionOnLimitF(true, Constants.DrivetrainPID.kTimeoutMs);
 
     // Fix sensor phase here
-    turretMotor.setSensorPhase(Constants.TurretPID.turretSensorPhase);
+    //turretMotor.setSensorPhase(Constants.TurretPID.turretSensorPhase);
 
     // Configure nominal outputs
-    turretMotor.configNominalOutputForward(0, Constants.TurretPID.kTimeoutMs);
-    turretMotor.configNominalOutputReverse(0, Constants.TurretPID.kTimeoutMs);
-    turretMotor.configPeakOutputForward(1, Constants.TurretPID.kTimeoutMs);
-    turretMotor.configPeakOutputReverse(-1, Constants.TurretPID.kTimeoutMs);
+    //turretMotor.configNominalOutputForward(0, Constants.TurretPID.kTimeoutMs);
+    //turretMotor.configNominalOutputReverse(0, Constants.TurretPID.kTimeoutMs);
+    //turretMotor.configPeakOutputForward(1, Constants.TurretPID.kTimeoutMs);
+    //turretMotor.configPeakOutputReverse(-1, Constants.TurretPID.kTimeoutMs);
     
     // Configure allowable closed loop error (dead zone)
-    turretMotor.configAllowableClosedloopError(
-        0, 
-        Constants.TurretPID.kPIDLoopIdx, 
-        Constants.TurretPID.kTimeoutMs);
+    //turretMotor.configAllowableClosedloopError(
+    //    0, 
+    //    Constants.TurretPID.kPIDLoopIdx, 
+    //    Constants.TurretPID.kTimeoutMs);
 
     // Config slot0 gains
-    turretMotor.config_kF(
-        Constants.TurretPID.kPIDLoopIdx, 
-        Constants.TurretPID.kGains.kF, 
-        Constants.TurretPID.kTimeoutMs);
-    turretMotor.config_kP(
-        Constants.TurretPID.kPIDLoopIdx, 
-        Constants.TurretPID.kGains.kP, 
-        Constants.TurretPID.kTimeoutMs);
-    turretMotor.config_kI(
-        Constants.TurretPID.kPIDLoopIdx, 
-        Constants.TurretPID.kGains.kI, 
-        Constants.TurretPID.kTimeoutMs);
-    turretMotor.config_kD(
-        Constants.TurretPID.kPIDLoopIdx, 
-        Constants.TurretPID.kGains.kD, 
-        Constants.TurretPID.kTimeoutMs);    
+    //turretMotor.config_kF(
+    //    Constants.TurretPID.kPIDLoopIdx, 
+    //    Constants.TurretPID.kGains.kF, 
+    //    Constants.TurretPID.kTimeoutMs);
+    //turretMotor.config_kP(
+    //    Constants.TurretPID.kPIDLoopIdx, 
+    //    Constants.TurretPID.kGains.kP, 
+    //    Constants.TurretPID.kTimeoutMs);
+    //turretMotor.config_kI(
+    //    Constants.TurretPID.kPIDLoopIdx, 
+    //    Constants.TurretPID.kGains.kI, 
+    //    Constants.TurretPID.kTimeoutMs);
+    //turretMotor.config_kD(
+    //    Constants.TurretPID.kPIDLoopIdx, 
+    //    Constants.TurretPID.kGains.kD, 
+    //    Constants.TurretPID.kTimeoutMs);    
 
     // Set Inverted
     // Sets the output of the motor backwards
     turretMotor.setInverted(Constants.TurretPID.turretMotorInvert);
-
-    // Other init
-    ballReleaseSolenoid.set(false);
   }
   
   /**
@@ -166,16 +174,25 @@ public class Shooter extends SubsystemBase {
    * @Deprecated DONT USE, ONLY FOR TESTING 
    */
   public void testTurret(double speed) {
-    turretMotor.set(ControlMode.PercentOutput, speed);
+    turretMotor.set(speed);
+  }
+
+  /**
+   * Takes a variable state, that sets the state of the hood manually.
+   * @param state Either off, forward or reverse.
+   */
+  void setHoodAngle(DoubleSolenoid.Value state) {
+    shooterHood.set(state);
   }
 
   /**
    * Set the shooter solenoid to the state listed here.
-   * @author Joe Sedutto
-   * @param state The state the shooter should be in
+   @author Joe Sedutto
+   @param state The state the shooter should be in
+   @deprecated Don't use this! use method in magazine.java instead.
    */
   public void releaseShooter(boolean state) {
-    ballReleaseSolenoid.set(state);
+    //ballReleaseSolenoid.set(state);
   }
 
   /**
@@ -185,7 +202,7 @@ public class Shooter extends SubsystemBase {
    * @param heading A target heading
    */
   public void targetHeading(double heading) {
-    turretMotor.set(ControlMode.Position, heading * Constants.TurretPID.ticksPerRadian);
+    //turretMotor.set(ControlMode.Position, heading * Constants.TurretPID.ticksPerRadian); TODO: Fix this
   }
 
   /**
@@ -199,7 +216,8 @@ public class Shooter extends SubsystemBase {
 
 
   public double getTurretHeading() {
-    return (turretMotor.getSelectedSensorPosition() / Constants.TurretPID.ticksPerRadian);
+    //return (turretMotor.grtPosit() / Constants.TurretPID.ticksPerRadian);
+    return -1; //TODO: Fix this
   }
 
   public double getLimelightHeading() {
@@ -220,11 +238,12 @@ public class Shooter extends SubsystemBase {
    * @return if we're at the top limit of the turret
    */
   public boolean isAtTopLimit() {
-    if (turretMotor.isFwdLimitSwitchClosed() > 0) {
-      return true; 
-    } else {
-      return false;
-    }
+    //if (turretMotor.isFwdLimitSwitchClosed() > 0) {
+    //  return true; 
+    //} else {
+    //  return false;
+    //}
+    return false; //TODO: Fix this
   }
 
   /**
@@ -233,11 +252,12 @@ public class Shooter extends SubsystemBase {
    * @return if we're at the bottom limit of the turret
    */
   public boolean isAtBottomLimit() {
-    if (turretMotor.isFwdLimitSwitchClosed() > 0) {
-      return true; 
-    } else {
-      return false;
-    }
+    //if (turretMotor.isFwdLimitSwitchClosed() > 0) {
+    //  return true; 
+    //} else {
+    //  return false;
+    //}
+    return false; //TODO: Fix this
   }
 
   /**
@@ -246,15 +266,16 @@ public class Shooter extends SubsystemBase {
    * @return if we're at any turret limit.
    */
   public boolean isAtLimit() {
-    if (turretMotor.isFwdLimitSwitchClosed() + turretMotor.isFwdLimitSwitchClosed() > 0) {
-      return true; 
-    } else {
-      return false;
-    }
+    //if (turretMotor.isFwdLimitSwitchClosed() + turretMotor.isFwdLimitSwitchClosed() > 0) {
+    //  return true; 
+    //} else {
+    //  return false;
+    //}
+    return false; //TODO: Fix this
   }
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Turret Pulse", turretMotor.getSelectedSensorPosition());
+    //SmartDashboard.putNumber("Turret Pulse", turretMotor.getSelectedSensorPosition());
   }
 }
