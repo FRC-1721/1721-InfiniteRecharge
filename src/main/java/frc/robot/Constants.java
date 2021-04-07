@@ -29,8 +29,8 @@ public final class Constants {
     public static final int TalonSRX_Solver_Address = 3;            // Configured never
 
     // VictorSPX
-    //public static final int VictorSPX_Starboard_Slave_Address0 = 2; // Configured 1/25/2020
-    //public static final int VictorSPX_Starboard_Slave_Address1 = 3; // Configured 1/25/2020
+    public static final int Magazine_Intake_Motor = -1;    // Configured never
+    public static final int Magazine_Dischage_motor = -1;  // Configured never
     
     // Three-phase/other
     public static final int SparkMax_Port_Drive_Address = 2;             // Configured 4/3/2021
@@ -46,8 +46,15 @@ public final class Constants {
     public static final int Starboard_Gear_Select_Solenoid = 3;   // Configured never
     public static final int Port_Gear_Select_Solenoid = 0;        // Configured never
     public static final int Ball_Release_Solenoid_Address = 2;    // Configured never
-    public static final int Intake_Retract_Solenoid = -1;         // Configured never
-    public static final int Intake_Deploy = -1;                   // Configured never
+  }
+
+  /**
+   * Use for pneumatic constants.
+   */
+  public static final class Pneumatics {
+    // Intake solenoids
+    public static final int Intake_Solenoid_Forward = -1;          //(Deploy)  Configured never
+    public static final int Intake_Solenoid_Reverse = -1;         //(Retract) Configured never
   }
 
   /**
