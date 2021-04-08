@@ -13,7 +13,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -80,7 +79,8 @@ public class Intake extends SubsystemBase {
   }
 
   public DoubleSolenoid.Value getDeployState() {
-    return intakeDeploySolenoid.get();
+    //return intakeDeploySolenoid.get();
+    return DoubleSolenoid.Value.kOff; //TODO: Fix thiss
   }
 
   @Override

@@ -52,9 +52,9 @@ public class Shooter extends SubsystemBase {
       MotorType.kBrushless);
 
     // Setup other
-    shooterHood = new DoubleSolenoid(
-      Constants.Pneumatics.Hood_Solenoid_Forward, 
-      Constants.Pneumatics.Hood_Solenoid_Forward);
+    //shooterHood = new DoubleSolenoid(
+    //  Constants.Pneumatics.Hood_Solenoid_Forward, 
+    //  Constants.Pneumatics.Hood_Solenoid_Forward);
 
 
     // Shooter PID and init
