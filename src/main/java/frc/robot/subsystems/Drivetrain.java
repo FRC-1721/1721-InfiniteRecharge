@@ -5,7 +5,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.EncoderType;
 
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -29,10 +29,9 @@ public class Drivetrain extends SubsystemBase {
       MotorType.kBrushless);
 
   // Shifting Gearboxes
-  private static final Solenoid starboardSolenoid 
-      = new Solenoid(Constants.CANAddresses.Starboard_Gear_Select_Solenoid);
-  private static final Solenoid portSolenoid 
-      = new Solenoid(Constants.CANAddresses.Port_Gear_Select_Solenoid);
+  private static final DoubleSolenoid shiftingGearbox = new DoubleSolenoid(
+        Constants.Pneumatics.Shift_Up_Solenoid,
+        Constants.Pneumatics.Shift_Down_Solenoid);
   private static CANEncoder portMotorEncoder;
   private static CANEncoder starboardMotorEncoder;
   
@@ -123,10 +122,10 @@ public class Drivetrain extends SubsystemBase {
    * A method to set the shifting gearboxes to a manual gear.
    @param gear The target gear
    @author Joe Sedutto
+   @param gear A value for the solenoids to fire with
    */
-  public void shiftGearboxesStandard(boolean gear) {
-    starboardSolenoid.set(gear);
-    portSolenoid.set(gear);
+  public void shiftGearboxesStandard(DoubleSolenoid.Value gear) {
+    shiftingGearbox.set(gear);
   }
 
   /**
@@ -139,12 +138,12 @@ public class Drivetrain extends SubsystemBase {
   public boolean shiftGearboxesAutomatic(boolean targetGear) {
     if (targetGear == false && Math.abs(getOverallSpeed()) < Constants.Misc.Downshift_Max_Speed) { 
       // If the user want to shift down, they must be going below the max speed
-      shiftGearboxesStandard(false);
+      shiftGearboxesStandard(DoubleSolenoid.Value.kReverse);
       return true;
     } else if (
         targetGear == true && Math.abs(getOverallSpeed()) > Constants.Misc.Upshift_Min_Speed) { 
       // If a user wants to shift up, they must be going above the min speed
-      shiftGearboxesStandard(true);
+      shiftGearboxesStandard(DoubleSolenoid.Value.kForward);
       return true;
     } else { // All other conditions will result in a false
       return false;

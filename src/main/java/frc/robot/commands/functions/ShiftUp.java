@@ -7,6 +7,7 @@
 
 package frc.robot.commands.functions;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Drivetrain;
 
@@ -25,7 +26,7 @@ public class ShiftUp extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    drivetrain.shiftGearboxesStandard(true);
+    drivetrain.shiftGearboxesStandard(DoubleSolenoid.Value.kReverse);
     end(false);
   }
 }

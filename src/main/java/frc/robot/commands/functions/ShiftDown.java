@@ -7,6 +7,7 @@
 
 package frc.robot.commands.functions;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Drivetrain;
 
@@ -25,6 +26,6 @@ public class ShiftDown extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    drivetrain.shiftGearboxesStandard(false);
+    drivetrain.shiftGearboxesStandard(DoubleSolenoid.Value.kReverse);
   }
 }
