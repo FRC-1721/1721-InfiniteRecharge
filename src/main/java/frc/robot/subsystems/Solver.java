@@ -16,7 +16,9 @@ import frc.robot.Constants;
 
 public class Solver extends SubsystemBase {
   // Motors
-  private static final TalonSRX solverMotor = new TalonSRX(Constants.CANIds.TalonSRX_Solver_Address); // Creates a new motor
+  // Creates a new motor
+  private static final TalonSRX solverMotor
+      = new TalonSRX(Constants.CANAddresses.TalonSRX_Solver_Address);
 
   /**
    * Creates a new Solver.
@@ -24,43 +26,62 @@ public class Solver extends SubsystemBase {
   public Solver() {
     solverMotor.configFactoryDefault(); // Clear the programming to prevent weirdness
 
-    solverMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, // Configure the feedback sensor
-                                             Constants.SolverPID.kPIDLoopIdx,
-                                             Constants.SolverPID.kTimeoutMs);
+    solverMotor.configSelectedFeedbackSensor(
+        FeedbackDevice.CTRE_MagEncoder_Relative, // Configure the feedback sensor
+        Constants.SolverPID.kPIDLoopIdx,
+        Constants.SolverPID.kTimeoutMs);
 
     solverMotor.setSensorPhase(Constants.SolverPID.sensorPhase); // Configure the phase
 
-    solverMotor.configNominalOutputForward(0, Constants.SolverPID.kTimeoutMs); // Configure nominal outputs
+    // Configure nominal outputs
+    solverMotor.configNominalOutputForward(0, Constants.SolverPID.kTimeoutMs);
     solverMotor.configNominalOutputReverse(0, Constants.SolverPID.kTimeoutMs);
     solverMotor.configPeakOutputForward(1, Constants.SolverPID.kTimeoutMs);
     solverMotor.configPeakOutputReverse(-1, Constants.SolverPID.kTimeoutMs);
 
-    solverMotor.configAllowableClosedloopError(0, Constants.SolverPID.kPIDLoopIdx, Constants.SolverPID.kTimeoutMs); // Set the allowable error
+    // Set the allowable error
+    solverMotor.configAllowableClosedloopError(
+        0, 
+        Constants.SolverPID.kPIDLoopIdx, 
+        Constants.SolverPID.kTimeoutMs);
 
     // Config slot0 gains
-    solverMotor.config_kF(Constants.SolverPID.kPIDLoopIdx, Constants.SolverPID.kGains.kF, Constants.SolverPID.kTimeoutMs);
-    solverMotor.config_kP(Constants.SolverPID.kPIDLoopIdx, Constants.SolverPID.kGains.kP, Constants.SolverPID.kTimeoutMs);
-    solverMotor.config_kI(Constants.SolverPID.kPIDLoopIdx, Constants.SolverPID.kGains.kI, Constants.SolverPID.kTimeoutMs);
-    solverMotor.config_kD(Constants.SolverPID.kPIDLoopIdx, Constants.SolverPID.kGains.kD, Constants.SolverPID.kTimeoutMs);
+    solverMotor.config_kF(
+        Constants.SolverPID.kPIDLoopIdx, 
+        Constants.SolverPID.kGains.kF, 
+        Constants.SolverPID.kTimeoutMs);
+    solverMotor.config_kP(
+        Constants.SolverPID.kPIDLoopIdx, 
+        Constants.SolverPID.kGains.kP, 
+        Constants.SolverPID.kTimeoutMs);
+    solverMotor.config_kI(
+        Constants.SolverPID.kPIDLoopIdx, 
+        Constants.SolverPID.kGains.kI, 
+        Constants.SolverPID.kTimeoutMs);
+    solverMotor.config_kD(
+        Constants.SolverPID.kPIDLoopIdx, 
+        Constants.SolverPID.kGains.kD, 
+        Constants.SolverPID.kTimeoutMs);
   }
 
   /**
    * Takes a number just for testing and 
-   * sets the solver motor to that speed
+   * sets the solver motor to that speed.
    * @author Joe Sedutto
-   * @param speed
+   * @param speed A speed value for the solver
+   * @deprecated Only use for testing!
    */
-  public void testSolver(double speed){
+  public void testSolver(double speed) {
     solverMotor.set(ControlMode.PercentOutput, speed);
   }
 
   /**
    * Takes a target and drives the solver
-   * to there using only the encoder
+   * to there using only the encoder.
    * @author Joe Sedutto
    * @param target (A target in controlpanel rotations)
    */
-  public void setPositionNoColor(double target){
+  public void setPositionNoColor(double target) {
     solverMotor.set(ControlMode.Position, (target * Constants.SolverPID.TicksPerRotation));
   }
 

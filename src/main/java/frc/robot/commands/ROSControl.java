@@ -12,7 +12,7 @@ import frc.robot.ros.ROS;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Shooter;
 
-
+@SuppressWarnings("checkstyle:AbbreviationAsWordInName")
 public class ROSControl extends CommandBase {
   private final Drivetrain drivetrain;
   private final ROS ros;
@@ -22,7 +22,11 @@ public class ROSControl extends CommandBase {
    * Creates a new ROSControl.
    * @author Joe
    */
-  public ROSControl(Drivetrain _drivetrain, ROS _ros, Shooter _shooter) {
+  @SuppressWarnings("checkstyle:ParameterName")
+  public ROSControl(
+      Drivetrain _drivetrain, 
+      ROS _ros, 
+      Shooter _shooter) {
     addRequirements(_drivetrain);
     addRequirements(_ros);
     addRequirements(_shooter);
@@ -35,8 +39,9 @@ public class ROSControl extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.FlyWithWiresB(ros.getStarboardSpeed(), ros.getPortSpeed());
+    drivetrain.flyWithWiresB(ros.getStarboardSpeed(), ros.getPortSpeed());
 
-    shooter.targetHeading(shooter.getTurretHeading() + shooter.getLimelightHeading()); // TODO change this so it actually is 10/10 not 3/10
+    // TODO change this so it actually is 10/10 not 3/10
+    shooter.targetHeading(shooter.getTurretHeading() + shooter.getLimelightHeading());
   }
 }

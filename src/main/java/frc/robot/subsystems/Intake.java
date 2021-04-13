@@ -21,7 +21,9 @@ public class Intake extends SubsystemBase {
    * Creates a new Intake.
    */
   public Intake() {
-    intakeMotor = new CANSparkMax(Constants.CANIds.IntakeMotor_Address, MotorType.kBrushless);
+    intakeMotor = new CANSparkMax(
+      Constants.CANAddresses.MiniNeo_Outrunner_IntakeMotor_Address, 
+      MotorType.kBrushless);
     intakeMotor.restoreFactoryDefaults();
     intakeMotor.setInverted(true);
   }
@@ -29,10 +31,10 @@ public class Intake extends SubsystemBase {
   /**
    * Takes a variable speed and drives the
    * intake motor directly.
-   * @author Joe Sedutto
-   * @param speed (The speed at witch to spin the intake, postive numbers being "in")
+   @author Joe Sedutto
+   @param speed (The speed at witch to spin the intake, postive numbers being "in")
    */
-  public void driveIntake(double speed){
+  public void driveIntake(double speed) {
     intakeMotor.set(speed); // Set the motor to the required speed
   }
 
@@ -40,7 +42,7 @@ public class Intake extends SubsystemBase {
    * Purges the intake.
    * @author Joe Sedutto
    */
-  public void purgeIntake(){
+  public void purgeIntake() {
     intakeMotor.set(-1.0);
   }
 

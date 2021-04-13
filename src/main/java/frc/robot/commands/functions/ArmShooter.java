@@ -16,6 +16,7 @@ public class ArmShooter extends CommandBase {
   /**
    * Creates a new ArmShooter.
    */
+  @SuppressWarnings("checkstyle:ParameterName")
   public ArmShooter(Shooter _shooter) {
     addRequirements(_shooter);
 

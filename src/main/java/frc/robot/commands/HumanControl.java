@@ -1,12 +1,11 @@
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
-import java.util.function.Supplier;
-
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.HandlingMode;
 import frc.robot.subsystems.Drivetrain;
+import java.util.function.DoubleSupplier;
+import java.util.function.Supplier;
 
 public class HumanControl extends CommandBase {
     
@@ -19,13 +18,19 @@ public class HumanControl extends CommandBase {
    * HumanControl takes these params to drive the robot in telop mode.
    * 
    * @author Joe
-   * @param _thro
-   * @param _steerage
-   * @param _drivingMode
-   * @param _drivetrain
+   * @param _thro Throttle supplier
+   * @param _steerage Steerage supplier
+   * @param _drivingMode Driving mode supplier
+   * @param _drivetrain Drivetrain object
    */
-  public HumanControl(DoubleSupplier _thro, DoubleSupplier _steerage, Supplier<HandlingMode> _drivingMode, Drivetrain _drivetrain) {
+  @SuppressWarnings("checkstyle:ParameterName")
+  public HumanControl(
+      DoubleSupplier _thro, 
+      DoubleSupplier _steerage, 
+      Supplier<HandlingMode> _drivingMode, 
+      Drivetrain _drivetrain) {
     addRequirements(_drivetrain);
+    
     drivetrain = _drivetrain;
     thro = _thro;
     steerage = _steerage;
@@ -34,10 +39,10 @@ public class HumanControl extends CommandBase {
 
   @Override
   public void execute() {
-    switch(handlingMode.get()){ // Ask the handlingMode supplier what its value is
+    switch (handlingMode.get()) { // Ask the handlingMode supplier what its value is
       case kStandard: // In the case of standard mode..
         //System.out.println("Running in mode Standard");
-        drivetrain.FlyByWireB(steerage.getAsDouble(), thro.getAsDouble());
+        drivetrain.flyByWireB(steerage.getAsDouble(), thro.getAsDouble());
         break;
       case kDiffLock: // In the case of diff mode..
         //System.out.println("Running in mode Diff Lock"); 
@@ -47,11 +52,11 @@ public class HumanControl extends CommandBase {
         break;
       case kFlyByWire: // In the case of flybywire mode..
         //System.out.println("Running in mode FlyByWire");
-        drivetrain.FlyByWireA(steerage.getAsDouble(), thro.getAsDouble());
+        drivetrain.flyByWireA(steerage.getAsDouble(), thro.getAsDouble());
         break;
       default:
         DriverStation.reportError("Running in default mode! No drive mode selected!", false);
-        drivetrain.FlyByWireA(steerage.getAsDouble(), thro.getAsDouble());
+        drivetrain.flyByWireA(steerage.getAsDouble(), thro.getAsDouble());
     }
   }
 }

@@ -13,5 +13,6 @@
     "**/.settings": true,
     "**/.factorypath": true,
     "**/*~": true
-  }
+  },
+  "java.checkstyle.configuration": "${workspaceFolder}/checkstyle/1721_checks.xml"
 }

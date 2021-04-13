@@ -12,10 +12,12 @@ import frc.robot.subsystems.Intake;
 
 public class PurgeIntake extends CommandBase {
   private final Intake intake;
+  
   /**
    * Creates a new PurgeIntake.
    * @author Joe Sedutto
    */
+  @SuppressWarnings("checkstyle:ParameterName")
   public PurgeIntake(Intake _intake) {
     addRequirements(_intake);
     intake = _intake;

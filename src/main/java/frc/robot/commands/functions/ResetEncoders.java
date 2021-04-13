@@ -15,6 +15,7 @@ public class ResetEncoders extends CommandBase {
    * Resets the encoders and finishes.
    * @author Joe Sedutto
    */
+  @SuppressWarnings("checkstyle:ParameterName")
   public ResetEncoders(Drivetrain _drivetrain) {
     addRequirements(_drivetrain);
   }
@@ -30,9 +31,9 @@ public class ResetEncoders extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    if(interrupted){
+    if (interrupted) {
       System.out.println("The command to reset the encoders was intturupted!");
-    }else{
+    } else {
       System.out.println("Encoders were reset normally.");
     }
   }
@@ -40,10 +41,10 @@ public class ResetEncoders extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(Drivetrain.getDriveEncoderPort() == 0 && Drivetrain.getDriveEncoderStarboard() == 0){
+    if (Drivetrain.getDriveEncoderPort() == 0 && Drivetrain.getDriveEncoderStarboard() == 0) {
       return true;
-    }else{
-    return false;
+    } else {
+      return false;
     }
   } //TODO: Clean up the code
 }
