@@ -7,25 +7,48 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Intake extends SubsystemBase {
   // Motor objects
-  private CANSparkMax intakeMotor;
+  private CANSparkMax outriggerIntakeMotor;
+  private VictorSPX magazineIntakeMotor;
+  
+  // Pneumatics
+  private DoubleSolenoid intakeDeploySolenoid;
+
 
   /**
    * Creates a new Intake.
    */
   public Intake() {
-    intakeMotor = new CANSparkMax(
-      Constants.CANAddresses.MiniNeo_Outrunner_IntakeMotor_Address, 
-      MotorType.kBrushless);
-    intakeMotor.restoreFactoryDefaults();
-    intakeMotor.setInverted(true);
+    // Setup the outrigger motor
+    outriggerIntakeMotor 
+      = new CANSparkMax(
+        Constants.CANAddresses.MiniNeo_Outrunner_IntakeMotor_Address, 
+        MotorType.kBrushless);
+    outriggerIntakeMotor.restoreFactoryDefaults();
+    //outriggerIntakeMotor.setInverted(true); // Inverts the motor
+
+    // Setup the magazine intake motor
+    magazineIntakeMotor 
+      = new VictorSPX(Constants.CANAddresses.Magazine_Intake_Motor);
+    //magazineIntakeMotor.setInverted(true); // Inverts the motor
+
+    // Setup the pneumatic pistons
+    intakeDeploySolenoid
+      = new DoubleSolenoid(
+        Constants.Pneumatics.Intake_Solenoid_Forward, 
+        Constants.Pneumatics.Intake_Solenoid_Reverse);
+
   }
 
   /**
@@ -35,7 +58,16 @@ public class Intake extends SubsystemBase {
    @param speed (The speed at witch to spin the intake, postive numbers being "in")
    */
   public void driveIntake(double speed) {
-    intakeMotor.set(speed); // Set the motor to the required speed
+    outriggerIntakeMotor.set(speed); // Set the motor to the required speed
+  }
+
+  /**
+   * This method lifts, or lowers the intake by triggering the solenoid.
+   @author Joe Sedutto
+   @param state (off, forward or reverse)
+   */
+  public void setIntakePosition(DoubleSolenoid.Value state) {
+    intakeDeploySolenoid.set(state); // Set the solenoid to the requested state.
   }
 
   /**
@@ -43,7 +75,12 @@ public class Intake extends SubsystemBase {
    * @author Joe Sedutto
    */
   public void purgeIntake() {
-    intakeMotor.set(-1.0);
+    outriggerIntakeMotor.set(-0.5);
+    magazineIntakeMotor.set(ControlMode.PercentOutput, 0.25);
+  }
+
+  public DoubleSolenoid.Value getDeployState() {
+    return intakeDeploySolenoid.get();
   }
 
   @Override
