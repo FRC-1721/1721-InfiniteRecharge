@@ -28,8 +28,8 @@ public final class Constants {
     public static final int TalonSRX_Solver_Address = 3;            // Configured never
 
     // VictorSPX
-    public static final int Magazine_Intake_Motor = -1;    // Configured never
-    public static final int Magazine_Dischage_motor = -1;  // Configured never
+    public static final int Magazine_Intake_Motor = 1;    // Configured never
+    public static final int Magazine_Dischage_motor = 2;  // Configured never
     
     // Three-phase/other
     public static final int SparkMax_Port_Drive_Address = 2;             // Configured 4/3/2021
@@ -41,6 +41,7 @@ public final class Constants {
     public static final int TalonFX_Shooter_Address = 1;                 // Configured never
     public static final int MiniNeo_Outrunner_IntakeMotor_Address = 8;   // Configured never
     public static final int Turret_Motor_Address = 6;                    // Configured 4/16/21
+    public static final int Magazine_Agitate = 5;                        // Configured never
   }
 
   /**
@@ -81,6 +82,7 @@ public final class Constants {
     public static final int Turret_Spin_axis = 4;    // Configured 4/16/2021
     public static final int Arm_Shooter_Button = 3;     // Configured 2/14/2020
     public static final int Disarm_Shooter_Button = 4;    // Configured 2/14/2020
+    public static final int MagazineFeedAxis = 1;         // Configured 4/16/2021
 
     public static final int Climb_Axis = 1;         // Configured 2/15/2020
     public static final int Gantry_Axis = 0;        // Congigured 2/15/2020
