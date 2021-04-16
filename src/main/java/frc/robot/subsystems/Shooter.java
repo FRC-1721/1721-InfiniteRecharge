@@ -28,6 +28,7 @@ public class Shooter extends SubsystemBase {
   private static CANSparkMax turretMotor;
 
   // Solenoids
+  // This needs to be removed!
   private static DoubleSolenoid shooterHood;
 
   // Dumb targeting
