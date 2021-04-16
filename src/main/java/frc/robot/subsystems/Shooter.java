@@ -28,7 +28,6 @@ public class Shooter extends SubsystemBase {
   private static CANSparkMax turretMotor;
 
   // Solenoids
-  // This needs to be removed!
   private static DoubleSolenoid shooterHood;
 
   // Dumb targeting
@@ -160,9 +159,9 @@ public class Shooter extends SubsystemBase {
   /**
    * Sets the shooter motor to some speed
    * Does not use velocity control.
-   * @author Joe Sedutto
-   * @param speed A target speed for the shooter. FOR TESTING ONLY
-   * @Deprecated DONT USE, ONLY FOR TESTING
+   @author Joe Sedutto
+   @param speed A target speed for the shooter. FOR TESTING ONLY
+   @Deprecated DONT USE, ONLY FOR TESTING
    */
   public void testShooter(double speed) {
     shooterMotor.set(ControlMode.PercentOutput, speed);
@@ -170,9 +169,9 @@ public class Shooter extends SubsystemBase {
 
   /**
    * For testing only.
-   * @author Joe Sedutto
-   * @param speed A target speed for the turret.
-   * @Deprecated DONT USE, ONLY FOR TESTING 
+   @author Joe Sedutto
+   @param speed A target speed for the turret.
+   @Deprecated DONT USE, ONLY FOR TESTING 
    */
   public void testTurret(double speed) {
     turretMotor.set(speed);
@@ -180,7 +179,7 @@ public class Shooter extends SubsystemBase {
 
   /**
    * Takes a variable state, that sets the state of the hood manually.
-   * @param state Either off, forward or reverse.
+   @param state Either off, forward or reverse.
    */
   void setHoodAngle(DoubleSolenoid.Value state) {
     shooterHood.set(state);
@@ -199,8 +198,8 @@ public class Shooter extends SubsystemBase {
   /**
    * Takes an angle in radians and converts
    * it to ticks to send to the turret control.
-   * @author Joe Sedutto
-   * @param heading A target heading
+   @author Joe Sedutto
+   @param heading A target heading
    */
   public void targetHeading(double heading) {
     //turretMotor.set(ControlMode.Position, heading * Constants.TurretPID.ticksPerRadian); TODO: Fix this
@@ -208,7 +207,7 @@ public class Shooter extends SubsystemBase {
 
   /**
    * Takes a int and sets the pipeline accordingly.
-   * @param pipeline A pipeline to switch to.
+   @param pipeline A pipeline to switch to.
    */
   public void switchPipelines(int pipeline) {
     pipelineEntry.setNumber(pipeline);
@@ -235,8 +234,8 @@ public class Shooter extends SubsystemBase {
 
   /**
    * Returns true if we're at the max turn of the turret.
-   * @author Joe
-   * @return if we're at the top limit of the turret
+   @author Joe
+   @return if we're at the top limit of the turret
    */
   public boolean isAtTopLimit() {
     //if (turretMotor.isFwdLimitSwitchClosed() > 0) {
@@ -249,8 +248,8 @@ public class Shooter extends SubsystemBase {
 
   /**
    * Returns true if we're at the min turn of the turret.
-   * @author Joe
-   * @return if we're at the bottom limit of the turret
+   @author Joe
+   @return if we're at the bottom limit of the turret
    */
   public boolean isAtBottomLimit() {
     //if (turretMotor.isFwdLimitSwitchClosed() > 0) {
@@ -263,8 +262,8 @@ public class Shooter extends SubsystemBase {
 
   /**
    * Returns true if we're at any limit of the turret.
-   * @author Joe
-   * @return if we're at any turret limit.
+   @author Joe
+   @return if we're at any turret limit.
    */
   public boolean isAtLimit() {
     //if (turretMotor.isFwdLimitSwitchClosed() + turretMotor.isFwdLimitSwitchClosed() > 0) {
