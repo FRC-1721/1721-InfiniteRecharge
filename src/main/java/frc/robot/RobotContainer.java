@@ -100,7 +100,7 @@ public class RobotContainer {
     shooter.setDefaultCommand(new ManualShooter(
         shooter, OperatorStick, 
         () -> OperatorStick.getRawAxis(3), 
-        () -> (OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_cw_axis) - OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_ccw_axis))));
+        () -> (OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_axis))));
     //climber.setDefaultCommand(new ManualClimb(
     //    climber, 
     //    () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Gantry_Axis), 

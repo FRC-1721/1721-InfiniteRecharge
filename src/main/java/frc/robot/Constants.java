@@ -39,8 +39,8 @@ public final class Constants {
     public static final int Neo_Lift_Motor_Address = 4;                  // Congigured never
     public static final int MiniNeo_Gantry_Motor_Address = 5;            // Configured never
     public static final int TalonFX_Shooter_Address = 1;                 // Configured never
-    public static final int MiniNeo_Outrunner_IntakeMotor_Address = 6;   // Configured never
-    public static final int Turret_Motor_Address = 5;
+    public static final int MiniNeo_Outrunner_IntakeMotor_Address = 8;   // Configured never
+    public static final int Turret_Motor_Address = 6;                    // Configured 4/16/21
   }
 
   /**
@@ -78,8 +78,7 @@ public final class Constants {
   public static final class OperatorInputSettings {
     public static final int Operator_Controller_Port = 1;   // The USB order of the controller
 
-    public static final int Turret_Spin_cw_axis = 3;    // Configured never
-    public static final int Turret_Spin_ccw_axis = 2;     // Configured never
+    public static final int Turret_Spin_axis = 4;    // Configured 4/16/2021
     public static final int Arm_Shooter_Button = 3;     // Configured 2/14/2020
     public static final int Disarm_Shooter_Button = 4;    // Configured 2/14/2020
 
