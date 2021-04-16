@@ -32,10 +32,10 @@ public final class Constants {
     public static final int Magazine_Dischage_motor = 2;  // Configured never
     
     // Three-phase/other
-    public static final int SparkMax_Port_Drive_Address = 2;             // Configured 4/3/2021
-    public static final int SparkMax_Starboard_Drive_Address = 4;        // Configured 4/3/2021
-    public static final int SparkMax_Port_Drive_Slave_Address = 1;       // Configured 4/3/2021
-    public static final int SparkMax_Starboard_Drive_Slave_Address = 3;  // Configured 4/3/2021
+    public static final int SparkMax_Port_Drive_Address = 2;             // Configured 4/16/2021
+    public static final int SparkMax_Starboard_Drive_Address = 4;        // Configured 4/16/2021
+    public static final int SparkMax_Port_Drive_Slave_Address = 1;       // Configured 4/16/2021
+    public static final int SparkMax_Starboard_Drive_Slave_Address = 3;  // Configured 4/16/2021
     public static final int Neo_Lift_Motor_Address = 4;                  // Congigured never
     public static final int MiniNeo_Gantry_Motor_Address = 5;            // Configured never
     public static final int TalonFX_Shooter_Address = 1;                 // Configured never
