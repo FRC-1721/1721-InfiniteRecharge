@@ -174,7 +174,9 @@ public class Shooter extends SubsystemBase {
    @Deprecated DONT USE, ONLY FOR TESTING 
    */
   public void testTurret(double speed) {
-    turretMotor.set(speed / 3);
+    double dampenedTurret = 1 * Math.pow(speed, 3);
+
+    turretMotor.set(dampenedTurret / 2);
   }
 
   /**

@@ -24,6 +24,7 @@ import frc.robot.commands.functions.ResetEncoders;
 import frc.robot.commands.functions.ShiftDown;
 import frc.robot.commands.functions.ShiftUp;
 import frc.robot.commands.functions.SpinIntake;
+import frc.robot.commands.functions.ToggleDeployIntake;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Magazine;
@@ -146,6 +147,10 @@ public class RobotContainer {
         OperatorStick, 
         Constants.OperatorInputSettings.Purge_Button).whenHeld(
           new PurgeIntake(intake));
+    new JoystickButton(
+        OperatorStick,
+        7).whenPressed(
+          new ToggleDeployIntake(intake));
     //new JoystickButton(
     //  DSTogglePanel, 
     //  Constants.DSTogglePanelSettings.SolveStageTwo).whenPressed(
