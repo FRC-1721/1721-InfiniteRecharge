@@ -105,6 +105,7 @@ public class RobotContainer {
     //    climber, 
     //    () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Gantry_Axis), 
     //    () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Climb_Axis)));
+    intake.setDefaultCommand(new PurgeIntake(intake));
 
     // ROS Commands
     //ros.publishCommand("resetEncoders", new ResetEncoders(drivetrain));
@@ -136,10 +137,10 @@ public class RobotContainer {
         OperatorStick, 
         Constants.OperatorInputSettings.Intake_Button).whenHeld(
           new SpinIntake(intake));
-    new JoystickButton(
-        OperatorStick, 
-        Constants.OperatorInputSettings.Purge_Button).whenHeld(
-          new PurgeIntake(intake));
+    //new JoystickButton(
+    //    OperatorStick, 
+    //    Constants.OperatorInputSettings.Purge_Button).whenHeld(
+    //      new PurgeIntake(intake));
     //new JoystickButton(
     //  DSTogglePanel, 
     //  Constants.DSTogglePanelSettings.SolveStageTwo).whenPressed(
