@@ -28,19 +28,20 @@ public final class Constants {
     public static final int TalonSRX_Solver_Address = 3;            // Configured never
 
     // VictorSPX
-    public static final int Magazine_Intake_Motor = -1;    // Configured never
-    public static final int Magazine_Dischage_motor = -1;  // Configured never
+    public static final int Magazine_Intake_Motor = 1;    // Configured never
+    public static final int Magazine_Dischage_motor = 2;  // Configured never
     
     // Three-phase/other
-    public static final int SparkMax_Port_Drive_Address = 2;             // Configured 4/3/2021
-    public static final int SparkMax_Starboard_Drive_Address = 4;        // Configured 4/3/2021
-    public static final int SparkMax_Port_Drive_Slave_Address = 1;       // Configured 4/3/2021
-    public static final int SparkMax_Starboard_Drive_Slave_Address = 3;  // Configured 4/3/2021
+    public static final int SparkMax_Port_Drive_Address = 2;             // Configured 4/16/2021
+    public static final int SparkMax_Starboard_Drive_Address = 4;        // Configured 4/16/2021
+    public static final int SparkMax_Port_Drive_Slave_Address = 1;       // Configured 4/16/2021
+    public static final int SparkMax_Starboard_Drive_Slave_Address = 3;  // Configured 4/16/2021
     public static final int Neo_Lift_Motor_Address = 4;                  // Congigured never
     public static final int MiniNeo_Gantry_Motor_Address = 5;            // Configured never
     public static final int TalonFX_Shooter_Address = 1;                 // Configured never
-    public static final int MiniNeo_Outrunner_IntakeMotor_Address = 6;   // Configured never
-    public static final int Turret_Motor_Address = 5;
+    public static final int MiniNeo_Outrunner_IntakeMotor_Address = 8;   // Configured never
+    public static final int Turret_Motor_Address = 6;                    // Configured 4/16/21
+    public static final int Magazine_Agitate = 5;                        // Configured never
   }
 
   /**
@@ -48,12 +49,12 @@ public final class Constants {
    */
   public static final class Pneumatics {
     // Intake solenoids
-    public static final int Intake_Solenoid_Forward = 1;          //(Deploy)  Configured never
-    public static final int Intake_Solenoid_Reverse = 2;         //(Retract) Configured never
+    public static final int Intake_Solenoid_Forward = 3;          //(Deploy)  Configured never
+    public static final int Intake_Solenoid_Reverse = 4;         //(Retract) Configured never
 
     // Shooter solenoids
-    public static final int Hood_Solenoid_Forward = 3;          //(Up)  Configured never
-    public static final int Hood_Solenoid_Reverse = 4;         //(Down) Configured never
+    public static final int Hood_Solenoid_Forward = 1;          //(Up)  Configured never
+    public static final int Hood_Solenoid_Reverse = 2;         //(Down) Configured never
 
     // Drivetrain solenoids
     public static final int Shift_Up_Solenoid = 5; // Configured never
@@ -78,10 +79,10 @@ public final class Constants {
   public static final class OperatorInputSettings {
     public static final int Operator_Controller_Port = 1;   // The USB order of the controller
 
-    public static final int Turret_Spin_cw_axis = 3;    // Configured never
-    public static final int Turret_Spin_ccw_axis = 2;     // Configured never
+    public static final int Turret_Spin_axis = 4;    // Configured 4/16/2021
     public static final int Arm_Shooter_Button = 3;     // Configured 2/14/2020
     public static final int Disarm_Shooter_Button = 4;    // Configured 2/14/2020
+    public static final int MagazineFeedAxis = 1;         // Configured 4/16/2021
 
     public static final int Climb_Axis = 1;         // Configured 2/15/2020
     public static final int Gantry_Axis = 0;        // Congigured 2/15/2020
