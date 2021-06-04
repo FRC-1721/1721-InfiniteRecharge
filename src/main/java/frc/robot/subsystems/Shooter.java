@@ -280,5 +280,6 @@ public class Shooter extends SubsystemBase {
   public void periodic() {
     //SmartDashboard.putNumber("Turret Pulse", turretMotor.getSelectedSensorPosition());
     SmartDashboard.putNumber("Turret Position", Shooter.turretMotor.getEncoder().getPosition());
+    System.out.println(Shooter.turretMotor.getEncoder().getPosition());
   }
 }
