@@ -10,13 +10,16 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -49,13 +52,12 @@ public class Shooter extends SubsystemBase {
     
     turretMotor = new CANSparkMax(
       Constants.CANAddresses.Turret_Motor_Address,
-      MotorType.kBrushless);
+      MotorType.kBrushless);    
 
     // Setup other
     //shooterHood = new DoubleSolenoid(
     //  Constants.Pneumatics.Hood_Solenoid_Forward, 
     //  Constants.Pneumatics.Hood_Solenoid_Forward);
-
 
     // Shooter PID and init
     // Set motors to default to prevent weirdness
@@ -277,5 +279,6 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() {
     //SmartDashboard.putNumber("Turret Pulse", turretMotor.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Turret Position", Shooter.turretMotor.getEncoder().getPosition());
   }
 }
