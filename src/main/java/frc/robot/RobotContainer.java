@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.HumanControl;
+import frc.robot.commands.ManualMagazine;
 import frc.robot.commands.ManualShooter;
 import frc.robot.commands.functions.ArmShooter;
 import frc.robot.commands.functions.DisarmShooter;
@@ -23,8 +24,10 @@ import frc.robot.commands.functions.ResetEncoders;
 import frc.robot.commands.functions.ShiftDown;
 import frc.robot.commands.functions.ShiftUp;
 import frc.robot.commands.functions.SpinIntake;
+import frc.robot.commands.functions.ToggleDeployIntake;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Magazine;
 import frc.robot.subsystems.Shooter;
 
 /**
@@ -49,6 +52,7 @@ public class RobotContainer {
   private final Shooter shooter = new Shooter();
   //private final Climber climber = new Climber();
   //private final Solver solver = new Solver();
+  private final Magazine magazine = new Magazine();
 
   // Commands
 
@@ -100,11 +104,15 @@ public class RobotContainer {
     shooter.setDefaultCommand(new ManualShooter(
         shooter, OperatorStick, 
         () -> OperatorStick.getRawAxis(3), 
-        () -> (OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_cw_axis) - OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_ccw_axis))));
+        () -> (OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_axis))));
+    magazine.setDefaultCommand(new ManualMagazine(
+        magazine,
+        () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.MagazineFeedAxis)));
     //climber.setDefaultCommand(new ManualClimb(
     //    climber, 
     //    () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Gantry_Axis), 
     //    () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Climb_Axis)));
+    intake.setDefaultCommand(new PurgeIntake(intake));
 
     // ROS Commands
     //ros.publishCommand("resetEncoders", new ResetEncoders(drivetrain));
@@ -136,10 +144,10 @@ public class RobotContainer {
         OperatorStick, 
         Constants.OperatorInputSettings.Intake_Button).whenHeld(
           new SpinIntake(intake));
-    new JoystickButton(
-        OperatorStick, 
-        Constants.OperatorInputSettings.Purge_Button).whenHeld(
-          new PurgeIntake(intake));
+    //new JoystickButton(
+    //    OperatorStick, 
+    //    Constants.OperatorInputSettings.Purge_Button).whenHeld(
+    //      new PurgeIntake(intake));
     //new JoystickButton(
     //  DSTogglePanel, 
     //  Constants.DSTogglePanelSettings.SolveStageTwo).whenPressed(

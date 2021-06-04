@@ -42,6 +42,9 @@ public class Intake extends SubsystemBase {
       = new VictorSPX(Constants.CANAddresses.Magazine_Intake_Motor);
     //magazineIntakeMotor.setInverted(true); // Inverts the motor
 
+    outriggerIntakeMotor.restoreFactoryDefaults();
+    outriggerIntakeMotor.setInverted(true);
+
     // Setup the pneumatic pistons
     intakeDeploySolenoid
       = new DoubleSolenoid(
@@ -58,6 +61,7 @@ public class Intake extends SubsystemBase {
    */
   public void driveIntake(double speed) {
     outriggerIntakeMotor.set(speed); // Set the motor to the required speed
+    magazineIntakeMotor.set(ControlMode.PercentOutput, speed);
   }
 
   /**
