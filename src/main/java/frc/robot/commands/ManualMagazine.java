@@ -26,7 +26,7 @@ public class ManualMagazine extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    magazine.testagitator(0.25 + (feed.getAsDouble() / 3));
+    magazine.testagitator(/*0.25 + */(feed.getAsDouble() / 3));
     magazine.testDischarge(feed.getAsDouble());
   }
 
