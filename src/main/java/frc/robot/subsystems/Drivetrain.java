@@ -81,7 +81,7 @@ public class Drivetrain extends SubsystemBase {
    */
   public void flyByWireB(double steerage, double thro) {
     double dampenedThro = 1 * Math.pow(thro, 3);
-    double dampenedSteerage = 1 * Math.pow(steerage, 3);
+    double dampenedSteerage = 0.4 * Math.pow(steerage, 3);
     // Set the starboard motor to the sum of thro - steerage
     starboardMotor.set(dampenedThro + (dampenedSteerage));
     // Set the port motor to the sum of thro + steerage
