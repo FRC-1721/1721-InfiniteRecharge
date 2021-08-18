@@ -112,7 +112,7 @@ public class RobotContainer {
     //    climber, 
     //    () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Gantry_Axis), 
     //    () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Climb_Axis)));
-    intake.setDefaultCommand(new PurgeIntake(intake));
+    //intake.setDefaultCommand(new PurgeIntake(intake));  // Uncomment this if you want the intake to default purge
 
     // ROS Commands
     //ros.publishCommand("resetEncoders", new ResetEncoders(drivetrain));
