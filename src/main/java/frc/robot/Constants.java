@@ -89,7 +89,7 @@ public final class Constants {
 
     public static final int Intake_Button = 1;               // Configured never
     public static final int Purge_Button = 2;                // Configured never
-    public static final int Toggle_Intake_Deploy_State = -1; // Configured never
+    public static final int Intake_Deploy = 6; // Configured never
   }
 
   /**

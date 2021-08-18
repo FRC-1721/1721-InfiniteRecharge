@@ -92,6 +92,7 @@ public class RobotContainer {
     SmartDashboard.putData("Arm Shooter", new ArmShooter(shooter)); // For testing only!
 
     // Configure the button bindings
+    System.out.print("Configuring buttons");
     configureButtonBindings();
 
     // Default commands
@@ -144,6 +145,10 @@ public class RobotContainer {
         OperatorStick, 
         Constants.OperatorInputSettings.Intake_Button).whenHeld(
           new SpinIntake(intake));
+    new JoystickButton(
+        OperatorStick, 
+        Constants.OperatorInputSettings.Intake_Deploy).whenPressed(
+          new ToggleDeployIntake(intake));
     //new JoystickButton(
     //    OperatorStick, 
     //    Constants.OperatorInputSettings.Purge_Button).whenHeld(
