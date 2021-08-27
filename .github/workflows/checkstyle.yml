@@ -17,4 +17,4 @@ jobs:
         filter_mode: nofilter
         fail_on_error: true
         checkstyle_config: checkstyle/1721_checks.xml
-        #checkstyle_version: '8.18'
+        checkstyle_version: '8.18'
