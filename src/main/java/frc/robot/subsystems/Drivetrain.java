@@ -122,7 +122,6 @@ public class Drivetrain extends SubsystemBase {
    * A method to set the shifting gearboxes to a manual gear.
    @param gear The target gear
    @author Joe Sedutto
-   @param gear A value for the solenoids to fire with
    */
   public void shiftGearboxesStandard(DoubleSolenoid.Value gear) {
     shiftingGearbox.set(gear);
@@ -160,9 +159,15 @@ public class Drivetrain extends SubsystemBase {
     return starboardMotorEncoder.getPosition();
   }
 
+  /**
+   * Returns the overall speed of the robot.
+   * @return The speed of the robot in RPM.
+   */
+
   public static double getOverallSpeed() {
     // Returns the average speed of the robot in knots
-    return ((starboardMotorEncoder.getVelocity() + portMotorEncoder.getVelocity()) / 2) / Constants.DrivetrainPID.rotationsPerMeter;
+    return ((starboardMotorEncoder.getVelocity() + portMotorEncoder.getVelocity()) / 2) 
+      / Constants.DrivetrainPID.rotationsPerMeter;
   }
 
   /**

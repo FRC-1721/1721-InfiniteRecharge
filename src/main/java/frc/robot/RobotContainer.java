@@ -19,7 +19,6 @@ import frc.robot.commands.ManualMagazine;
 import frc.robot.commands.ManualShooter;
 import frc.robot.commands.functions.ArmShooter;
 import frc.robot.commands.functions.DisarmShooter;
-import frc.robot.commands.functions.PurgeIntake;
 import frc.robot.commands.functions.ResetEncoders;
 import frc.robot.commands.functions.ShiftDown;
 import frc.robot.commands.functions.ShiftUp;
@@ -113,7 +112,8 @@ public class RobotContainer {
     //    climber, 
     //    () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Gantry_Axis), 
     //    () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Climb_Axis)));
-    //intake.setDefaultCommand(new PurgeIntake(intake));  // Uncomment this if you want the intake to default purge
+    //intake.setDefaultCommand(new PurgeIntake(intake));
+    // Uncomment above if you want the intake to default purge
 
     // ROS Commands
     //ros.publishCommand("resetEncoders", new ResetEncoders(drivetrain));
@@ -166,6 +166,7 @@ public class RobotContainer {
    @author Joe
    @return true when the driver is trying to drive the robot
    */
+  @SuppressWarnings("checkstyle:LineLength")
   public boolean isAutonomousOverride() {
     if (DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Thro_Axis) > Constants.DriverInputSettings.Overide_Threshold || DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Yaw_Axis) > Constants.DriverInputSettings.Overide_Threshold) {
       return true;
