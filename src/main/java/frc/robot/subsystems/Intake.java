@@ -83,7 +83,7 @@ public class Intake extends SubsystemBase {
   }
 
   /**
-   * Gets the current state of the intake
+   * Gets the current state of the intake.
    * @author Khan Simeoni
    */
   public DoubleSolenoid.Value getDeployState() {
