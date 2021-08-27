@@ -49,16 +49,16 @@ public final class Constants {
    */
   public static final class Pneumatics {
     // Intake solenoids
-    public static final int Intake_Solenoid_Forward = 3;          //(Deploy)  Configured never
-    public static final int Intake_Solenoid_Reverse = 4;         //(Retract) Configured never
+    public static final int Intake_Solenoid_Forward = 5;          //(Deploy)  Configured never
+    public static final int Intake_Solenoid_Reverse = 6;         //(Retract) Configured never
 
     // Shooter solenoids
-    public static final int Hood_Solenoid_Forward = 1;          //(Up)  Configured never
+    public static final int Hood_Solenoid_Forward = 4;          //(Up)  Configured never
     public static final int Hood_Solenoid_Reverse = 2;         //(Down) Configured never
 
     // Drivetrain solenoids
-    public static final int Shift_Up_Solenoid = 5; // Configured never
-    public static final int Shift_Down_Solenoid = 6; // Configured never
+    public static final int Shift_Up_Solenoid = 1; // Configured never
+    public static final int Shift_Down_Solenoid = 7; // Configured never
   }
 
   /**
