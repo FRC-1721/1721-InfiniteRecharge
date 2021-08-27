@@ -82,9 +82,12 @@ public class Intake extends SubsystemBase {
     magazineIntakeMotor.set(ControlMode.PercentOutput, 0.25);
   }
 
+  /**
+   * Gets the current state of the intake
+   * @author Khan Simeoni
+   */
   public DoubleSolenoid.Value getDeployState() {
-    //return intakeDeploySolenoid.get();
-    return DoubleSolenoid.Value.kOff; //TODO: Fix thiss
+    return intakeDeploySolenoid.get();
   }
 
   @Override

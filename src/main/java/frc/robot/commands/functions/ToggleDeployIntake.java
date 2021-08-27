@@ -27,11 +27,13 @@ public class ToggleDeployIntake extends InstantCommand {
   public void initialize() {
     DoubleSolenoid.Value currentState = intake.getDeployState();
     if (currentState != DoubleSolenoid.Value.kForward) {
+      System.out.println("Intake set state: Forward");
+      System.out.println(currentState);
       intake.setIntakePosition(DoubleSolenoid.Value.kForward);
-      System.out.print("Intake set state: Forward");
     } else {
+      System.out.println("Intake set state: Reverse");
+      System.out.println(currentState); 
       intake.setIntakePosition(DoubleSolenoid.Value.kReverse);
-      System.out.print("Intake set state: Reverse");
     }
     end(false);
   }
