@@ -15,6 +15,7 @@ jobs:
         reporter: 'github-pr-check'
         tool_name: 'Check Toaster'
         filter_mode: nofilter
+        level: error
         fail_on_error: true
         checkstyle_config: checkstyle/1721_checks.xml
         checkstyle_version: '8.18'
