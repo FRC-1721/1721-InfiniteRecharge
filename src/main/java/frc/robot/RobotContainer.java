@@ -113,7 +113,9 @@ public class RobotContainer {
     //    climber, 
     //    () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Gantry_Axis), 
     //    () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Climb_Axis)));
-    //intake.setDefaultCommand(new PurgeIntake(intake));
+    intake.setDefaultCommand(new SpinIntake(
+        intake,
+        () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.IntakeFeedAxis)));
     // Uncomment above if you want the intake to default purge
 
     // ROS Commands
@@ -145,12 +147,6 @@ public class RobotContainer {
         OperatorStick, 
         Constants.OperatorInputSettings.Disarm_Shooter_Button).whenPressed(
         new DisarmShooter(shooter));
-
-    // Spins the intak when held
-    new JoystickButton(
-        OperatorStick, 
-        Constants.OperatorInputSettings.Intake_Button).whenHeld(
-          new SpinIntake(intake));
 
     // Toggles the state of the intake when pressed
     new JoystickButton(
