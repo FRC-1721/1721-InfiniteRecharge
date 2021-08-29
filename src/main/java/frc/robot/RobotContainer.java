@@ -19,6 +19,7 @@ import frc.robot.commands.ManualMagazine;
 import frc.robot.commands.ManualShooter;
 import frc.robot.commands.functions.ArmShooter;
 import frc.robot.commands.functions.DisarmShooter;
+import frc.robot.commands.functions.PurgeIntake;
 import frc.robot.commands.functions.ResetEncoders;
 import frc.robot.commands.functions.ShiftDown;
 import frc.robot.commands.functions.ShiftUp;
@@ -132,27 +133,37 @@ public class RobotContainer {
     //new JoystickButton(DriverStick, Constants.DriverInputSettings.RestartAutonomous).whenPressed(
     //  new ROSControl(drivetrain, ros, shooter));
     
-    // Operator
+    // Operator controls
+    // Arms the shooter when pressed
     new JoystickButton(
         OperatorStick, 
         Constants.OperatorInputSettings.Arm_Shooter_Button).whenPressed(
-        new ArmShooter(shooter)); // Arms and disarms the shooter
+        new ArmShooter(shooter));
+
+    // Disarms the shooter when pressed
     new JoystickButton(
         OperatorStick, 
         Constants.OperatorInputSettings.Disarm_Shooter_Button).whenPressed(
         new DisarmShooter(shooter));
+
+    // Spins the intak when held
     new JoystickButton(
         OperatorStick, 
         Constants.OperatorInputSettings.Intake_Button).whenHeld(
           new SpinIntake(intake));
+
+    // Toggles the state of the intake when pressed
     new JoystickButton(
         OperatorStick, 
         Constants.OperatorInputSettings.Intake_Deploy).whenPressed(
           new ToggleDeployIntake(intake));
-    //new JoystickButton(
-    //    OperatorStick, 
-    //    Constants.OperatorInputSettings.Purge_Button).whenHeld(
-    //      new PurgeIntake(intake));
+
+    // Purges the intake while held
+    new JoystickButton(
+        OperatorStick, 
+        Constants.OperatorInputSettings.Purge_Button).whenHeld(
+          new PurgeIntake(intake));
+    
     //new JoystickButton(
     //  DSTogglePanel, 
     //  Constants.DSTogglePanelSettings.SolveStageTwo).whenPressed(
