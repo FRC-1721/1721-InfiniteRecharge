@@ -166,7 +166,6 @@ public class RobotContainer {
    @author Joe
    @return true when the driver is trying to drive the robot
    */
-  @SuppressWarnings("checkstyle:LineLength")
   public boolean isAutonomousOverride() {
     if (DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Thro_Axis) > Constants.DriverInputSettings.Overide_Threshold || DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Yaw_Axis) > Constants.DriverInputSettings.Overide_Threshold) {
       return true;
