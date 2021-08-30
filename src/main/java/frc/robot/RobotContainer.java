@@ -113,7 +113,10 @@ public class RobotContainer {
     //    climber, 
     //    () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Gantry_Axis), 
     //    () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Climb_Axis)));
-    //intake.setDefaultCommand(new PurgeIntake(intake));  // Uncomment this if you want the intake to default purge
+    intake.setDefaultCommand(new SpinIntake(
+        intake,
+        () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.IntakeFeedAxis)));
+    // Uncomment above if you want the intake to default purge
 
     // ROS Commands
     //ros.publishCommand("resetEncoders", new ResetEncoders(drivetrain));
@@ -132,27 +135,31 @@ public class RobotContainer {
     //new JoystickButton(DriverStick, Constants.DriverInputSettings.RestartAutonomous).whenPressed(
     //  new ROSControl(drivetrain, ros, shooter));
     
-    // Operator
+    // Operator controls
+    // Arms the shooter when pressed
     new JoystickButton(
         OperatorStick, 
         Constants.OperatorInputSettings.Arm_Shooter_Button).whenPressed(
-        new ArmShooter(shooter)); // Arms and disarms the shooter
+        new ArmShooter(shooter));
+
+    // Disarms the shooter when pressed
     new JoystickButton(
         OperatorStick, 
         Constants.OperatorInputSettings.Disarm_Shooter_Button).whenPressed(
         new DisarmShooter(shooter));
-    new JoystickButton(
-        OperatorStick, 
-        Constants.OperatorInputSettings.Intake_Button).whenHeld(
-          new SpinIntake(intake));
+
+    // Toggles the state of the intake when pressed
     new JoystickButton(
         OperatorStick, 
         Constants.OperatorInputSettings.Intake_Deploy).whenPressed(
           new ToggleDeployIntake(intake));
-     new JoystickButton(
-         OperatorStick, 
-         Constants.OperatorInputSettings.Purge_Button).whenHeld(
-           new PurgeIntake(intake));
+
+    // Purges the intake while held
+    new JoystickButton(
+        OperatorStick, 
+        Constants.OperatorInputSettings.Purge_Button).whenHeld(
+          new PurgeIntake(intake));
+    
     //new JoystickButton(
     //  DSTogglePanel, 
     //  Constants.DSTogglePanelSettings.SolveStageTwo).whenPressed(
@@ -166,6 +173,7 @@ public class RobotContainer {
    @author Joe
    @return true when the driver is trying to drive the robot
    */
+  @SuppressWarnings("checkstyle:LineLength")
   public boolean isAutonomousOverride() {
     if (DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Thro_Axis) > Constants.DriverInputSettings.Overide_Threshold || DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Yaw_Axis) > Constants.DriverInputSettings.Overide_Threshold) {
       return true;

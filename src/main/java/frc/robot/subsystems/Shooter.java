@@ -204,7 +204,8 @@ public class Shooter extends SubsystemBase {
    @param heading A target heading
    */
   public void targetHeading(double heading) {
-    //turretMotor.set(ControlMode.Position, heading * Constants.TurretPID.ticksPerRadian); TODO: Fix this
+    //turretMotor.set(ControlMode.Position, heading * Constants.TurretPID.ticksPerRadian);
+    //TODO: Fix this
   }
 
   /**

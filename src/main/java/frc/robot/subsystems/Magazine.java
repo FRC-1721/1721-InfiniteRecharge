@@ -36,7 +36,7 @@ public class Magazine extends SubsystemBase {
   }
 
   /**
-   * Sets the agitator motor to some speed
+   * Sets the agitator motor to some speed.
    @author Joe Sedutto
    @param speed A target speed for the agitator. FOR TESTING ONLY
    @Deprecated DONT USE, ONLY FOR TESTING
