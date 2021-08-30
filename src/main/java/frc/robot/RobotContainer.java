@@ -149,10 +149,10 @@ public class RobotContainer {
         OperatorStick, 
         Constants.OperatorInputSettings.Intake_Deploy).whenPressed(
           new ToggleDeployIntake(intake));
-    //new JoystickButton(
-    //    OperatorStick, 
-    //    Constants.OperatorInputSettings.Purge_Button).whenHeld(
-    //      new PurgeIntake(intake));
+     new JoystickButton(
+         OperatorStick, 
+         Constants.OperatorInputSettings.Purge_Button).whenHeld(
+           new PurgeIntake(intake));
     //new JoystickButton(
     //  DSTogglePanel, 
     //  Constants.DSTogglePanelSettings.SolveStageTwo).whenPressed(

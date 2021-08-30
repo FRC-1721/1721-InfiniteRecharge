@@ -87,9 +87,9 @@ public final class Constants {
     public static final int Climb_Axis = 1;         // Configured 2/15/2020
     public static final int Gantry_Axis = 0;        // Congigured 2/15/2020
 
-    public static final int Intake_Button = 1;               // Configured never
-    public static final int Purge_Button = 2;                // Configured never
-    public static final int Intake_Deploy = 6; // Configured never
+    public static final int Intake_Button = 7;               // Configured never
+    public static final int Purge_Button = 6;                // Configured never
+    public static final int Intake_Deploy = 5; // Configured never
   }
 
   /**
