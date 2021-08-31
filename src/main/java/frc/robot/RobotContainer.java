@@ -16,7 +16,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.HumanControl;
 import frc.robot.commands.ManualMagazine;
-import frc.robot.commands.ManualShooter;
 import frc.robot.commands.functions.ArmShooter;
 import frc.robot.commands.functions.DisarmShooter;
 import frc.robot.commands.functions.PurgeIntake;
@@ -102,20 +101,20 @@ public class RobotContainer {
         () -> DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Yaw_Axis),
         () -> handlingChooser.getSelected(),
         drivetrain));
-    shooter.setDefaultCommand(new ManualShooter(
-        shooter, OperatorStick, 
-        () -> OperatorStick.getRawAxis(3), 
-        () -> (OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_axis))));
+    //shooter.setDefaultCommand(new ManualShooter(
+    //    shooter, OperatorStick, 
+    //    () -> OperatorStick.getRawAxis(3), 
+    //    () -> (OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_Button))));
     magazine.setDefaultCommand(new ManualMagazine(
         magazine,
-        () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.MagazineFeedAxis)));
+        () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Magazine_Feed_Axis)));
     //climber.setDefaultCommand(new ManualClimb(
     //    climber, 
     //    () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Gantry_Axis), 
     //    () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Climb_Axis)));
     intake.setDefaultCommand(new SpinIntake(
         intake,
-        () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.IntakeFeedAxis)));
+        () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Intake_Feed_Axis)));
     // Uncomment above if you want the intake to default purge
 
     // ROS Commands
@@ -151,13 +150,20 @@ public class RobotContainer {
     // Toggles the state of the intake when pressed
     new JoystickButton(
         OperatorStick, 
-        Constants.OperatorInputSettings.Intake_Deploy).whenPressed(
+        Constants.OperatorInputSettings.Intake_Deploy_Button).whenPressed(
           new ToggleDeployIntake(intake));
+
+    // Spins the intake when pressed  //TODO: FIX THIS
+    new JoystickButton(
+        OperatorStick,
+        Constants.OperatorInputSettings.Intake_Axis).whenHeld(
+          new SpinIntake(intake,
+          OperatorStick.getRawAxis(Constants.OperatorInputSettings.Intake_Axis)));
 
     // Purges the intake while held
     new JoystickButton(
         OperatorStick, 
-        Constants.OperatorInputSettings.Purge_Button).whenHeld(
+        Constants.OperatorInputSettings.Purge_Axis).whenHeld(
           new PurgeIntake(intake));
     
     //new JoystickButton(

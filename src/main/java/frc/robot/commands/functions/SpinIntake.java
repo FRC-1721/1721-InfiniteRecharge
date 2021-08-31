@@ -23,9 +23,7 @@ public class SpinIntake extends CommandBase {
    * @param _intakeSpeed The speed at witch to spin the intake
    */
   @SuppressWarnings("checkstyle:ParameterName")
-  public SpinIntake(
-      Intake _intake,
-      DoubleSupplier _intakeSpeed) {
+  public SpinIntake(Intake _intake, DoubleSupplier _intakeSpeed) {
     addRequirements(_intake);
     intake = _intake;
     intakeSpeed = _intakeSpeed;

@@ -79,18 +79,19 @@ public final class Constants {
   public static final class OperatorInputSettings {
     public static final int Operator_Controller_Port = 1;   // The USB order of the controller
 
-    public static final int Turret_Spin_axis = 4;         // Configured 4/16/2021
-    public static final int Arm_Shooter_Button = 3;       // Configured 2/14/2020
-    public static final int Disarm_Shooter_Button = 4;    // Configured 2/14/2020
-    public static final int MagazineFeedAxis = 1;         // Configured 4/16/2021
+    public static final int Turret_Spin_Button = 1;       // Configured 8/31/2021
+    public static final int Turret_Reverse_Button = 2;    // Configured 8/31/2021
+    public static final int Arm_Shooter_Button = 3;       // Configured 8/31/2021
+    public static final int Disarm_Shooter_Button = 4;    // Configured 8/31/2021
+    public static final int Magazine_Feed_Axis = 4;         // Configured 8/31/2021
 
-    public static final int Climb_Axis = 1;         // Configured 2/15/2020
-    public static final int Gantry_Axis = 0;        // Congigured 2/15/2020
+    public static final int Climb_Axis = 1;         // Configured 8/31/2021
+    public static final int Gantry_Axis = 0;        // Congigured 8/31/2021
 
-    public static final int Intake_Button = 7;  // Configured never
-    public static final int Purge_Button = 6;   // Configured never
-    public static final int Intake_Deploy = 5;  // Configured never
-    public static final int IntakeFeedAxis = 3; //Configured never
+    public static final int Intake_Axis = 3;  // Configured 8/31/2021
+    public static final int Purge_Axis = 2;   // Configured 8/31/2021
+    public static final int Intake_Deploy_Button = 6;  // Configured 8/31/2021
+    public static final int Intake_Feed_Axis = 3; //Configured never
   }
 
   /**
