@@ -158,7 +158,7 @@ public class RobotContainer {
         OperatorStick,
         Constants.OperatorInputSettings.Intake_Axis).whenHeld(
           new SpinIntake(intake,
-          OperatorStick.getRawAxis(Constants.OperatorInputSettings.Intake_Axis)));
+              () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Intake_Axis)));
 
     // Purges the intake while held
     new JoystickButton(
