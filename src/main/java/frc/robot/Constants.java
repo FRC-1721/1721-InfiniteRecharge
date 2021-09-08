@@ -91,7 +91,7 @@ public final class Constants {
     public static final int Intake_Axis = 3;  // Configured 8/31/2021
     public static final int Purge_Axis = 2;   // Configured 8/31/2021
     public static final int Intake_Deploy_Button = 6;  // Configured 8/31/2021
-    public static final int Intake_Feed_Axis = 3; //Configured never
+    public static final int Intake_Feed_Axis = 3; //Configured 9/8/2021
   }
 
   /**

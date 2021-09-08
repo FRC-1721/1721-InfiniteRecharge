@@ -115,6 +115,9 @@ public class RobotContainer {
     intake.setDefaultCommand(new SpinIntake(
         intake,
         () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Intake_Feed_Axis)));
+    //intake.setDefaultCommand(new PurgeIntake(
+    //    intake,
+    //    () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Purge_Axis))); //TODO: This gets in the way of the preivious intake deafult, so purge does not work. Possible fix: converge both purge & intake functions into a single function that takes in both buttons
     // Uncomment above if you want the intake to default purge
 
     // ROS Commands
@@ -153,18 +156,19 @@ public class RobotContainer {
         Constants.OperatorInputSettings.Intake_Deploy_Button).whenPressed(
           new ToggleDeployIntake(intake));
 
-    // Spins the intake when pressed  //TODO: FIX THIS
+    // Spins the intake when pressed
     new JoystickButton(
         OperatorStick,
         Constants.OperatorInputSettings.Intake_Axis).whenHeld(
           new SpinIntake(intake,
-              () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Intake_Axis)));
+              () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Intake_Feed_Axis)));
 
-    // Purges the intake while held
+    // Purges the intake while pressed
     new JoystickButton(
         OperatorStick, 
         Constants.OperatorInputSettings.Purge_Axis).whenHeld(
-          new PurgeIntake(intake));
+          new PurgeIntake(intake,
+              () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Purge_Axis)));
     
     //new JoystickButton(
     //  DSTogglePanel, 

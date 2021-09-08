@@ -77,9 +77,9 @@ public class Intake extends SubsystemBase {
    * Purges the intake.
    * @author Joe Sedutto
    */
-  public void purgeIntake() {
-    outriggerIntakeMotor.set(-0.5);
-    magazineIntakeMotor.set(ControlMode.PercentOutput, 0.25);
+  public void purgeIntake(Double speed) {
+    outriggerIntakeMotor.set(speed);
+    magazineIntakeMotor.set(ControlMode.PercentOutput, -speed);
   }
 
   /**
