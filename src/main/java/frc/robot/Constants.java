@@ -36,7 +36,7 @@ public final class Constants {
     public static final int SparkMax_Starboard_Drive_Address = 4;        // Configured 4/16/2021
     public static final int SparkMax_Port_Drive_Slave_Address = 1;       // Configured 4/16/2021
     public static final int SparkMax_Starboard_Drive_Slave_Address = 3;  // Configured 4/16/2021
-    public static final int Neo_Lift_Motor_Address = 7;                  // Congigured never?
+    public static final int Neo_Lift_Motor_Address = 11;                 // Congigured 9/9/2021
     public static final int MiniNeo_Gantry_Motor_Address = 9;            // Configured never
     public static final int TalonFX_Shooter_Address = 1;                 // Configured never
     public static final int MiniNeo_Outrunner_IntakeMotor_Address = 8;   // Configured never
