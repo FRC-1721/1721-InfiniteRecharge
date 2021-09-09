@@ -117,7 +117,8 @@ public class RobotContainer {
         () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Climb_Axis)));
     intake.setDefaultCommand(new SpinIntake(
         intake,
-        () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Intake_Feed_Axis)));
+        () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Intake_Feed_Axis),
+        () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Purge_Axis))); 
     //intake.setDefaultCommand(new PurgeIntake(
     //    intake,
     //    () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Purge_Axis))); 
@@ -162,20 +163,14 @@ public class RobotContainer {
         Constants.OperatorInputSettings.Intake_Deploy_Button).whenPressed(
           new ToggleDeployIntake(intake));
 
-    // Spins the intake when pressed
+    // Spins or purges the intake when pressed
     new JoystickButton(
         OperatorStick,
         Constants.OperatorInputSettings.Intake_Axis).whenHeld(
           new SpinIntake(intake,
-              () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Intake_Feed_Axis)));
-
-    // Purges the intake while pressed
-    new JoystickButton(
-        OperatorStick, 
-        Constants.OperatorInputSettings.Purge_Axis).whenHeld(
-          new PurgeIntake(intake,
+              () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Intake_Feed_Axis),
               () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Purge_Axis)));
-    
+
     // Moves the climber up & down
     new JoystickButton(
         OperatorStick,
