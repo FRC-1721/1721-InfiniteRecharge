@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.HumanControl;
+import frc.robot.commands.ManualClimb;
 import frc.robot.commands.ManualMagazine;
 import frc.robot.commands.functions.ArmShooter;
 import frc.robot.commands.functions.DisarmShooter;
@@ -24,10 +25,12 @@ import frc.robot.commands.functions.ShiftDown;
 import frc.robot.commands.functions.ShiftUp;
 import frc.robot.commands.functions.SpinIntake;
 import frc.robot.commands.functions.ToggleDeployIntake;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Magazine;
 import frc.robot.subsystems.Shooter;
+
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -49,7 +52,7 @@ public class RobotContainer {
   private final Intake intake = new Intake();
   //private final ROS ros = new ROS();
   private final Shooter shooter = new Shooter();
-  //private final Climber climber = new Climber();
+  private final Climber climber = new Climber();
   //private final Solver solver = new Solver();
   private final Magazine magazine = new Magazine();
 
@@ -108,10 +111,10 @@ public class RobotContainer {
     magazine.setDefaultCommand(new ManualMagazine(
         magazine,
         () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Magazine_Feed_Axis)));
-    //climber.setDefaultCommand(new ManualClimb(
-    //    climber, 
-    //    () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Gantry_Axis), 
-    //    () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Climb_Axis)));
+    climber.setDefaultCommand(new ManualClimb(
+        climber, 
+        () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Gantry_Axis), 
+        () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Climb_Axis)));
     intake.setDefaultCommand(new SpinIntake(
         intake,
         () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Intake_Feed_Axis)));
@@ -170,6 +173,14 @@ public class RobotContainer {
           new PurgeIntake(intake,
               () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Purge_Axis)));
     
+    // Moves the climber up & down
+    new JoystickButton(
+        OperatorStick,
+        Constants.OperatorInputSettings.Climb_Axis).whenHeld(
+          new ManualClimb(climber,
+              () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Gantry_Axis),
+              () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Gantry_Axis)));
+
     //new JoystickButton(
     //  DSTogglePanel, 
     //  Constants.DSTogglePanelSettings.SolveStageTwo).whenPressed(

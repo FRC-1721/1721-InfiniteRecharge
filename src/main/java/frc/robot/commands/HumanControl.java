@@ -50,7 +50,7 @@ public class HumanControl extends CommandBase {
         //System.out.println("Running in mode Diff Lock"); 
         break;
       case kLaneAssist: // In the case of lane asisst mode..
-        //System.out.println("Running in mode LaneAssist");
+        System.out.println("Running in mode LaneAssist");
         break;
       case kFlyByWire: // In the case of flybywire mode..
         //System.out.println("Running in mode FlyByWire");
