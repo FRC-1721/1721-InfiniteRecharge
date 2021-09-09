@@ -86,6 +86,7 @@ public class Drivetrain extends SubsystemBase {
     starboardMotor.set(dampenedThro + (dampenedSteerage));
     // Set the port motor to the sum of thro + steerage
     portMotor.set(dampenedThro - (dampenedSteerage)); 
+
   }
 
   /**
@@ -151,12 +152,14 @@ public class Drivetrain extends SubsystemBase {
 
   public static double getDriveEncoderPort() {
     // Returns the encoder value of the port motor-
-    return portMotorEncoder.getPosition(); 
+    //return portMotorEncoder.getPosition(); 
+    return 0;
   } 
 
   public static double getDriveEncoderStarboard() {
     // Returns the encoder value of the starboard motor
-    return starboardMotorEncoder.getPosition();
+    //return starboardMotorEncoder.getPosition();
+    return 0;
   }
 
   /**
