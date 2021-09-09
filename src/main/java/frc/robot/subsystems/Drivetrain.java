@@ -150,12 +150,20 @@ public class Drivetrain extends SubsystemBase {
     }
   }
 
+  /**
+   * Returns the encoder value of the starboard motor.
+   * @return starboardMotorEncoder.getPosition();
+   */
   public static double getDriveEncoderPort() {
     // Returns the encoder value of the port motor-
     //return portMotorEncoder.getPosition(); 
     return 0;
   } 
 
+  /**
+   * Returns the encoder value of the starboard motor.
+   * @return starboardMotorEncoder.getPosition();
+   */
   public static double getDriveEncoderStarboard() {
     // Returns the encoder value of the starboard motor
     //return starboardMotorEncoder.getPosition();
@@ -166,7 +174,6 @@ public class Drivetrain extends SubsystemBase {
    * Returns the overall speed of the robot.
    * @return The speed of the robot in RPM.
    */
-
   public static double getOverallSpeed() {
     // Returns the average speed of the robot in knots
     return ((starboardMotorEncoder.getVelocity() + portMotorEncoder.getVelocity()) / 2) 

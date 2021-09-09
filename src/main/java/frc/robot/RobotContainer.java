@@ -120,7 +120,10 @@ public class RobotContainer {
         () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Intake_Feed_Axis)));
     //intake.setDefaultCommand(new PurgeIntake(
     //    intake,
-    //    () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Purge_Axis))); //TODO: This gets in the way of the preivious intake deafult, so purge does not work. Possible fix: converge both purge & intake functions into a single function that takes in both buttons
+    //    () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Purge_Axis))); 
+    //TODO: This gets in the way of the preivious intake deafult, so purge does not work. 
+    //Possible fix: converge both purge & intake functions into a single function that 
+    //takes in both buttons
     // Uncomment above if you want the intake to default purge
 
     // ROS Commands
