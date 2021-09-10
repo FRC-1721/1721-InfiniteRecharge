@@ -51,9 +51,9 @@ public class Climber extends SubsystemBase {
    * @param speed A speed value
    */
   public void gantryManualControl(double speed) {
-    if (Math.abs(speed) <= 0.05) {
+    if (Math.abs(speed) <= 0.1) {
       // do nothing.
-      ;
+      gantryMotor.set(0);
     } else {
       gantryMotor.set(speed);
     }
@@ -68,15 +68,18 @@ public class Climber extends SubsystemBase {
   public void manualControl(double speed) {
     speed = speed * -1;
 
-    if (Math.abs(speed) <= 0.02) {
+    if (Math.abs(speed) <= 0.07) {
       // do nothing.
-      ;
-    } else if (speed >= 0.05) { // For very small up values, invert the direction, unlock the lift
-      liftLockSolenoid.set(true); // unlock the lift.
-      liftMotor.set((speed / 4) * -1); // Up (inverted)
-    } else if (speed >= 0.1) { // Continue upwards if you push harder
+      liftMotor.set(0);
+    } else if (speed >= 0.15) { // Continue upwards if you push harder
       liftLockSolenoid.set(true);
       liftMotor.set(speed / 2); // Up
+    } else if (speed >= 0.11) { // For very small up values, invert the direction, unlock the lift
+      liftLockSolenoid.set(true); // unlock the lift.
+      liftMotor.set((speed / 4) * -1); // Up (inverted)
+    } else if (speed <= -0.4) { // Down, fast!
+      liftLockSolenoid.set(true); // unlock the lift.
+      liftMotor.set(speed / 1.6); // Down
     } else {
       liftLockSolenoid.set(false); // Lock the lift, and pull down
       liftMotor.set(speed / 1.6); // Down
