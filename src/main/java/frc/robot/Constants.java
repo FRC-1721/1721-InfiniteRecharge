@@ -54,11 +54,14 @@ public final class Constants {
 
     // Shooter solenoids
     public static final int Hood_Solenoid_Forward = 4;          //(Up)  Configured never
-    public static final int Hood_Solenoid_Reverse = 2;         //(Down) Configured never
+    public static final int Hood_Solenoid_Reverse = 3;         //(Down) Configured never
 
     // Drivetrain solenoids
     public static final int Shift_Up_Solenoid = 1; // Configured never
     public static final int Shift_Down_Solenoid = 7; // Configured never
+
+    // Other solenoids
+    public static final int Lift_Release_Solenoid = 2;  // Configured 9/9/2021
   }
 
   /**

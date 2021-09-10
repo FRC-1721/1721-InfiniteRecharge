@@ -10,12 +10,17 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Climber extends SubsystemBase {
+  // Can Spark Max motor controllers
   private CANSparkMax gantryMotor;
   private CANSparkMax liftMotor;
+
+  // Climber Lock solenoid
+  private Solenoid liftLockSolenoid;
 
   /**
    * Creates a new Climber.
@@ -32,6 +37,12 @@ public class Climber extends SubsystemBase {
       Constants.CANAddresses.Neo_Lift_Motor_Address, 
       MotorType.kBrushless);
     liftMotor.restoreFactoryDefaults();
+
+    // Initalize the lift lock solenoid
+    liftLockSolenoid
+      = new Solenoid(
+        Constants.Pneumatics.Lift_Release_Solenoid
+      );
   }
 
   /**
@@ -41,7 +52,7 @@ public class Climber extends SubsystemBase {
    */
   public void gantryManualControl(double speed) {
     if (Math.abs(speed) <= 0.05) {
-      //TODO: What went here?...
+      // do nothing.
       ;
     } else {
       gantryMotor.set(speed);
@@ -57,12 +68,19 @@ public class Climber extends SubsystemBase {
   public void manualControl(double speed) {
     speed = speed * -1;
 
-    if (speed < 0) {
-      liftMotor.set(speed / 1.6); // Down
-    } else {
+    if (Math.abs(speed) <= 0.02) {
+      // do nothing.
+      ;
+    } else if (speed >= 0.05) { // For very small up values, invert the direction, unlock the lift
+      liftLockSolenoid.set(true); // unlock the lift.
+      liftMotor.set((speed / 4) * -1); // Up (inverted)
+    } else if (speed >= 0.1) { // Continue upwards if you push harder
+      liftLockSolenoid.set(true);
       liftMotor.set(speed / 2); // Up
-    }
-    
+    } else {
+      liftLockSolenoid.set(false); // Lock the lift, and pull down
+      liftMotor.set(speed / 1.6); // Down
+    }    
   }
 
   @Override
