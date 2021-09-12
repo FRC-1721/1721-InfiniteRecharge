@@ -78,7 +78,7 @@ public class Climber extends SubsystemBase {
       liftLockSolenoid.set(true); // unlock the lift.
       liftMotor.set((speed / 4) * -1); // Up (inverted)
     } else if (speed <= -0.4) { // Down, fast!
-      liftLockSolenoid.set(true); // unlock the lift.
+      liftLockSolenoid.set(false); // Keep the lift locked at high downward speed
       liftMotor.set(speed / 1.6); // Down
     } else {
       liftLockSolenoid.set(false); // Lock the lift, and pull down
