@@ -86,15 +86,16 @@ public final class Constants {
     public static final int Turret_Reverse_Button = 2;    // Configured 8/31/2021
     public static final int Arm_Shooter_Button = 3;       // Configured 8/31/2021
     public static final int Disarm_Shooter_Button = 4;    // Configured 8/31/2021
-    public static final int Magazine_Feed_Axis = 4;         // Configured 8/31/2021
+    public static final int Magazine_Feed_Axis = 4;       // Configured 8/31/2021
+    public static final int Manual_Shooter_Axis = 5;      // Configured Never
 
     public static final int Climb_Axis = 1;         // Configured 8/31/2021
     public static final int Gantry_Axis = 0;        // Congigured 8/31/2021
 
-    public static final int Intake_Axis = 3;  // Configured 8/31/2021
-    public static final int Purge_Axis = 2;   // Configured 8/31/2021
-    public static final int Intake_Deploy_Button = 6;  // Configured 8/31/2021
-    public static final int Intake_Feed_Axis = 3; //Configured 9/8/2021
+    public static final int Intake_Axis = 3;  		// Configured 8/31/2021
+    public static final int Purge_Axis = 2;   		// Configured 8/31/2021
+    public static final int Intake_Deploy_Button = 6;   // Configured 8/31/2021
+    public static final int Intake_Feed_Axis = 3; 	//Configured 9/8/2021
   }
 
   /**

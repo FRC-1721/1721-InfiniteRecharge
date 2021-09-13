@@ -17,9 +17,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.HumanControl;
 import frc.robot.commands.ManualClimb;
 import frc.robot.commands.ManualMagazine;
+import frc.robot.commands.ManualShooter;
 import frc.robot.commands.functions.ArmShooter;
 import frc.robot.commands.functions.DisarmShooter;
-import frc.robot.commands.functions.PurgeIntake;
 import frc.robot.commands.functions.ResetEncoders;
 import frc.robot.commands.functions.ShiftDown;
 import frc.robot.commands.functions.ShiftUp;
@@ -104,10 +104,10 @@ public class RobotContainer {
         () -> DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Yaw_Axis),
         () -> handlingChooser.getSelected(),
         drivetrain));
-    //shooter.setDefaultCommand(new ManualShooter(
-    //    shooter, OperatorStick, 
-    //    () -> OperatorStick.getRawAxis(3), 
-    //    () -> (OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_Button))));
+    shooter.setDefaultCommand(new ManualShooter(
+        shooter, OperatorStick, 
+        () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Manual_Shooter_Axis), 
+        () -> (OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_Button))));
     magazine.setDefaultCommand(new ManualMagazine(
         magazine,
         () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Magazine_Feed_Axis)));
@@ -146,16 +146,16 @@ public class RobotContainer {
     
     // Operator controls
     // Arms the shooter when pressed
-    new JoystickButton(
-        OperatorStick, 
-        Constants.OperatorInputSettings.Arm_Shooter_Button).whenPressed(
-        new ArmShooter(shooter));
+    //new JoystickButton(
+    //    OperatorStick, 
+    //    Constants.OperatorInputSettings.Arm_Shooter_Button).whenPressed(
+    //    new ArmShooter(shooter));O
 
     // Disarms the shooter when pressed
-    new JoystickButton(
-        OperatorStick, 
-        Constants.OperatorInputSettings.Disarm_Shooter_Button).whenPressed(
-        new DisarmShooter(shooter));
+    //new JoystickButton(
+    //    OperatorStick, 
+    //    Constants.OperatorInputSettings.Disarm_Shooter_Button).whenPressed(
+    //    new DisarmShooter(shooter));
 
     // Toggles the state of the intake when pressed
     new JoystickButton(
