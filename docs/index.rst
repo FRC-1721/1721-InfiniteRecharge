@@ -7,3 +7,4 @@ Welcome to 1721-InfiniteRecharge's documentation!
 
    intro/getting-started
    preperation/packing-list
+   developing/developing
