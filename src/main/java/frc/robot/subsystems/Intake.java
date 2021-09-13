@@ -77,14 +77,17 @@ public class Intake extends SubsystemBase {
    * Purges the intake.
    * @author Joe Sedutto
    */
-  public void purgeIntake() {
-    outriggerIntakeMotor.set(-0.5);
-    magazineIntakeMotor.set(ControlMode.PercentOutput, 0.25);
+  public void purgeIntake(Double speed) {
+    outriggerIntakeMotor.set(speed);
+    magazineIntakeMotor.set(ControlMode.PercentOutput, -speed);
   }
 
+  /**
+   * Gets the current state of the intake.
+   * @author Khan Simeoni
+   */
   public DoubleSolenoid.Value getDeployState() {
-    //return intakeDeploySolenoid.get();
-    return DoubleSolenoid.Value.kOff; //TODO: Fix thiss
+    return intakeDeploySolenoid.get();
   }
 
   @Override

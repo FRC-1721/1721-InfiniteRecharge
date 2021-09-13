@@ -1,13 +1,13 @@
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
-import java.util.function.Supplier;
-
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.HandlingMode;
 import frc.robot.subsystems.Drivetrain;
+
+import java.util.function.DoubleSupplier;
+import java.util.function.Supplier;
 
 public class HumanControl extends CommandBase {
     
@@ -50,7 +50,7 @@ public class HumanControl extends CommandBase {
         //System.out.println("Running in mode Diff Lock"); 
         break;
       case kLaneAssist: // In the case of lane asisst mode..
-        //System.out.println("Running in mode LaneAssist");
+        System.out.println("Running in mode LaneAssist");
         break;
       case kFlyByWire: // In the case of flybywire mode..
         //System.out.println("Running in mode FlyByWire");

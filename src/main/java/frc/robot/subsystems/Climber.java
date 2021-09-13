@@ -10,12 +10,17 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Climber extends SubsystemBase {
+  // Can Spark Max motor controllers
   private CANSparkMax gantryMotor;
   private CANSparkMax liftMotor;
+
+  // Climber Lock solenoid
+  private Solenoid liftLockSolenoid;
 
   /**
    * Creates a new Climber.
@@ -32,6 +37,12 @@ public class Climber extends SubsystemBase {
       Constants.CANAddresses.Neo_Lift_Motor_Address, 
       MotorType.kBrushless);
     liftMotor.restoreFactoryDefaults();
+
+    // Initalize the lift lock solenoid
+    liftLockSolenoid
+      = new Solenoid(
+        Constants.Pneumatics.Lift_Release_Solenoid
+      );
   }
 
   /**
@@ -40,9 +51,9 @@ public class Climber extends SubsystemBase {
    * @param speed A speed value
    */
   public void gantryManualControl(double speed) {
-    if (Math.abs(speed) <= 0.05) {
-      //TODO: What went here?...
-      ;
+    if (Math.abs(speed) <= 0.1) {
+      // do nothing.
+      gantryMotor.set(0);
     } else {
       gantryMotor.set(speed);
     }
@@ -57,12 +68,22 @@ public class Climber extends SubsystemBase {
   public void manualControl(double speed) {
     speed = speed * -1;
 
-    if (speed < 0) {
+    if (Math.abs(speed) <= 0.07) {
+      // do nothing.
+      liftMotor.set(0);
+    } else if (speed >= 0.15) { // Continue upwards if you push harder
+      liftLockSolenoid.set(true);
+      liftMotor.set(speed / 2); // Up
+    } else if (speed >= 0.11) { // For very small up values, invert the direction, unlock the lift
+      liftLockSolenoid.set(true); // unlock the lift.
+      liftMotor.set((speed / 4) * -1); // Up (inverted)
+    } else if (speed <= -0.4) { // Down, fast!
+      liftLockSolenoid.set(false); // Keep the lift locked at high downward speed
       liftMotor.set(speed / 1.6); // Down
     } else {
-      liftMotor.set(speed / 2); // Up
-    }
-    
+      liftLockSolenoid.set(false); // Lock the lift, and pull down
+      liftMotor.set(speed / 1.6); // Down
+    }    
   }
 
   @Override

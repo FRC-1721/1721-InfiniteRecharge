@@ -5,7 +5,6 @@
 package frc.robot.commands.functions;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Intake;
 
@@ -27,11 +26,13 @@ public class ToggleDeployIntake extends InstantCommand {
   public void initialize() {
     DoubleSolenoid.Value currentState = intake.getDeployState();
     if (currentState != DoubleSolenoid.Value.kForward) {
+      System.out.println("Intake set state: Forward");
+      System.out.println(currentState);
       intake.setIntakePosition(DoubleSolenoid.Value.kForward);
-      SmartDashboard.putString("Intake set state:", "Forward");
     } else {
+      System.out.println("Intake set state: Reverse");
+      System.out.println(currentState); 
       intake.setIntakePosition(DoubleSolenoid.Value.kReverse);
-      SmartDashboard.putString("Intake set state:", "Reverse");
     }
     end(false);
   }

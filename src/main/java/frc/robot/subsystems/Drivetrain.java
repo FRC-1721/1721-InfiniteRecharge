@@ -81,11 +81,12 @@ public class Drivetrain extends SubsystemBase {
    */
   public void flyByWireB(double steerage, double thro) {
     double dampenedThro = 1 * Math.pow(thro, 3);
-    double dampenedSteerage = 1 * Math.pow(steerage, 3);
+    double dampenedSteerage = 0.4 * Math.pow(steerage, 3);
     // Set the starboard motor to the sum of thro - steerage
     starboardMotor.set(dampenedThro + (dampenedSteerage));
     // Set the port motor to the sum of thro + steerage
     portMotor.set(dampenedThro - (dampenedSteerage)); 
+
   }
 
   /**
@@ -122,7 +123,6 @@ public class Drivetrain extends SubsystemBase {
    * A method to set the shifting gearboxes to a manual gear.
    @param gear The target gear
    @author Joe Sedutto
-   @param gear A value for the solenoids to fire with
    */
   public void shiftGearboxesStandard(DoubleSolenoid.Value gear) {
     shiftingGearbox.set(gear);
@@ -150,19 +150,34 @@ public class Drivetrain extends SubsystemBase {
     }
   }
 
+  /**
+   * Returns the encoder value of the starboard motor.
+   * @return starboardMotorEncoder.getPosition();
+   */
   public static double getDriveEncoderPort() {
     // Returns the encoder value of the port motor-
-    return portMotorEncoder.getPosition(); 
+    //return portMotorEncoder.getPosition(); 
+    return 0;
   } 
 
+  /**
+   * Returns the encoder value of the starboard motor.
+   * @return starboardMotorEncoder.getPosition();
+   */
   public static double getDriveEncoderStarboard() {
     // Returns the encoder value of the starboard motor
-    return starboardMotorEncoder.getPosition();
+    //return starboardMotorEncoder.getPosition();
+    return 0;
   }
 
+  /**
+   * Returns the overall speed of the robot.
+   * @return The speed of the robot in RPM.
+   */
   public static double getOverallSpeed() {
     // Returns the average speed of the robot in knots
-    return ((starboardMotorEncoder.getVelocity() + portMotorEncoder.getVelocity()) / 2) / Constants.DrivetrainPID.rotationsPerMeter;
+    return ((starboardMotorEncoder.getVelocity() + portMotorEncoder.getVelocity()) / 2) 
+      / Constants.DrivetrainPID.rotationsPerMeter;
   }
 
   /**

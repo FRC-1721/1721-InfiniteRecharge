@@ -15,20 +15,21 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.HumanControl;
+import frc.robot.commands.ManualClimb;
 import frc.robot.commands.ManualMagazine;
 import frc.robot.commands.ManualShooter;
 import frc.robot.commands.functions.ArmShooter;
-import frc.robot.commands.functions.DisarmShooter;
-import frc.robot.commands.functions.PurgeIntake;
 import frc.robot.commands.functions.ResetEncoders;
 import frc.robot.commands.functions.ShiftDown;
 import frc.robot.commands.functions.ShiftUp;
 import frc.robot.commands.functions.SpinIntake;
 import frc.robot.commands.functions.ToggleDeployIntake;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Magazine;
 import frc.robot.subsystems.Shooter;
+
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -50,7 +51,7 @@ public class RobotContainer {
   private final Intake intake = new Intake();
   //private final ROS ros = new ROS();
   private final Shooter shooter = new Shooter();
-  //private final Climber climber = new Climber();
+  private final Climber climber = new Climber();
   //private final Solver solver = new Solver();
   private final Magazine magazine = new Magazine();
 
@@ -92,6 +93,7 @@ public class RobotContainer {
     SmartDashboard.putData("Arm Shooter", new ArmShooter(shooter)); // For testing only!
 
     // Configure the button bindings
+    System.out.print("Configuring buttons");
     configureButtonBindings();
 
     // Default commands
@@ -103,16 +105,26 @@ public class RobotContainer {
         drivetrain));
     shooter.setDefaultCommand(new ManualShooter(
         shooter, OperatorStick, 
-        () -> OperatorStick.getRawAxis(3), 
-        () -> (OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_axis))));
+        () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Manual_Shooter_Axis), 
+        () -> (OperatorStick.getRawAxis(Constants.OperatorInputSettings.Turret_Spin_Button))));
     magazine.setDefaultCommand(new ManualMagazine(
         magazine,
-        () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.MagazineFeedAxis)));
-    //climber.setDefaultCommand(new ManualClimb(
-    //    climber, 
-    //    () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Gantry_Axis), 
-    //    () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Climb_Axis)));
-    intake.setDefaultCommand(new PurgeIntake(intake));
+        () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Magazine_Feed_Axis)));
+    climber.setDefaultCommand(new ManualClimb(
+        climber, 
+        () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Gantry_Axis), 
+        () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Climb_Axis)));
+    intake.setDefaultCommand(new SpinIntake(
+        intake,
+        () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Intake_Feed_Axis),
+        () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Purge_Axis))); 
+    //intake.setDefaultCommand(new PurgeIntake(
+    //    intake,
+    //    () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Purge_Axis))); 
+    //TODO: This gets in the way of the preivious intake deafult, so purge does not work. 
+    //Possible fix: converge both purge & intake functions into a single function that 
+    //takes in both buttons
+    // Uncomment above if you want the intake to default purge
 
     // ROS Commands
     //ros.publishCommand("resetEncoders", new ResetEncoders(drivetrain));
@@ -131,23 +143,41 @@ public class RobotContainer {
     //new JoystickButton(DriverStick, Constants.DriverInputSettings.RestartAutonomous).whenPressed(
     //  new ROSControl(drivetrain, ros, shooter));
     
-    // Operator
-    new JoystickButton(
-        OperatorStick, 
-        Constants.OperatorInputSettings.Arm_Shooter_Button).whenPressed(
-        new ArmShooter(shooter)); // Arms and disarms the shooter
-    new JoystickButton(
-        OperatorStick, 
-        Constants.OperatorInputSettings.Disarm_Shooter_Button).whenPressed(
-        new DisarmShooter(shooter));
-    new JoystickButton(
-        OperatorStick, 
-        Constants.OperatorInputSettings.Intake_Button).whenHeld(
-          new SpinIntake(intake));
+    // Operator controls
+    // Arms the shooter when pressed
     //new JoystickButton(
     //    OperatorStick, 
-    //    Constants.OperatorInputSettings.Purge_Button).whenHeld(
-    //      new PurgeIntake(intake));
+    //    Constants.OperatorInputSettings.Arm_Shooter_Button).whenPressed(
+    //    new ArmShooter(shooter));O
+
+    // Disarms the shooter when pressed
+    //new JoystickButton(
+    //    OperatorStick, 
+    //    Constants.OperatorInputSettings.Disarm_Shooter_Button).whenPressed(
+    //    new DisarmShooter(shooter));
+
+    // Toggles the state of the intake when pressed
+    new JoystickButton(
+        OperatorStick, 
+        Constants.OperatorInputSettings.Intake_Deploy_Button).whenPressed(
+          new ToggleDeployIntake(intake));
+
+    // Spins or purges the intake when pressed
+    new JoystickButton(
+        OperatorStick,
+        Constants.OperatorInputSettings.Intake_Axis).whenHeld(
+          new SpinIntake(intake,
+              () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Intake_Feed_Axis),
+              () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Purge_Axis)));
+
+    // Moves the climber up & down
+    new JoystickButton(
+        OperatorStick,
+        Constants.OperatorInputSettings.Climb_Axis).whenHeld(
+          new ManualClimb(climber,
+              () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Gantry_Axis),
+              () -> OperatorStick.getRawAxis(Constants.OperatorInputSettings.Gantry_Axis)));
+
     //new JoystickButton(
     //  DSTogglePanel, 
     //  Constants.DSTogglePanelSettings.SolveStageTwo).whenPressed(
@@ -161,6 +191,7 @@ public class RobotContainer {
    @author Joe
    @return true when the driver is trying to drive the robot
    */
+  @SuppressWarnings("checkstyle:LineLength")
   public boolean isAutonomousOverride() {
     if (DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Thro_Axis) > Constants.DriverInputSettings.Overide_Threshold || DriverStick.getRawAxis(Constants.DriverInputSettings.Drivebase_Yaw_Axis) > Constants.DriverInputSettings.Overide_Threshold) {
       return true;
