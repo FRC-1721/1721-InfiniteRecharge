@@ -19,7 +19,6 @@ import frc.robot.commands.ManualClimb;
 import frc.robot.commands.ManualMagazine;
 import frc.robot.commands.ManualShooter;
 import frc.robot.commands.functions.ArmShooter;
-import frc.robot.commands.functions.DisarmShooter;
 import frc.robot.commands.functions.ResetEncoders;
 import frc.robot.commands.functions.ShiftDown;
 import frc.robot.commands.functions.ShiftUp;
