@@ -167,3 +167,4 @@ imgui.ini
 # Extra stuff
 # Doc artifacts
 _build/
+.vscode
