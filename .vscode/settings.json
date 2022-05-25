@@ -14,5 +14,6 @@
     "**/.factorypath": true,
     "**/*~": true
   },
-  "java.checkstyle.configuration": "${workspaceFolder}/checkstyle/1721_checks.xml"
+  "java.checkstyle.configuration": "${workspaceFolder}/checkstyle/1721_checks.xml",
+  "restructuredtext.confPath": "${workspaceFolder}/docs"
 }
