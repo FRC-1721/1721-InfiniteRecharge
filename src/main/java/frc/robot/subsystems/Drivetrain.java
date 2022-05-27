@@ -1,9 +1,9 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.CANEncoder;
+//import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import com.revrobotics.EncoderType;
+//import com.revrobotics.EncoderType;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -34,8 +34,8 @@ public class Drivetrain extends SubsystemBase {
       PneumaticsModuleType.CTREPCM,
       Constants.Pneumatics.Shift_Up_Solenoid,
       Constants.Pneumatics.Shift_Down_Solenoid);
-  private static CANEncoder portMotorEncoder;
-  private static CANEncoder starboardMotorEncoder;
+  // private static CANEncoder portMotorEncoder;
+  // private static CANEncoder starboardMotorEncoder;
 
   /**
    * The drivetrain subsystem controls the movement of the robot.
@@ -60,8 +60,9 @@ public class Drivetrain extends SubsystemBase {
     // controller
 
     // Get encoder objects from the motor
-    portMotorEncoder = portMotor.getEncoder(EncoderType.kHallSensor, 4096);
-    starboardMotorEncoder = starboardMotor.getEncoder(EncoderType.kHallSensor, 4096);
+    // portMotorEncoder = portMotor.getEncoder(EncoderType.kHallSensor, 4096);
+    // starboardMotorEncoder = starboardMotor.getEncoder(EncoderType.kHallSensor,
+    // 4096);
   }
 
   /**
@@ -185,8 +186,10 @@ public class Drivetrain extends SubsystemBase {
    */
   public static double getOverallSpeed() {
     // Returns the average speed of the robot in knots
-    return ((starboardMotorEncoder.getVelocity() + portMotorEncoder.getVelocity()) / 2)
-        / Constants.DrivetrainPID.rotationsPerMeter;
+    return 0.0;
+    // return ((starboardMotorEncoder.getVelocity() +
+    // portMotorEncoder.getVelocity()) / 2)
+    // / Constants.DrivetrainPID.rotationsPerMeter;
   }
 
   /**
@@ -196,8 +199,8 @@ public class Drivetrain extends SubsystemBase {
    */
   public static void resetEncoders(int position) {
     // Sets the encoder values to the number you pass
-    portMotorEncoder.setPosition(0);
-    starboardMotorEncoder.setPosition(0);
+    // portMotorEncoder.setPosition(0);
+    // starboardMotorEncoder.setPosition(0);
   }
 
   @Override
