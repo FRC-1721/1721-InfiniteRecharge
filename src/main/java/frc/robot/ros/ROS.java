@@ -11,8 +11,8 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Notifier;
-import edu.wpi.first.wpilibj.Sendable;
-import edu.wpi.first.wpilibj.smartdashboard.SendableRegistry;
+import edu.wpi.first.util.sendable.Sendable;
+import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Drivetrain;
@@ -20,10 +20,9 @@ import frc.robot.subsystems.Drivetrain;
 import java.util.HashMap;
 import java.util.Map;
 
-
 @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
 public class ROS extends SubsystemBase {
-  //From SmartDashboard,class
+  // From SmartDashboard,class
   @SuppressWarnings("PMD.UseConcurrentHashMap")
   private static final Map<String, Sendable> tablesToData = new HashMap<>();
 
@@ -38,7 +37,7 @@ public class ROS extends SubsystemBase {
   private static NetworkTableEntry rosIndex;
   private static NetworkTableEntry coprocessorPort; // For tank drive
   private static NetworkTableEntry coprocessorStarboard;
-  //private static NetworkTableEntry rosTime; // Is ros time (slow estimate)
+  // private static NetworkTableEntry rosTime; // Is ros time (slow estimate)
 
   // Initialize noifiers
   private static Notifier ros_notifier;
@@ -49,11 +48,11 @@ public class ROS extends SubsystemBase {
   public ROS() {
     // Network tables
     // Get the default instance of network tables on the rio
-    networkTableInstance = NetworkTableInstance.create(); 
+    networkTableInstance = NetworkTableInstance.create();
     // Start a new server on a different port
-    networkTableInstance.startServer("ros.ini", "10.17.21.2", 5800); 
+    networkTableInstance.startServer("ros.ini", "10.17.21.2", 5800);
     // Get the table ros out of that instance
-    rosTable = networkTableInstance.getTable(Constants.RobotOperatingSystem.rosTablename); 
+    rosTable = networkTableInstance.getTable(Constants.RobotOperatingSystem.rosTablename);
 
     // Get the writable entries
     starboardEncoderEntry = rosTable.getEntry(Constants.RobotOperatingSystem.starboardEncoderName);
@@ -66,9 +65,9 @@ public class ROS extends SubsystemBase {
 
     // Notifier (auto runs a method similar to a command but with NO PROTECTION )
     // Set the ros_notifer to update the command update, in the package ros
-    ros_notifier = new Notifier(ROS::updateTables); 
+    ros_notifier = new Notifier(ROS::updateTables);
     // Start the ros notifer
-    ros_notifier.startPeriodic(Constants.RobotOperatingSystem.rosUpdateFrequency); 
+    ros_notifier.startPeriodic(Constants.RobotOperatingSystem.rosUpdateFrequency);
   }
 
   /**
@@ -79,7 +78,8 @@ public class ROS extends SubsystemBase {
     portEncoderEntry.setDouble(Drivetrain.getDriveEncoderPort());
     rosIndex.setNumber(rosIntex);
 
-    networkTableInstance.flush(); // Force an update and flush all values out. (Recomended by https://www.chiefdelphi.com/t/integrating-ros-node-into-roborio-for-slam/358386/40)
+    networkTableInstance.flush(); // Force an update and flush all values out. (Recomended by
+                                  // https://www.chiefdelphi.com/t/integrating-ros-node-into-roborio-for-slam/358386/40)
 
     // Increase the Index value (Used for Syncing)
     rosIntex = rosIntex + 1;
@@ -100,16 +100,16 @@ public class ROS extends SubsystemBase {
     if (sddata == null || sddata != data) {
       tablesToData.put(key, data);
       NetworkTable dataTable = rosTable.getSubTable(key);
-      SendableRegistry.publish(data, dataTable);
+      // SendableRegistry.publish(data, dataTable);
       dataTable.getEntry(".name").setString(key);
     }
   }
 
   // A number in m/s (translate to ticks/100ms in Drivetrain)
   public double getStarboardSpeed() {
-    return coprocessorStarboard.getDouble(0); 
+    return coprocessorStarboard.getDouble(0);
   }
-  
+
   // A number in m/s
   public double getPortSpeed() {
     return coprocessorPort.getDouble(0);

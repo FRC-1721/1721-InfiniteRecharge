@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -25,28 +26,28 @@ public class Climber extends SubsystemBase {
   /**
    * Creates a new Climber.
    */
-  public Climber() { 
+  public Climber() {
     // For initalization code
     // Creates a new motor
     gantryMotor = new CANSparkMax(
-      Constants.CANAddresses.MiniNeo_Gantry_Motor_Address, 
-      MotorType.kBrushless); 
+        Constants.CANAddresses.MiniNeo_Gantry_Motor_Address,
+        MotorType.kBrushless);
     gantryMotor.restoreFactoryDefaults();
 
     liftMotor = new CANSparkMax(
-      Constants.CANAddresses.Neo_Lift_Motor_Address, 
-      MotorType.kBrushless);
+        Constants.CANAddresses.Neo_Lift_Motor_Address,
+        MotorType.kBrushless);
     liftMotor.restoreFactoryDefaults();
 
     // Initalize the lift lock solenoid
-    liftLockSolenoid
-      = new Solenoid(
-        Constants.Pneumatics.Lift_Release_Solenoid
-      );
+    liftLockSolenoid = new Solenoid(
+        PneumaticsModuleType.CTREPCM,
+        Constants.Pneumatics.Lift_Release_Solenoid);
   }
 
   /**
    * sets the speed and does nothing else.
+   * 
    * @author Joe Sedutto
    * @param speed A speed value
    */
@@ -62,6 +63,7 @@ public class Climber extends SubsystemBase {
   /**
    * Manually controls the climber and automaticly control up and down rates.
    * TODO: These rates need to be field asjustable.
+   * 
    * @author Joe Sedutto
    * @param speed A value between -1 and 1
    */
@@ -83,7 +85,7 @@ public class Climber extends SubsystemBase {
     } else {
       liftLockSolenoid.set(false); // Lock the lift, and pull down
       liftMotor.set(speed / 1.6); // Down
-    }    
+    }
   }
 
   @Override
